@@ -24,9 +24,9 @@ def photon_source(photon_energy):
                  (0.69 * numpy.sqrt(ev_to_m(photon_energy) / u42_l))**2)    
     photon_divy = numpy.sqrt((e_div_v)**2 + \
                  (0.69 * numpy.sqrt(ev_to_m(photon_energy) / u42_l))**2)
-    photon_sx = numpy.sqrt((e_size_h)**2 + ((2.704 / (4 * numpy.pi)) \
+    photon_sx = numpy.sqrt((e_size_h)**2 + ((2.740 / (4 * numpy.pi)) \
                 * numpy.sqrt(ev_to_m(photon_energy) * u42_l))**2)
-    photon_sy = numpy.sqrt((e_size_v)**2 + ((2.704 / (4 * numpy.pi)) \
+    photon_sy = numpy.sqrt((e_size_v)**2 + ((2.740 / (4 * numpy.pi)) \
                 * numpy.sqrt(ev_to_m(photon_energy) * u42_l))**2)
 
     return photon_divx, photon_divy, photon_sx, photon_sy    
