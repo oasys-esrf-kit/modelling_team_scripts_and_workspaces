@@ -1,0 +1,24 @@
+{
+    "CLASS_NAME": "LightSource",
+    "name": "ESRF_ID18_EBS_U18_on-energy",
+    "electron_beam": {
+        "CLASS_NAME": "ElectronBeam",
+        "energy_in_GeV": 6.0,
+        "energy_spread": 0.000954,
+        "current": 0.2,
+        "number_of_bunches": 1,
+        "moment_xx": 1.0093400032656e-09,
+        "moment_xxp": 0.0,
+        "moment_xpxp": 2.1159420289855075e-11,
+        "moment_yy": 2.7e-11,
+        "moment_yyp": 0.0,
+        "moment_ypyp": 3.703703703703703e-12
+    },
+    "magnetic_structure": {
+        "CLASS_NAME": "Undulator",
+        "K_vertical": 1.851076,
+        "K_horizontal": 0.0,
+        "period_length": 0.018,
+        "number_of_periods": 138.0
+    }
+}
