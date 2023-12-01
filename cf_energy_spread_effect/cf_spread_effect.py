@@ -144,7 +144,7 @@ def plot_results(csv_files, plot_type='energy_spread'):
     plt.show()
 
 
-def get_cf_cmd_det(photon_energy, json_file, detunnig=False, energy_spread=0, resonance_energy=7000, harmonic=1, scan_direction='H'):
+def get_cf_cmd_det(photon_energy, json_file, detunig=False, energy_spread=0, resonance_energy=7000, harmonic=1, scan_direction='H'):
 
     """ Function to get the Coherence fraction for a given photon energy, an
     ID-JSON file and energy_spread using Coherent Mode Descompositon """
@@ -154,7 +154,7 @@ def get_cf_cmd_det(photon_energy, json_file, detunnig=False, energy_spread=0, re
     e = syned_obj.get_electron_beam()    
 
     #print(f'Undulator period lenght {u.period_length()} m')    
-    if detunnig:
+    if detunig:
         lambdan = (codata.h / codata.electron_volt * codata.c / resonance_energy)
         k = round(np.sqrt(2*(((lambdan*2*e.gamma()**2)/u.period_length())-1)), 6)
     else:
@@ -204,7 +204,7 @@ def get_cf_cmd_det(photon_energy, json_file, detunnig=False, energy_spread=0, re
     return round(cf_cmd, 6)
 
 
-def run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunnig=False, harmonic=1, resonance_energy=7000, scan_direction = 'H', save_file=False):
+def run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunig=False, harmonic=1, resonance_energy=7000, scan_direction = 'H', save_file=False):
     cfs_cmd = []
 
     if id == 'cpmu18':
@@ -214,7 +214,7 @@ def run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunni
         pass
 
     for photon_energy in photon_energies:
-        cfs_cmd.append(get_cf_cmd_det(photon_energy, json_file, detunnig=detunnig, energy_spread=energy_spread, resonance_energy=resonance_energy, harmonic=harmonic, scan_direction=scan_direction))  
+        cfs_cmd.append(get_cf_cmd_det(photon_energy, json_file, detunig=detunig, energy_spread=energy_spread, resonance_energy=resonance_energy, harmonic=harmonic, scan_direction=scan_direction))  
         
     df_cfs = pd.DataFrame({'Photon_energy':photon_energies,'CFs_CMD':cfs_cmd})
     
@@ -278,5 +278,5 @@ if __name__ == "__main__":
     #plot_results(['cpmu18_7000_cfs_results_H.csv', 'cpmu18_7000_cfs_results_V.csv'])
     pass
     #photon_energies = np.arange(6800, 7150, 10)
-    #run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunnig=True, resonance_energy=7000, scan_direction='H', save_file=True)
-    #run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunnig=True, resonance_energy=7000, scan_direction='V', save_file=True)
+    #run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunig=True, resonance_energy=7000, scan_direction='H', save_file=True)
+    #run_calc_detuning(photon_energies, energy_spread=0.001, id='cpmu18', detunig=True, resonance_energy=7000, scan_direction='V', save_file=True)
