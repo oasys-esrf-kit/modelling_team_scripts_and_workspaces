@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 
 def get_id(section, id_name):
 
+    """Reads the CSV file and gets a Pandas datafram efor a given ID"""
+
     df = pd.read_csv('jsrund.csv', skiprows=1, header=1)
 
     id_df = df[(df["Straight Section"] == section) & (df["Name"] == id_name)]
@@ -16,6 +18,8 @@ def get_id(section, id_name):
     return id_df
 
 def gap_to_res_energy(id_gap_mm, section=19, id_name='U32a', harmonic=1):
+    """Reads the CSV file and gets the resonance energy for a given ID and gap (mm)
+    for example the following:"""
     # CPMU16_4, section = 3, id_name='CPMU16-4b'
     # CPMU18, section = 6, id_name='CPMU18a' 
     # U27, section = 24, id_name='U27a'
@@ -56,6 +60,8 @@ def gap_to_res_energy(id_gap_mm, section=19, id_name='U32a', harmonic=1):
     return resonance_energy
 
 def run_calcualtions(section=3, id_name='CPMU16-4b', save_file=True):
+    """Defines a a Gap range (in mm and 1 micron step) very close to the minimum gap
+     and scan it to obtain the resonance energy for the first 3 odd harmonics for a given ID"""
     # CPMU16_4, section = 3, id_name='CPMU16-4b'
     # CPMU18, section = 6, id_name='CPMU18a' 
     # U27, section = 24, id_name='U27a'
@@ -87,6 +93,9 @@ def run_calcualtions(section=3, id_name='CPMU16-4b', save_file=True):
     return df_res_e
 
 def plot_results(csv_file, plot_harmonic=1):
+    """Reads the CSV resutl file and calculates the average of delta energy for each gap step, and plots
+    a given harmonic"""
+
     f_size = 14
     df = pd.read_csv(csv_file, sep=',|\s+', comment = '#', engine='python')
 
