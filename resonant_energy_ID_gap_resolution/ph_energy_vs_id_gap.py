@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 def get_id(section, id_name):
 
-    """Reads the CSV file and gets a Pandas datafram efor a given ID"""
+    """Reads the CSV file and gets a Pandas dataframe for a given ID"""
 
     df = pd.read_csv('jsrund.csv', skiprows=1, header=1)
 
@@ -137,5 +137,8 @@ def plot_results(csv_file, plot_harmonic=1):
     plt.show()
 
 if __name__ == "__main__":
+    #examples:
+    #run_calcualtions(section = 19, id_name='U32c')
+    #plot_results('Resonant_energy_results_U32c.csv', plot_harmonic=3)
+    #
     pass
-
