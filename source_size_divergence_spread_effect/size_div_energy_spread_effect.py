@@ -103,7 +103,7 @@ def source_size_typical(photon_energy, syned_json_file, aprox='fit', emittance=T
         
     return source_h, source_v, source_hp, source_vp
 
-def source_size_e_spread(photon_energy, syned_json_file, energy_spread, aprox='Gauss', harmonic=1, emittance=True):
+def source_size_e_spread(photon_energy, syned_json_file, energy_spread, aprox='Gauss', harmonic=1, emittance=True, correction='tanaka'):
     """ Get source size by convolution with correction Tanaka&Kitamura(2009)
      equations 27 and 28 """
     if emittance:
@@ -118,8 +118,15 @@ def source_size_e_spread(photon_energy, syned_json_file, energy_spread, aprox='G
     #get the normilized energy spread
     nor_e_spr = norm_energ_spr(energy_spread, syned_json_file, harmonic=harmonic)
 
-    source_h = numpy.sqrt( sigma_x**2 + (photon_size**2 * q_s(nor_e_spr)**2))
-    source_v = numpy.sqrt( sigma_y**2 + (photon_size**2 * q_s(nor_e_spr)**2))
+    if correction=='shadow':
+        factor = 0.5
+    elif correction=='tanaka':
+        factor = 1.0
+    else:
+        RuntimeError('ERROR: unidetified correction')
+
+    source_h = numpy.sqrt( sigma_x**2 + (photon_size**2 * q_s(nor_e_spr, factor=factor)**2))
+    source_v = numpy.sqrt( sigma_y**2 + (photon_size**2 * q_s(nor_e_spr, factor=factor)**2))
     source_hp = numpy.sqrt(sig_div_x**2 + (photon_div**2 * q_a(nor_e_spr)**2))
     source_vp = numpy.sqrt(sig_div_y**2 + (photon_div**2 * q_a(nor_e_spr)**2))
         
@@ -185,6 +192,8 @@ def source_size_e_spread_det(json_file, energy_spread, sigma_units=6.0, num_poin
     return source_h, source_v, source_hp, source_vp
 
 def run_cal_tanaka(syned_json_file, energy_spread, source_dim='hor_div', save_file=True, emittance=True):
+    """ This function gets the source dimentions using Tanaka&Kitamura(2009) in
+     order to compare with SPECTRA, it loads the photon energies from the SPECTRA files"""
 
     if source_dim == 'hor_size':
         df_spectra = pd.read_csv('spectra_results/SPECTRA_EBS_cpmu18_hor_size.txt', sep='\t', comment = '#', engine='python')
@@ -216,7 +225,7 @@ def run_cal_tanaka(syned_json_file, energy_spread, source_dim='hor_div', save_fi
     for i in range(len(list_energy)):
         dim = []
         for energy in list_energy[i]:
-            dim.append(source_size_e_spread(energy, syned_json_file, energy_spread, harmonic=((i*2)+1), emittance=emittance)[indx_cal])
+            dim.append(source_size_e_spread(energy, syned_json_file, energy_spread, harmonic=((i*2)+1), emittance=emittance, correction='tanaka')[indx_cal])
         list_dim.append(dim)    
 
     harm_dim = numpy.array(list_dim)
@@ -227,18 +236,19 @@ def run_cal_tanaka(syned_json_file, energy_spread, source_dim='hor_div', save_fi
                 df_tanaka = pd.DataFrame({f'Photon Energy {(i*2)+1}':list_energy[i], f'{source_dim} {(i*2)+1}':list_dim[i]})
             else:
                 df_tanaka[f'Photon Energy {(i*2)+1}'] = list_energy[i]
-                df_tanaka[f'{source_dim} {(i*2)+1}'] = list_dim[i]
+                df_tanaka[f'{source_dim} {(i*2)+1}'] = list_dim[i]        
         
         if emittance:
             df_tanaka.to_csv(f'{name_output_file}_spread_{energy_spread}.csv', index=False)
             print(f'file {name_output_file}_spread_{energy_spread}.csv has been saved to disk')
+        
         else:
             df_tanaka.to_csv(f'{name_output_file}_spread_{energy_spread}_zero_emit.csv', index=False)
             print(f'file {name_output_file}_spread_{energy_spread}_zero_emit.csv has been saved to disk')        
     
     return harm_energies, harm_dim
 
-def run_cal_shadow(syned_json_file, source_dim='hor_div', save_file=True, emittance=True):
+def run_cal_shadow(syned_json_file, source_dim='hor_div', save_file=True, emittance=True, spread=None):
 
     if source_dim == 'hor_size':
         df_spectra = pd.read_csv('spectra_results/SPECTRA_EBS_cpmu18_hor_size.txt', sep='\t', comment = '#', engine='python')
@@ -249,8 +259,7 @@ def run_cal_shadow(syned_json_file, source_dim='hor_div', save_file=True, emitta
         indx_cal = 1
     
     elif source_dim == 'hor_div':
-        df_spectra = pd.read_csv('spectra_results/SPECTRA_EBS_cpmu18_hor_div.txt', sep='\t', comment = '#', engine='python')
-        dimension = source_dim
+        df_spectra = pd.read_csv('spectra_results/SPECTRA_EBS_cpmu18_hor_div.txt', sep='\t', comment = '#', engine='python')        
         indx_cal = 2
 
     elif source_dim == 'ver_div':
@@ -264,13 +273,25 @@ def run_cal_shadow(syned_json_file, source_dim='hor_div', save_file=True, emitta
     for i in range(int(df_spectra.shape[1]/2)):
         list_energy.append(df_spectra.iloc[:, i*2])
     harm_energies = numpy.array(list_energy)
-    list_dim = []        
-    for i in range(len(list_energy)):
-        dim = []
-        for energy in list_energy[i]:
-            dim.append(source_size_typical(energy, syned_json_file, aprox='fit', emittance=emittance)[indx_cal])
-        list_dim.append(dim)
-    harm_dim = numpy.array(list_dim)
+    list_dim = []
+
+    if spread:
+        for i in range(len(list_energy)):
+            dim = []
+            for energy in list_energy[i]:
+                dim.append(source_size_e_spread(energy, syned_json_file, spread, harmonic=((i*2)+1), aprox='fit', emittance=emittance, correction='shadow')[indx_cal])
+            list_dim.append(dim)
+        harm_dim = numpy.array(list_dim)
+        output_name = f'Shadow_{source_dim}_spread_{spread}'
+
+    else:
+        for i in range(len(list_energy)):
+            dim = []
+            for energy in list_energy[i]:
+                dim.append(source_size_typical(energy, syned_json_file, aprox='fit', emittance=emittance)[indx_cal])
+            list_dim.append(dim)
+        harm_dim = numpy.array(list_dim)
+        output_name = f'Shadow_{source_dim}.csv'
 
     if save_file:
         for i in range(len(list_energy)):
@@ -279,12 +300,13 @@ def run_cal_shadow(syned_json_file, source_dim='hor_div', save_file=True, emitta
             else:
                 df_shadow[f'Photon Energy {(i*2)+1}'] = list_energy[i]
                 df_shadow[f'{source_dim} {(i*2)+1}'] = list_dim[i]
+
         if emittance:
-            df_shadow.to_csv(f'Shadow_{source_dim}.csv', index=False)
-            print(f'file Shadow_{source_dim}.csv has been saved to disk')
+            df_shadow.to_csv(f'{output_name}.csv', index=False)
+            print(f'file {output_name},csv has been saved to disk')
         else:
-            df_shadow.to_csv(f'Shadow_{source_dim}_zero_emit.csv', index=False)
-            print(f'file Shadow_{source_dim}_zero_emit.csv has been saved to disk')
+            df_shadow.to_csv(f'{output_name}_zero_emit.csv', index=False)
+            print(f'file Shadow_{output_name}_zero_emit.csv has been saved to disk')
             
     return harm_energies, harm_dim
 
@@ -295,6 +317,10 @@ def plot_comparison(files, variable_name = 'Horizontal divergence', units='urad'
         if "Shadow" in file_csv:
             df = pd.read_csv(file_csv, sep=',', comment = '#', engine='python')
             label = 'Shadow'
+            if "spread":
+                label = 'Shadow + T&K(2009)'
+            else:
+                pass
             
         elif "Tanaka" in file_csv:
             df = pd.read_csv(file_csv, sep=',', comment = '#', engine='python')
@@ -331,7 +357,9 @@ def plot_comparison(files, variable_name = 'Horizontal divergence', units='urad'
     plt.yticks(fontsize= f_size)
     #plt.yscale("log")
     plt.grid(which='both', axis='y')
-    plt.title("EBS ID06 CMPU18, On Resonance, $\epsilon$=0, $\delta$=0", fontsize=f_size)     
+    #plt.title("EBS ID06 CMPU18, On Resonance, $\epsilon$=0, $\delta$=0", fontsize=f_size)
+    #plt.title("EBS ID06 CMPU18, On Resonance, $\delta$=0", fontsize=f_size)
+    plt.title("EBS ID06 CMPU18, On Resonance, $\delta$=0.001", fontsize=f_size)
 
     plt.legend(fontsize = f_size)
        
@@ -503,14 +531,30 @@ def test_fitting(x, y):
     manolo_plot(x, y, x, fit_y, legend=['Original', 'Gaussian fit'])
 
 if __name__=='__main__':
+    #examples of using it
+    
     #h_df = get_sigmas_from_spectra_wigner('spectra_results/Spectra_charac_at_source_point_ESRF_ID06_EBS_CPMU18_1_full.hdf5', source_dim='hor_dim', plot_fit=True)
     #v_df = get_sigmas_from_spectra_wigner('spectra_results/Spectra_charac_at_source_point_ESRF_ID06_EBS_CPMU18_1_full.hdf5', source_dim='ver_dim', plot_fit=True)
-    #run_cal_shadow('ESRF_ID06_EBS_CPMU18_1.json', source_dim='hor_size', save_file=True, emittance=False)
-    #run_cal_shadow('ESRF_ID06_EBS_CPMU18_1.json', source_dim='ver_size', save_file=True, emittance=False)
+    #run_cal_shadow('ESRF_ID06_EBS_CPMU18_1.json', source_dim='hor_div', save_file=True, emittance=True)
+    #run_cal_shadow('ESRF_ID06_EBS_CPMU18_1.json', source_dim='ver_div', save_file=True, emittance=True)
 
-    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='hor_size', save_file=True, emittance=False)
-    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='ver_size', save_file=True, emittance=False)
-    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='hor_div', save_file=True, emittance=False)
-    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='ver_div', save_file=True, emittance=False)
-    dim = 'hor_size' #hor_div
-    plot_comparison([f'Shadow_{dim}_zero_emit.csv',f'Tanaka_{dim}_spread_0.0_zero_emit.csv',f'sirepo_results/Sirepo_EBS_cpmu18_{dim}_zero_emit_zero_disp.dat', f'spectra_results/SPECTRA_EBS_cpmu18_{dim}_zero_emit_zero_disp.txt'], variable_name = 'Photon source size', units='um')
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='hor_size', save_file=True, emittance=True)
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='ver_size', save_file=True, emittance=True)
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='hor_div', save_file=True, emittance=True)
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.0, source_dim='ver_div', save_file=True, emittance=True)
+
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.001, source_dim='hor_size', save_file=True, emittance=True)
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.001, source_dim='ver_size', save_file=True, emittance=True)
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.001, source_dim='hor_div', save_file=True, emittance=True)
+    #run_cal_tanaka('ESRF_ID06_EBS_CPMU18_1.json', 0.001, source_dim='ver_div', save_file=True, emittance=True)
+    
+    dim = 'ver_div' #'ver_size' #hor_div
+    spread = 0.001
+    run_cal_shadow('ESRF_ID06_EBS_CPMU18_1.json', source_dim=dim, save_file=True, emittance=True, spread=spread)
+    
+    variable_name = 'Vertical source divergence' #'Horizontal source size'
+    units='urad' #'um', #urad
+    #plot_comparison([f'Shadow_{dim}_zero_emit.csv',f'Tanaka_{dim}_spread_0.0_zero_emit.csv',f'sirepo_results/Sirepo_EBS_cpmu18_{dim}_zero_emit_zero_disp.dat', f'spectra_results/SPECTRA_EBS_cpmu18_{dim}_zero_emit_zero_disp.txt'], variable_name = 'Photon source size', units='um')
+    #plot_comparison([f'Shadow_{dim}.csv',f'Tanaka_{dim}_spread_0.0.csv',f'sirepo_results/Sirepo_EBS_cpmu18_{dim}_spread_0.0.dat', f'spectra_results/SPECTRA_EBS_cpmu18_{dim}_spread_0.0.txt'], variable_name = variable_name, units=units)
+    #plot_comparison([f'Shadow_{dim}.csv',f'Tanaka_{dim}_spread_{spread}.csv',f'sirepo_results/Sirepo_EBS_cpmu18_{dim}_spread_{spread}.dat', f'spectra_results/SPECTRA_EBS_cpmu18_{dim}_spread_{spread}.txt'], variable_name = variable_name, units=units)
+    plot_comparison([f'Shadow_{dim}_spread_{spread}.csv',f'Tanaka_{dim}_spread_{spread}.csv',f'sirepo_results/Sirepo_EBS_cpmu18_{dim}_spread_{spread}.dat', f'spectra_results/SPECTRA_EBS_cpmu18_{dim}_spread_{spread}.txt'], variable_name = variable_name, units=units)
