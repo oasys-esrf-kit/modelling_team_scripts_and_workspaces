@@ -64,18 +64,18 @@
 		<link enabled="true" id="14" sink_channel="Input Beam" sink_node_id="3" source_channel="Beam" source_node_id="4" />
 		<link enabled="true" id="15" sink_channel="Input Beam" sink_node_id="32" source_channel="Beam" source_node_id="31" />
 		<link enabled="true" id="16" sink_channel="Input Beam" sink_node_id="34" source_channel="Beam" source_node_id="33" />
-		<link enabled="true" id="17" sink_channel="Input Beam" sink_node_id="31" source_channel="Beam" source_node_id="23" />
-		<link enabled="true" id="18" sink_channel="Input Beam" sink_node_id="20" source_channel="Beam" source_node_id="32" />
-		<link enabled="true" id="19" sink_channel="Input Beam" sink_node_id="26" source_channel="Beam" source_node_id="3" />
-		<link enabled="true" id="20" sink_channel="Input Beam" sink_node_id="33" source_channel="Beam" source_node_id="25" />
-		<link enabled="true" id="21" sink_channel="Input Beam" sink_node_id="21" source_channel="Beam" source_node_id="34" />
-		<link enabled="true" id="22" sink_channel="in_object_1" sink_node_id="37" source_channel="xoppy_data" source_node_id="35" />
-		<link enabled="true" id="23" sink_channel="in_object_2" sink_node_id="37" source_channel="xoppy_data" source_node_id="14" />
-		<link enabled="true" id="24" sink_channel="in_object_3" sink_node_id="37" source_channel="xoppy_data" source_node_id="36" />
-		<link enabled="true" id="25" sink_channel="Oasys PreProcessorData" sink_node_id="39" source_channel="PreProcessor_Data" source_node_id="38" />
-		<link enabled="true" id="26" sink_channel="Oasys PreProcessorData" sink_node_id="43" source_channel="PreProcessor_Data" source_node_id="42" />
-		<link enabled="true" id="27" sink_channel="Input Beam" sink_node_id="12" source_channel="Beam" source_node_id="11" />
-		<link enabled="true" id="28" sink_channel="Input Beam" sink_node_id="11" source_channel="Beam" source_node_id="10" />
+		<link enabled="true" id="17" sink_channel="Input Beam" sink_node_id="20" source_channel="Beam" source_node_id="32" />
+		<link enabled="true" id="18" sink_channel="Input Beam" sink_node_id="26" source_channel="Beam" source_node_id="3" />
+		<link enabled="true" id="19" sink_channel="Input Beam" sink_node_id="33" source_channel="Beam" source_node_id="25" />
+		<link enabled="true" id="20" sink_channel="Input Beam" sink_node_id="21" source_channel="Beam" source_node_id="34" />
+		<link enabled="true" id="21" sink_channel="in_object_1" sink_node_id="37" source_channel="xoppy_data" source_node_id="35" />
+		<link enabled="true" id="22" sink_channel="in_object_2" sink_node_id="37" source_channel="xoppy_data" source_node_id="14" />
+		<link enabled="true" id="23" sink_channel="in_object_3" sink_node_id="37" source_channel="xoppy_data" source_node_id="36" />
+		<link enabled="true" id="24" sink_channel="Oasys PreProcessorData" sink_node_id="39" source_channel="PreProcessor_Data" source_node_id="38" />
+		<link enabled="true" id="25" sink_channel="Oasys PreProcessorData" sink_node_id="43" source_channel="PreProcessor_Data" source_node_id="42" />
+		<link enabled="true" id="26" sink_channel="Input Beam" sink_node_id="12" source_channel="Beam" source_node_id="11" />
+		<link enabled="true" id="27" sink_channel="PreProcessor Data #1" sink_node_id="11" source_channel="PreProcessor_Data" source_node_id="39" />
+		<link enabled="true" id="28" sink_channel="PreProcessor Data #1" sink_node_id="12" source_channel="PreProcessor_Data" source_node_id="43" />
 	</links>
 	<annotations>
 		<text font-family="Helvetica" font-size="16" id="0" rect="(212.0, 101.0, 102.0, 79.0)">From SHADOW4:</text>
@@ -735,7 +735,7 @@ AAAAAABYEAAAAG1vZGlmaWVkX3N1cmZhY2VxkksBWA4AAABtb3NhaWNfY3J5c3RhbHGTSwBYFQAA
 AG1zX2RlYWRfd2lkdGhfeF9taW51c3GURwAAAAAAAAAAWBQAAABtc19kZWFkX3dpZHRoX3hfcGx1
 c3GVRwAAAAAAAAAAWBUAAABtc19kZWFkX3dpZHRoX3lfbWludXNxlkcAAAAAAAAAAFgUAAAAbXNf
 ZGVhZF93aWR0aF95X3BsdXNxl0cAAAAAAAAAAFgTAAAAbXNfZGVmZWN0X2ZpbGVfbmFtZXGYWBYA
-AABNX1ZfMjUwbnJhZF9zaGFkb3cuZGF0cZlYEAAAAG1zX2ZhY2V0X3BoYXNlX3hxmkcAAAAAAAAA
+AABNX1ZfMTcwbnJhZF9zaGFkb3cuZGF0cZlYEAAAAG1zX2ZhY2V0X3BoYXNlX3hxmkcAAAAAAAAA
 AFgQAAAAbXNfZmFjZXRfcGhhc2VfeXGbRwAAAAAAAAAAWBAAAABtc19mYWNldF93aWR0aF94cZxH
 QCQAAAAAAABYEAAAAG1zX2ZhY2V0X3dpZHRoX3lxnUdAJAAAAAAAAFgTAAAAbXNfZmlsZV9mYWNl
 dF9kZXNjcnGeaEZYFAAAAG1zX2ZpbGVfb3JpZW50YXRpb25zcZ9oRlgSAAAAbXNfZmlsZV9wb2x5
@@ -858,7 +858,7 @@ AAAAAABYEAAAAG1vZGlmaWVkX3N1cmZhY2VxkksBWA4AAABtb3NhaWNfY3J5c3RhbHGTSwBYFQAA
 AG1zX2RlYWRfd2lkdGhfeF9taW51c3GURwAAAAAAAAAAWBQAAABtc19kZWFkX3dpZHRoX3hfcGx1
 c3GVRwAAAAAAAAAAWBUAAABtc19kZWFkX3dpZHRoX3lfbWludXNxlkcAAAAAAAAAAFgUAAAAbXNf
 ZGVhZF93aWR0aF95X3BsdXNxl0cAAAAAAAAAAFgTAAAAbXNfZGVmZWN0X2ZpbGVfbmFtZXGYWBYA
-AABNX0hfNTAwbnJhZF9zaGFkb3cuZGF0cZlYEAAAAG1zX2ZhY2V0X3BoYXNlX3hxmkcAAAAAAAAA
+AABNX0hfNDAwbnJhZF9zaGFkb3cuZGF0cZlYEAAAAG1zX2ZhY2V0X3BoYXNlX3hxmkcAAAAAAAAA
 AFgQAAAAbXNfZmFjZXRfcGhhc2VfeXGbRwAAAAAAAAAAWBAAAABtc19mYWNldF93aWR0aF94cZxH
 QCQAAAAAAABYEAAAAG1zX2ZhY2V0X3dpZHRoX3lxnUdAJAAAAAAAAFgTAAAAbXNfZmlsZV9mYWNl
 dF9kZXNjcnGeaEZYFAAAAG1zX2ZpbGVfb3JpZW50YXRpb25zcZ9oRlgSAAAAbXNfZmlsZV9wb2x5
@@ -1034,7 +1034,7 @@ AVgOAAAAdXNlcl9kZWZpbmVkX2xx8EsBWA4AAAB2ZXJ0aWNhbF9xdW90ZXHxRwAAAAAAAAAAWAkA
 AAB2aWV3X3R5cGVx8ksAWBgAAAB3cml0ZV9vdXRfaW5jX3JlZl9hbmdsZXNx80sAdS4=
 </properties>
 		<properties format="pickle" node_id="14">gAN9cQAoWAcAAABFTDFfQU5HcQFHQAWZmZmZmZpYBwAAAEVMMV9ERU5xAlgBAAAAP3EDWAgAAABF
-TDFfRkxBR3EESwFYBwAAAEVMMV9GT1JxBVgCAAAAUHRxBlgHAAAARUwxX1JPVXEHRwAAAAAAAAAA
+TDFfRkxBR3EESwFYBwAAAEVMMV9GT1JxBVgCAAAAUHRxBlgHAAAARUwxX1JPVXEHR0AIAAAAAAAA
 WAcAAABFTDFfVEhJcQhHP+AAAAAAAABYBwAAAEVMMl9BTkdxCUdACAAAAAAAAFgHAAAARUwyX0RF
 TnEKaANYCAAAAEVMMl9GTEFHcQtLAVgHAAAARUwyX0ZPUnEMWAIAAABSaHENWAcAAABFTDJfUk9V
 cQ5HAAAAAAAAAABYBwAAAEVMMl9USElxD0c/4AAAAAAAAFgHAAAARUwzX0FOR3EQR0AIAAAAAAAA
@@ -2267,7 +2267,7 @@ ZmluZWRfbHHtSwFYDgAAAHZlcnRpY2FsX3F1b3Rlce5HAAAAAAAAAABYCQAAAHZpZXdfdHlwZXHv
 SwBYGAAAAHdyaXRlX291dF9pbmNfcmVmX2FuZ2xlc3HwSwB1Lg==
 </properties>
 		<properties format="pickle" node_id="35">gAN9cQAoWAcAAABFTDFfQU5HcQFHQAQAAAAAAABYBwAAAEVMMV9ERU5xAlgBAAAAP3EDWAgAAABF
-TDFfRkxBR3EESwFYBwAAAEVMMV9GT1JxBVgCAAAAUHRxBlgHAAAARUwxX1JPVXEHRwAAAAAAAAAA
+TDFfRkxBR3EESwFYBwAAAEVMMV9GT1JxBVgCAAAAUHRxBlgHAAAARUwxX1JPVXEHR0AIAAAAAAAA
 WAcAAABFTDFfVEhJcQhHP+AAAAAAAABYBwAAAEVMMl9BTkdxCUdACAAAAAAAAFgHAAAARUwyX0RF
 TnEKaANYCAAAAEVMMl9GTEFHcQtLAVgHAAAARUwyX0ZPUnEMWAIAAABSaHENWAcAAABFTDJfUk9V
 cQ5HAAAAAAAAAABYBwAAAEVMMl9USElxD0c/4AAAAAAAAFgHAAAARUwzX0FOR3EQR0AIAAAAAAAA
@@ -2286,7 +2286,7 @@ AAWsAAADBgAAAIAAAABGAAAFpwAAAwEAAAAAAAAAAAoAAAAAgAAAAEYAAAWnAAADAXExhXEyh3Ez
 UnE0WAkAAAB2aWV3X3R5cGVxNUsBdS4=
 </properties>
 		<properties format="pickle" node_id="36">gAN9cQAoWAcAAABFTDFfQU5HcQFHQAgAAAAAAABYBwAAAEVMMV9ERU5xAlgBAAAAP3EDWAgAAABF
-TDFfRkxBR3EESwFYBwAAAEVMMV9GT1JxBVgCAAAAUHRxBlgHAAAARUwxX1JPVXEHRwAAAAAAAAAA
+TDFfRkxBR3EESwFYBwAAAEVMMV9GT1JxBVgCAAAAUHRxBlgHAAAARUwxX1JPVXEHR0AIAAAAAAAA
 WAcAAABFTDFfVEhJcQhHP+AAAAAAAABYBwAAAEVMMl9BTkdxCUdACAAAAAAAAFgHAAAARUwyX0RF
 TnEKaANYCAAAAEVMMl9GTEFHcQtLAVgHAAAARUwyX0ZPUnEMWAIAAABSaHENWAcAAABFTDJfUk9V
 cQ5HAAAAAAAAAABYBwAAAEVMMl9USElxD0c/4AAAAAAAAFgHAAAARUwzX0FOR3EQR0AIAAAAAAAA
@@ -2333,12 +2333,12 @@ AABkaW1lbnNpb25feV9mcm9tcQlHAAAAAAAAAABYDgAAAGRpbWVuc2lvbl95X3RvcQpHP+AAAAAA
 AABYDAAAAGVudHJ5X251bWJlcnELSx1YDAAAAGVycm9yX3R5cGVfeHEMSwFYDAAAAGVycm9yX3R5
 cGVfeXENSwFYDgAAAGZpbGxlcl92YWx1ZV94cQ5HAAAAAAAAAABYDgAAAGZpbGxlcl92YWx1ZV95
 cQ9HAAAAAAAAAABYHQAAAGhlaWd0aF9wcm9maWxlXzFEX2ZpbGVfbmFtZV94cRBYDwAAAG1pcnJv
-cl8xRF94LmRhdHERWBgAAABoZWlndGhfcHJvZmlsZV9maWxlX25hbWVxElgQAAAATV9WXzEwMG5y
+cl8xRF94LmRhdHERWBgAAABoZWlndGhfcHJvZmlsZV9maWxlX25hbWVxElgQAAAATV9WXzE3MG5y
 YWQuaGRmNXETWBEAAABraW5kX29mX3Byb2ZpbGVfeHEUSwBYCAAAAG1vZGlmeV94cRVLAFgIAAAA
 bW9kaWZ5X3lxFksBWBEAAABtb250ZWNhcmxvX3NlZWRfeHEXTVMiWAwAAABuZXdfbGVuZ3RoX3hx
 GEcAAAAAAAAAAFgMAAAAbmV3X2xlbmd0aF95cRlHP9MzMzMzMzNYGQAAAHBvd2VyX2xhd19leHBv
 bmVudF9iZXRhX3hxGkdACAAAAAAAAFgNAAAAcmVub3JtYWxpemVfeHEbSwBYDQAAAHJlbm9ybWFs
-aXplX3lxHEsBWAUAAABybXNfeHEdRz+pmZmZmZmaWAUAAABybXNfeXEeRz+5mZmZmZmaWBMAAABz
+aXplX3lxHEsBWAUAAABybXNfeHEdRz+pmZmZmZmaWAUAAABybXNfeXEeRz/Fwo9cKPXDWBMAAABz
 YXZlZFdpZGdldEdlb21ldHJ5cR9jc2lwCl91bnBpY2tsZV90eXBlCnEgWAwAAABQeVF0NS5RdENv
 cmVxIVgKAAAAUUJ5dGVBcnJheXEiQ0IB2dDLAAMAAAAAAK8AAAC8AAAF4AAABBEAAAC0AAAA2QAA
 BdsAAAQMAAAAAAAAAAAKAAAAALQAAADZAAAF2wAABAxxI4VxJIdxJVJxJlgOAAAAc2VydmVyX2Fk
@@ -2604,12 +2604,12 @@ AABkaW1lbnNpb25feV9mcm9tcQlHAAAAAAAAAABYDgAAAGRpbWVuc2lvbl95X3RvcQpHP+AAAAAA
 AABYDAAAAGVudHJ5X251bWJlcnELSwZYDAAAAGVycm9yX3R5cGVfeHEMSwFYDAAAAGVycm9yX3R5
 cGVfeXENSwFYDgAAAGZpbGxlcl92YWx1ZV94cQ5HAAAAAAAAAABYDgAAAGZpbGxlcl92YWx1ZV95
 cQ9HAAAAAAAAAABYHQAAAGhlaWd0aF9wcm9maWxlXzFEX2ZpbGVfbmFtZV94cRBYDwAAAG1pcnJv
-cl8xRF94LmRhdHERWBgAAABoZWlndGhfcHJvZmlsZV9maWxlX25hbWVxElgQAAAATV9IXzEwMG5y
+cl8xRF94LmRhdHERWBgAAABoZWlndGhfcHJvZmlsZV9maWxlX25hbWVxElgQAAAATV9IXzQwMG5y
 YWQuaGRmNXETWBEAAABraW5kX29mX3Byb2ZpbGVfeHEUSwBYCAAAAG1vZGlmeV94cRVLAFgIAAAA
 bW9kaWZ5X3lxFksBWBEAAABtb250ZWNhcmxvX3NlZWRfeHEXTVMiWAwAAABuZXdfbGVuZ3RoX3hx
 GEcAAAAAAAAAAFgMAAAAbmV3X2xlbmd0aF95cRlHP9mZmZmZmZpYGQAAAHBvd2VyX2xhd19leHBv
 bmVudF9iZXRhX3hxGkdACAAAAAAAAFgNAAAAcmVub3JtYWxpemVfeHEbSwBYDQAAAHJlbm9ybWFs
-aXplX3lxHEsBWAUAAABybXNfeHEdRz+pmZmZmZmaWAUAAABybXNfeXEeRz+5mZmZmZmaWBMAAABz
+aXplX3lxHEsBWAUAAABybXNfeHEdRz+pmZmZmZmaWAUAAABybXNfeXEeRz/ZmZmZmZmaWBMAAABz
 YXZlZFdpZGdldEdlb21ldHJ5cR9jc2lwCl91bnBpY2tsZV90eXBlCnEgWAwAAABQeVF0NS5RdENv
 cmVxIVgKAAAAUUJ5dGVBcnJheXEiQ0IB2dDLAAMAAAAAAK8AAAC8AAAF4AAABBEAAAC0AAAA2QAA
 BdsAAAQMAAAAAAAAAAAKAAAAALQAAADZAAAF2wAABAxxI4VxJIdxJVJxJlgOAAAAc2VydmVyX2Fk
