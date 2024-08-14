@@ -46,13 +46,13 @@ class MultilayerMirror:
 
     Methods
     -------
-    und_rad_axis(axis)
+    get_und_rad_axis(axis)
         Get the values of energies 'e', horizontal 'x' or vertical 'y' axes
 
-    reflec_axis(axis):
+    get_reflec_axis(axis):
         Get an array of the reflectivity axis coordinates
 
-    und_rad_data(slice):
+    get_und_rad_data(slice):
         Get 3D data from undulator radiation, can get sigle value, a slice or full
 
     plot_ref()
@@ -66,7 +66,7 @@ class MultilayerMirror:
           -'transmitted': Flux tramitted after the mirror reflection
           -'combined': Comparing incoming flux and mirror reflection file
 
-    mirror_power()
+    calc_mirror_power()
         Calculates the absorbed power and trasmitted by the mirror
 
         Can plot the 2D power density of:
@@ -85,7 +85,7 @@ class MultilayerMirror:
     --------
     >>> test_ml_mirror = MultilayerMirror('und_pow.h5', 'reflectivity.txt', 1.5, reflection='horizontal')
 
-    >>> test_ml_mirror.mirror_power(self, kind='trans', plot=True, save_data='h5_3d')
+    >>> test_ml_mirror.calc_mirror_power(self, kind='trans', plot=True, save_data='h5_3d')
     Plots the absorbed power in the mirror and saves the data as HDF5        
     """
 
@@ -110,14 +110,17 @@ class MultilayerMirror:
         if type(angle) is float or int:
             self.angle = float(angle)
         else:
-            raise RuntimeError("ERROR: please provide a number for mirror angle")
+            raise RuntimeError("ERROR: please provide a valid number for mirror angle")
         
         self.reflection = reflection      
    
     def __str__(self):
+        return "MultilayerMirror obj"
+
+    def __repr__(self):
         return "MultilayerMirror obj"    
     
-    def und_rad_axis(self, axis):
+    def get_und_rad_axis(self, axis):
         
         """ Get an array of the undulator radiation axis coordinates
 
@@ -145,7 +148,7 @@ class MultilayerMirror:
         h5_file.close()
         return coord
     
-    def reflec_axis(self, axis):
+    def get_reflec_axis(self, axis):
 
         """ Get an array of the reflectivity axis coordinates
 
@@ -174,7 +177,7 @@ class MultilayerMirror:
         return coord
 
 
-    def und_rad_data(self, slice='full'):
+    def get_und_rad_data(self, slice='full'):
         """ Get the 3D data from the source file
 
         Parameters
@@ -193,7 +196,7 @@ class MultilayerMirror:
             data = np.array(h5_file['/XOPPY_RADIATION/Radiation/stack_data'])
         elif type(slice) is list:
             tmp = np.array(h5_file['/XOPPY_RADIATION/Radiation/stack_data'])
-            data = tmp[slice[0]: slice[-1]]
+            data = tmp[slice[0]: slice[-1], :, :]
         else:
             raise RuntimeError('ERROR: slice not reconized')
         h5_file.close() 
@@ -213,12 +216,12 @@ class MultilayerMirror:
         -------
         Spectrum plot
         """        
-        e = self.und_rad_axis('e')
-        h = self.und_rad_axis('x')
-        v = self.und_rad_axis('y')                
+        e = self.get_und_rad_axis('e')
+        h = self.get_und_rad_axis('x')
+        v = self.get_und_rad_axis('y')                
 
         if type == 'incoming':
-            data3d = self.und_rad_data()
+            data3d = self.get_und_rad_data()
             f = data3d.sum(axis=2).sum(axis=1)*(h[1]-h[0])*(v[1]-v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(e[1]-e[0]), 1)
             plt.plot(e, f)
@@ -228,7 +231,7 @@ class MultilayerMirror:
             plt.yticks(fontsize=f_size)
             plt.show() 
         elif type == 'absorbed':
-            data3d = self.mirror_power(kind='abs')
+            data3d = self.calc_mirror_power(kind='abs')
             f = data3d.sum(axis=2).sum(axis=1)*(h[1]-h[0])*(v[1]-v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(e[1]-e[0]), 1)
             plt.plot(e, f)
@@ -238,7 +241,7 @@ class MultilayerMirror:
             plt.yticks(fontsize=f_size)
             plt.show() 
         elif type == 'transmitted':
-            data3d = self.mirror_power(kind='trans')
+            data3d = self.calc_mirror_power(kind='trans')
             f = data3d.sum(axis=2).sum(axis=1)*(h[1]-h[0])*(v[1]-v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(e[1]-e[0]), 1)
             plt.plot(e, f)
@@ -250,10 +253,10 @@ class MultilayerMirror:
             plt.show() 
 
         elif type == 'combined':
-            data3d = self.und_rad_data()
+            data3d = self.get_und_rad_data()
             f = data3d.sum(axis=2).sum(axis=1)*(h[1]-h[0])*(v[1]-v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(e[1]-e[0]), 1)
-            r= self.reflec_axis('r')
+            r= self.get_reflec_axis('r')
             fig, ax1 = plt.subplots()
             ax1.set_xlabel('Photon energy [eV]')
             ax1.set_ylabel("Flux [photons/s/0.1%bw]", color='r', fontsize=f_size)
@@ -277,14 +280,14 @@ class MultilayerMirror:
 
         plt.ion()
         plt.figure()
-        plt.plot(self.reflec_axis('e'), self.reflec_axis('r'))
+        plt.plot(self.get_reflec_axis('e'), self.get_reflec_axis('r'))
         plt.xlabel("Photon energy [eV]", fontsize=f_size)
         plt.ylabel("Reflectivity [a.u.]", fontsize=f_size)
         plt.xticks(fontsize=f_size)
         plt.yticks(fontsize=f_size)
         plt.show()
     
-    def mirror_power(self, kind='trans', plot=False, save_data=False):
+    def calc_mirror_power(self, kind='trans', plot=False, save_data=False):
         """Gets the 3D data weighted using multilayer mirror reflectivity,
         have the option to plot and directly save the power dentisty data
         as CSV or H5File
@@ -304,21 +307,21 @@ class MultilayerMirror:
         A 3D matrix with the incoming, transmitted or absorbed data by
         the multilayer        
         """
-        e = self.und_rad_axis('e')
-        h = self.und_rad_axis('x')        
-        v = self.und_rad_axis('y')
-        r = self.reflec_axis('r')
+        e = self.get_und_rad_axis('e')
+        h = self.get_und_rad_axis('x')        
+        v = self.get_und_rad_axis('y')
+        r = self.get_reflec_axis('r')
 
         energy_step = e[1] - e[0]
 
-        input_data = self.und_rad_data()
+        input_data = self.get_und_rad_data()
 
         data3d = np.zeros_like(input_data)
 
         #calcualtions part
 
         if kind == 'inc':
-            data3d = self.und_rad_data()
+            data3d = self.get_und_rad_data()
             data2d = data3d.sum(axis=0) * (energy_step) * codata.e * 1e3
             f = data3d.sum(axis=2).sum(axis=1)*(h[1] - h[0]) * (v[1] - v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(energy_step), 1)
@@ -514,3 +517,4 @@ def add_2d_plot(data2d_list, h, v, save_file=False):
 if __name__=="__main__":
     pass
     #id29_ml_mirror = MultilayerMirror('11.56keV_und_rad_ESRF_ID29_EBS_CPMU16_4.h5', 'ml_ref_Pb-B4C-C_9_100keV.txt', 1.06, reflection='horizontal')
+    #b = id29_ml_mirror.calc_mirror_power(kind='abs', plot=True, save_data=False)
