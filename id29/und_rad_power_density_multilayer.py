@@ -330,7 +330,7 @@ class MultilayerMirror:
         elif kind == 'trans':
             for i in range(len(e)):
                 data3d[i] = input_data[i] * r[i]
-            data2d = data3d.sum(axis=0) * (energy_step) * codata.e * 1e3
+            data2d = data3d.sum(axis=0) * (energy_step) * codata.e * 1e3            
             f = data3d.sum(axis=2).sum(axis=1)*(h[1] - h[0]) * (v[1] - v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(energy_step), 1)
             title = 'transmitted'    
@@ -375,6 +375,7 @@ class MultilayerMirror:
             x = h
             y = v
             axis_labels = ["Horizontal [mm]", "Vertical [mm]"]
+            #data2d = data2d.T
 
         elif plot and kind == 'abs':
 
@@ -386,12 +387,11 @@ class MultilayerMirror:
 
             peak_power = round(data2d.max(), 2)
             plt.ion()
-            plt.figure()
-            plt.pcolormesh(x, y, data2d, cmap=plt.cm.viridis, shading='auto')	
+            plt.figure()                  
+            plt.pcolormesh(x, y, data2d.T if (kind=='inc' or kind=='trans') else data2d, cmap=plt.cm.viridis, shading='auto')	
             plt.colorbar().ax.tick_params(axis='y', labelsize=f_size)	
             plt.title("Total {} power = {} W, Power Density Peak = {} W/mm$^2$".format(\
-                      title, tot_pow, peak_power), fontsize=f_size)
-            
+                      title, tot_pow, peak_power), fontsize=f_size)            
             plt.xlabel(axis_labels[0], fontsize=f_size)
             plt.ylabel(axis_labels[1], fontsize=f_size)
             
