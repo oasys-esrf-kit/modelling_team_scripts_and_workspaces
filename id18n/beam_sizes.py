@@ -5,7 +5,7 @@ def run_S4_source(photon_energy=7000.0, harmonic_number=1):
     # electron beam
     from shadow4.sources.s4_electron_beam import S4ElectronBeam
     electron_beam = S4ElectronBeam(energy_in_GeV=6,energy_spread=0.001,current=0.2)
-    electron_beam.set_sigmas_all(sigma_x=3.11638e-05, sigma_y=5.15473e-06, sigma_xp=4.52374e-06, sigma_yp=1.93997e-06)
+    electron_beam.set_sigmas_all(sigma_x=2.87429e-05, sigma_y=5.15531e-06, sigma_xp=4.18025e-06, sigma_yp=1.93975e-06)
 
     # magnetic structure
     from shadow4.sources.undulator.s4_undulator_gaussian import S4UndulatorGaussian
