@@ -3,15 +3,22 @@ import numpy
 #KB mirror lengths
 Lv = 60e-3
 Lh = 25.07e-3
-
-
-#
-# 7 keV
-#
+E_keV = 35
 
 # source sizes and angles
-Sh, Sv, Ah, Av = 68.55e-6, 16.30e-6, 18.06e-6, 15.80e-6
-theta = 0.0364
+if E_keV == 7:
+    Sh, Sv, Ah, Av = 68.55e-6, 16.30e-6, 18.06e-6, 15.80e-6
+    theta = 0.0364
+elif E_keV == 17:
+    Sh, Sv, Ah, Av = 68.08e-6, 14.13e-6, 16.79e-6, 14.34e-6
+    theta = 0.015
+elif E_keV == 35:
+    Sh, Sv, Ah, Av = 67.89e-6, 13.26e-6, 15.35e-6, 12.65e-6
+    theta = 0.00729
+else:
+    raise Exception("bad energy")
+
+
 
 # demag V
 p_V = 199.900
@@ -49,6 +56,6 @@ print("Config3 H: ", T_config3, 150000 * T_config3)
 print("config 2 final", T_V * T_config2, int(150000 * T_V * T_config2))
 print("config 3 final", T_V * T_config3, int(150000 * T_V * T_config3))
 
-print("\n\n\n")
-print("divergence after HSS config 2: ", Ah * DM1_config2)
-print("divergence after HSS config 3: ", Ah * DM1_config3)
+# print("\n\n\n")
+# print("divergence after HSS config 2: ", Ah * DM1_config2)
+# print("divergence after HSS config 3: ", Ah * DM1_config3)
