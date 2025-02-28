@@ -30,8 +30,8 @@ def run_config_2xtals():
         flag_emittance=1,  # when sampling rays: Use emittance (0=No, 1=Yes)
         flag_energy_spread=1,  # when sampling rays: Use e- energy spread (0=No, 1=Yes)
         harmonic_number=3,  # harmonic number
-        flag_autoset_flux_central_cone=0,  # value to set the flux peak
-        flux_central_cone=1350000000000000.0,  # value to set the flux peak
+        flag_autoset_flux_central_cone=1,  # value to set the flux peak
+        flux_central_cone=1729338018179448.2,  # value to set the flux peak
     )
 
     # light source
@@ -170,7 +170,7 @@ def run_config_2xtals():
     from shadow4.beamline.optical_elements.mirrors.s4_sphere_mirror import S4SphereMirror
     optical_element = S4SphereMirror(name='Sphere Mirror', boundary_shape=boundary_shape,
                                      surface_calculation=0, is_cylinder=1, cylinder_direction=0,
-                                     convexity=1, radius=1.000000, p_focus=28.300000, q_focus=11.700000,
+                                     convexity=1, radius=1.000000, p_focus=33.500000, q_focus=11.100000,
                                      grazing_angle=0.031419,
                                      f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                      coating_material='Si', coating_density=2.33, coating_roughness=0)
@@ -303,6 +303,7 @@ def run_config_2xtals():
 
     beamline.append_beamline_element(beamline_element)
 
+
     return beam
 
 # 4 crystals
@@ -332,8 +333,8 @@ def run_config_4xtals():
         flag_emittance=1,  # when sampling rays: Use emittance (0=No, 1=Yes)
         flag_energy_spread=1,  # when sampling rays: Use e- energy spread (0=No, 1=Yes)
         harmonic_number=3,  # harmonic number
-        flag_autoset_flux_central_cone=0,  # value to set the flux peak
-        flux_central_cone=1350000000000000.0,  # value to set the flux peak
+        flag_autoset_flux_central_cone=1,  # value to set the flux peak
+        flux_central_cone=1729338018179448.2,  # value to set the flux peak
     )
 
     # light source
@@ -542,7 +543,7 @@ def run_config_4xtals():
     from shadow4.beamline.optical_elements.mirrors.s4_sphere_mirror import S4SphereMirror
     optical_element = S4SphereMirror(name='Sphere Mirror', boundary_shape=boundary_shape,
                                      surface_calculation=0, is_cylinder=1, cylinder_direction=0,
-                                     convexity=1, radius=1.000000, p_focus=28.300000, q_focus=11.700000,
+                                     convexity=1, radius=1.000000, p_focus=33.500000, q_focus=11.100000,
                                      grazing_angle=0.031419,
                                      f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                      coating_material='Si', coating_density=2.33, coating_roughness=0)
@@ -675,7 +676,6 @@ def run_config_4xtals():
 
     beamline.append_beamline_element(beamline_element)
 
-
     return beam
 
 
@@ -767,57 +767,62 @@ if True:
 
     print(">>>>>>>>>>>>>>>> CONFIG 2 crystals <<<<<<<<<<<<<<<<<<<<<<<")
     print(INTENSITY_a, FWHM_a)
-    print("Intensity: ", INTENSITY_a.mean(), " +/- ", numpy.std(INTENSITY_a))
-    print("Energy FWHM: ", FWHM_a.mean(), " +/- ", numpy.std(FWHM_a))
-    print("Energy FWHM H: ", FWHMH_a.mean(), " +/- ", numpy.std(FWHMH_a))
-    print("Energy FWHM V: ", FWHMV_a.mean(), " +/- ", numpy.std(FWHMV_a))
+    print("Intensity: %d +/- %d" %(INTENSITY_a.mean(), numpy.std(INTENSITY_a)))
+    print("Energy FWHM: %.2f +/- %.2f" %  (FWHM_a.mean(), numpy.std(FWHM_a)))
+    print("FWHM HxV: %.1f x %.1f " % (FWHMH_a.mean(), FWHMV_a.mean()))
+    print("FWHM H: ", FWHMH_a.mean(), " +/- ", numpy.std(FWHMH_a))
+    print("FWHM V: ", FWHMV_a.mean(), " +/- ", numpy.std(FWHMV_a))
 
 
     print(">>>>>>>>>>>>>>>> CONFIG 4 crystals <<<<<<<<<<<<<<<<<<<<<<<")
     print(INTENSITY_b, FWHM_b)
-    print("Intensity: ", INTENSITY_b.mean(), " +/- ", numpy.std(INTENSITY_b))
-    print("Energy FWHM: ", FWHM_b.mean(), " +/- ", numpy.std(FWHM_b))
+    print("Intensity: %d +/- %d" %(INTENSITY_b.mean(), numpy.std(INTENSITY_b)))
+    print("Energy FWHM: %.2f +/- %.2f" %  (FWHM_b.mean(), numpy.std(FWHM_b)))
+    print("FWHM HxV: %.1f x %.1f " % (FWHMH_b.mean(), FWHMV_b.mean()))
     print("Energy FWHM H: ", FWHMH_b.mean(), " +/- ", numpy.std(FWHMH_b))
     print("Energy FWHM V: ", FWHMV_b.mean(), " +/- ", numpy.std(FWHMV_b))
 
 
 """
+
 >>>>>>>>>>>>>>>> CONFIG 2 crystals <<<<<<<<<<<<<<<<<<<<<<<
-[571.94871923 538.37352488 528.05266726 518.2370092  491.57650758
- 525.3618966  536.3197418  531.57521388 516.06540481 528.7115984
- 542.97291347 499.05223752 521.39754787 507.77493273 527.7925454
- 591.87108916 550.63880669 533.48437791 501.59763963 549.33558894
- 551.05398664 510.05813435 528.16723384 511.07513185 530.39381238
- 522.96058054 500.8529086  551.90889541 538.41041171 542.3930166
- 537.12809119 532.45893899 541.45660777 528.10003952 524.94399609
- 514.09753863 511.96269815 524.25026198 532.00282878 557.00327595
- 485.19172341 501.45414312 527.78650618 516.58264039 543.27725811
- 561.35250054 539.2223788  509.41835831 560.71220771 552.67958246] [1.68 2.1  1.98 2.1  1.98 1.8  2.1  2.04 1.92 1.86 1.98 1.68 2.1  1.92
- 1.98 1.98 1.86 1.98 1.92 2.1  1.98 2.04 2.1  2.1  2.04 1.92 2.22 1.86
- 1.92 2.04 1.44 1.98 2.1  1.92 2.04 2.1  2.04 1.92 2.04 2.1  1.92 2.34
- 1.92 1.92 1.98 1.8  2.1  2.04 1.8  2.1 ]
-Intensity:  530.0099130192531  +/-  20.666193940161552
-Energy FWHM:  1.9776000000431668  +/-  0.14397999861406097
-Energy FWHM H:  5.759999999999987  +/-  0.8442748367682156
-Energy FWHM V:  6.239999999999988  +/-  1.0495713410721519
+[574.04475506 546.27609391 537.81148737 523.20116596 496.39728562
+ 526.41530643 538.27613524 534.42552238 521.90054425 534.80883099
+ 549.78934175 509.56261395 529.84480957 514.32392472 537.11894784
+ 596.57825237 559.5487932  540.8874258  505.61278706 552.25434125
+ 552.28491534 519.92359243 533.63248215 519.01013896 537.88485655
+ 526.96241326 505.86866614 554.85130938 549.04493436 548.78765631
+ 544.80539771 535.2035719  548.98464112 532.33097136 530.82053812
+ 516.06846505 522.65223083 525.29138168 538.53477105 563.85846648
+ 488.7315956  509.41836243 528.85843264 523.44075087 547.51536803
+ 566.16553323 544.85380301 518.99213726 567.43278763 558.19866112] [1.68 2.1  1.98 2.1  1.98 1.8  2.1  2.04 1.86 1.86 1.98 1.68 2.1  1.92
+ 2.16 1.98 1.86 1.98 1.92 2.1  1.98 2.04 2.1  2.04 2.04 1.92 2.04 1.86
+ 1.92 1.86 1.44 1.98 2.1  1.92 2.28 2.1  2.04 1.92 2.04 2.1  1.92 2.34
+ 1.92 1.92 1.98 1.8  2.1  2.04 1.92 2.1 ]
+Intensity: 535 +/- 20
+Energy FWHM: 1.98 +/- 0.15
+FWHM HxV: 5.7 x 6.2 
+FWHM H:  5.729999999999989  +/-  0.9280624978954792
+FWHM V:  6.215999999999987  +/-  1.0817319446147438
 >>>>>>>>>>>>>>>> CONFIG 4 crystals <<<<<<<<<<<<<<<<<<<<<<<
-[480.38829872 440.02817956 437.10435521 420.33121406 398.8891246
- 437.54363107 434.70454692 431.80098932 426.61392677 436.67536973
- 442.29754099 424.2676912  412.0291682  413.0917888  433.11828582
- 490.96451818 456.35007285 442.43949427 421.92172631 436.08729923
- 451.84183377 420.80373467 427.26707861 417.60339862 431.97435001
- 426.77698767 410.6516888  460.94389093 447.86412513 444.38214594
- 440.41058787 443.1821088  440.67813284 431.86149958 422.74938633
- 412.44339829 409.61526575 435.56611242 431.43096367 457.09830284
- 403.04944365 405.2457407  432.36537207 419.31420625 446.96237236
- 467.59080738 441.62462082 415.27347219 465.11666863 454.74274902] [1.68 1.68 1.74 1.92 1.5  1.56 1.68 1.74 1.86 1.68 1.86 1.32 1.68 1.68
+[483.17940249 446.42190564 444.50211657 424.94032906 403.46058436
+ 438.49122849 436.31717128 435.13408645 431.23127925 442.71435514
+ 448.47901273 433.01119596 418.88431776 419.91551744 440.26147541
+ 495.38651857 463.84508375 447.19740208 424.83103841 438.75401205
+ 452.80743603 428.79616614 432.21666141 423.20732529 435.89215174
+ 429.7126857  414.63918216 462.90059068 456.46020605 449.02875698
+ 446.35066297 444.96344372 445.37298342 435.54978991 427.25584129
+ 412.48672961 418.81596279 435.62817473 437.09966222 462.03455267
+ 405.35182753 411.85669944 433.33001293 425.5970931  450.22140628
+ 473.09683972 446.8817549  423.19512294 470.28421956 459.02918456] [1.56 1.68 1.74 1.92 1.5  1.56 1.68 1.74 1.86 1.68 1.86 1.68 1.68 1.68
  1.68 1.62 1.74 1.74 1.86 1.74 1.86 1.86 1.62 1.74 1.74 1.74 1.92 1.56
- 1.68 1.68 1.02 1.8  1.8  1.68 1.74 1.74 1.74 1.74 1.8  1.74 1.8  2.04
- 1.8  1.68 1.68 1.8  1.98 1.74 1.74 1.86]
-Intensity:  434.66155334801266  +/-  19.062639372452423
-Energy FWHM:  1.7256000000376661  +/-  0.1548697517304366
-Energy FWHM H:  5.363999999999988  +/-  0.783775478054779
-Energy FWHM V:  6.155999999999988  +/-  1.0919999999999976
+ 1.68 1.68 1.02 1.68 1.8  1.68 1.74 1.74 1.62 1.74 1.8  1.74 1.8  1.86
+ 1.8  1.68 1.68 1.74 1.98 1.74 1.74 1.86]
+Intensity: 439 +/- 18
+Energy FWHM: 1.72 +/- 0.14
+FWHM HxV: 5.3 x 6.2 
+Energy FWHM H:  5.303999999999989  +/-  0.8037312983827352
+Energy FWHM V:  6.173999999999987  +/-  1.1194302122061897
 
 
 """

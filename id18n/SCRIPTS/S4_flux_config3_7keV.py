@@ -10,7 +10,6 @@ def run_config_2xtals():
     # DO NOT FORGET TO return beam
     # DO NOT FORGET TO OPEN THE 50um SLIT
     ##################
-
     from shadow4.beamline.s4_beamline import S4Beamline
 
     beamline = S4Beamline()
@@ -31,8 +30,8 @@ def run_config_2xtals():
         flag_emittance=1,  # when sampling rays: Use emittance (0=No, 1=Yes)
         flag_energy_spread=1,  # when sampling rays: Use e- energy spread (0=No, 1=Yes)
         harmonic_number=1,  # harmonic number
-        flag_autoset_flux_central_cone=0,  # value to set the flux peak
-        flux_central_cone=1350000000000000.0,  # value to set the flux peak
+        flag_autoset_flux_central_cone=1,  # value to set the flux peak
+        flux_central_cone=3228083726728806.0,  # value to set the flux peak
     )
 
     # light source
@@ -87,7 +86,7 @@ def run_config_2xtals():
     from shadow4.beamline.optical_elements.mirrors.s4_sphere_mirror import S4SphereMirror
     optical_element = S4SphereMirror(name='Sphere Mirror', boundary_shape=boundary_shape,
                                      surface_calculation=0, is_cylinder=1, cylinder_direction=0,
-                                     convexity=1, radius=1.000000, p_focus=28.300000, q_focus=11.700000,
+                                     convexity=1, radius=1.000000, p_focus=31.500000, q_focus=22.500000,
                                      grazing_angle=0.031419,
                                      f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                      coating_material='Si', coating_density=2.33, coating_roughness=0)
@@ -226,22 +225,17 @@ def run_config_2xtals():
     boundary_shape = Rectangle(x_left=-0.01, x_right=0.01, y_bottom=-0.03, y_top=0.03)
 
     from shadow4.beamline.optical_elements.mirrors.s4_ellipsoid_mirror import S4EllipsoidMirror
-
-    ### Energy dependent
-    grazing_angle = numpy.arcsin(17 * numpy.sin(0.015) / 7)
-    angle_radial = numpy.pi / 2 - grazing_angle
-
     optical_element = S4EllipsoidMirror(name='Ellipsoid Mirror', boundary_shape=boundary_shape,
                                         surface_calculation=0,
                                         min_axis=2.000000, maj_axis=2.000000, pole_to_focus=1.000000,
-                                        p_focus=199.900000, q_focus=0.100000, grazing_angle=grazing_angle,
+                                        p_focus=199.900000, q_focus=0.100000, grazing_angle=0.036400,
                                         is_cylinder=1, cylinder_direction=0, convexity=1,
                                         f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                         coating_material='Si', coating_density=2.33, coating_roughness=0)
 
     from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=145.9, q=0.0335, angle_radial=angle_radial, angle_azimuthal=0,
-                                     angle_radial_out=angle_radial)
+    coordinates = ElementCoordinates(p=145.9, q=0.0335, angle_radial=1.534396327, angle_azimuthal=0,
+                                     angle_radial_out=1.534396327)
     movements = None
     from shadow4.beamline.optical_elements.mirrors.s4_ellipsoid_mirror import S4EllipsoidMirrorElement
     beamline_element = S4EllipsoidMirrorElement(optical_element=optical_element, coordinates=coordinates,
@@ -259,14 +253,14 @@ def run_config_2xtals():
     optical_element = S4EllipsoidMirror(name='Ellipsoid Mirror', boundary_shape=boundary_shape,
                                         surface_calculation=0,
                                         min_axis=2.000000, maj_axis=2.000000, pole_to_focus=1.000000,
-                                        p_focus=145.950000, q_focus=0.050000, grazing_angle=grazing_angle,
+                                        p_focus=145.950000, q_focus=0.050000, grazing_angle=0.036400,
                                         is_cylinder=1, cylinder_direction=0, convexity=1,
                                         f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                         coating_material='Si', coating_density=2.33, coating_roughness=0)
 
     from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=0.0165, q=0, angle_radial=angle_radial, angle_azimuthal=1.570796327,
-                                     angle_radial_out=angle_radial)
+    coordinates = ElementCoordinates(p=0.0165, q=0, angle_radial=1.534396327, angle_azimuthal=1.570796327,
+                                     angle_radial_out=1.534396327)
     movements = None
     from shadow4.beamline.optical_elements.mirrors.s4_ellipsoid_mirror import S4EllipsoidMirrorElement
     beamline_element = S4EllipsoidMirrorElement(optical_element=optical_element, coordinates=coordinates,
@@ -278,7 +272,7 @@ def run_config_2xtals():
 
     # optical element number XX
     from syned.beamline.shape import Rectangle
-    boundary_shape = Rectangle(x_left=-0.011, x_right=0.011, y_bottom=-0.000375, y_top=0.000375)
+    boundary_shape = Rectangle(x_left=-0.011, x_right=0.011, y_bottom=-0.0009125, y_top=0.0009125)
 
     from shadow4.beamline.optical_elements.absorbers.s4_screen import S4Screen
     optical_element = S4Screen(name='CORRECTION !!!!  Generic Beam Screen/Slit/Stopper/Attenuator HSS',
@@ -310,8 +304,6 @@ def run_config_2xtals():
 
     beamline.append_beamline_element(beamline_element)
 
-
-
     return beam
 
 # 4 crystals
@@ -321,7 +313,6 @@ def run_config_4xtals():
     SEED += 555
     print(">>>>  using seed: ", SEED)
     ##################
-
     from shadow4.beamline.s4_beamline import S4Beamline
 
     beamline = S4Beamline()
@@ -342,8 +333,8 @@ def run_config_4xtals():
         flag_emittance=1,  # when sampling rays: Use emittance (0=No, 1=Yes)
         flag_energy_spread=1,  # when sampling rays: Use e- energy spread (0=No, 1=Yes)
         harmonic_number=1,  # harmonic number
-        flag_autoset_flux_central_cone=0,  # value to set the flux peak
-        flux_central_cone=1350000000000000.0,  # value to set the flux peak
+        flag_autoset_flux_central_cone=1,  # value to set the flux peak
+        flux_central_cone=3228083726728806.0,  # value to set the flux peak
     )
 
     # light source
@@ -398,7 +389,7 @@ def run_config_4xtals():
     from shadow4.beamline.optical_elements.mirrors.s4_sphere_mirror import S4SphereMirror
     optical_element = S4SphereMirror(name='Sphere Mirror', boundary_shape=boundary_shape,
                                      surface_calculation=0, is_cylinder=1, cylinder_direction=0,
-                                     convexity=1, radius=1.000000, p_focus=28.300000, q_focus=11.700000,
+                                     convexity=1, radius=1.000000, p_focus=31.500000, q_focus=22.500000,
                                      grazing_angle=0.031419,
                                      f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                      coating_material='Si', coating_density=2.33, coating_roughness=0)
@@ -608,22 +599,17 @@ def run_config_4xtals():
     boundary_shape = Rectangle(x_left=-0.01, x_right=0.01, y_bottom=-0.03, y_top=0.03)
 
     from shadow4.beamline.optical_elements.mirrors.s4_ellipsoid_mirror import S4EllipsoidMirror
-
-    ### Energy dependent
-    grazing_angle = numpy.arcsin(17 * numpy.sin(0.015) / 7)
-    angle_radial = numpy.pi / 2 - grazing_angle
-
     optical_element = S4EllipsoidMirror(name='Ellipsoid Mirror', boundary_shape=boundary_shape,
                                         surface_calculation=0,
                                         min_axis=2.000000, maj_axis=2.000000, pole_to_focus=1.000000,
-                                        p_focus=199.900000, q_focus=0.100000, grazing_angle=grazing_angle,
+                                        p_focus=199.900000, q_focus=0.100000, grazing_angle=0.036400,
                                         is_cylinder=1, cylinder_direction=0, convexity=1,
                                         f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                         coating_material='Si', coating_density=2.33, coating_roughness=0)
 
     from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=145.9, q=0.0335, angle_radial=angle_radial, angle_azimuthal=0,
-                                     angle_radial_out=angle_radial)
+    coordinates = ElementCoordinates(p=145.9, q=0.0335, angle_radial=1.534396327, angle_azimuthal=0,
+                                     angle_radial_out=1.534396327)
     movements = None
     from shadow4.beamline.optical_elements.mirrors.s4_ellipsoid_mirror import S4EllipsoidMirrorElement
     beamline_element = S4EllipsoidMirrorElement(optical_element=optical_element, coordinates=coordinates,
@@ -641,14 +627,14 @@ def run_config_4xtals():
     optical_element = S4EllipsoidMirror(name='Ellipsoid Mirror', boundary_shape=boundary_shape,
                                         surface_calculation=0,
                                         min_axis=2.000000, maj_axis=2.000000, pole_to_focus=1.000000,
-                                        p_focus=145.950000, q_focus=0.050000, grazing_angle=grazing_angle,
+                                        p_focus=145.950000, q_focus=0.050000, grazing_angle=0.036400,
                                         is_cylinder=1, cylinder_direction=0, convexity=1,
                                         f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
                                         coating_material='Si', coating_density=2.33, coating_roughness=0)
 
     from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=0.0165, q=0, angle_radial=angle_radial, angle_azimuthal=1.570796327,
-                                     angle_radial_out=angle_radial)
+    coordinates = ElementCoordinates(p=0.0165, q=0, angle_radial=1.534396327, angle_azimuthal=1.570796327,
+                                     angle_radial_out=1.534396327)
     movements = None
     from shadow4.beamline.optical_elements.mirrors.s4_ellipsoid_mirror import S4EllipsoidMirrorElement
     beamline_element = S4EllipsoidMirrorElement(optical_element=optical_element, coordinates=coordinates,
@@ -660,7 +646,7 @@ def run_config_4xtals():
 
     # optical element number XX
     from syned.beamline.shape import Rectangle
-    boundary_shape = Rectangle(x_left=-0.011, x_right=0.011, y_bottom=-0.000375, y_top=0.000375)
+    boundary_shape = Rectangle(x_left=-0.011, x_right=0.011, y_bottom=-0.0009125, y_top=0.0009125)
 
     from shadow4.beamline.optical_elements.absorbers.s4_screen import S4Screen
     optical_element = S4Screen(name='CORRECTION !!!!  Generic Beam Screen/Slit/Stopper/Attenuator HSS',
@@ -691,6 +677,7 @@ def run_config_4xtals():
     beam, mirr = beamline_element.trace_beam()
 
     beamline.append_beamline_element(beamline_element)
+
 
     return beam
 
@@ -798,43 +785,42 @@ if True:
 
 
 """
-
 >>>>>>>>>>>>>>>> CONFIG 2 crystals <<<<<<<<<<<<<<<<<<<<<<<
-[1241.89836529 1230.73235567 1279.41522363 1228.01944609 1236.12283583
- 1244.21043274 1246.99778352 1214.81287731 1269.21603371 1249.35891589
- 1227.82277832 1200.17760598 1241.051572   1239.70825105 1253.28748355
- 1263.71882944 1264.89868255 1233.65034138 1216.4160164  1259.87405606
- 1239.53160968 1265.03904792 1251.19906797 1255.67517955 1253.7618184
- 1247.42462648 1212.0756862  1281.99787809 1262.09612528 1224.04314365
- 1288.17218062 1267.28205912 1237.69552454 1231.25336767 1278.67789508
- 1235.57166357 1245.89752306 1234.03849882 1226.90653706 1277.80087349
- 1235.67401498 1195.2841735  1236.84375403 1239.23807887 1265.88455518
- 1235.25784716 1263.24644185 1216.19998391 1286.30374573 1229.67661281] [0.72 0.74 0.72 0.68 0.72 0.68 0.72 0.76 0.7  0.7  0.74 0.68 0.7  0.68
- 0.7  0.72 0.68 0.68 0.74 0.66 0.72 0.7  0.7  0.74 0.74 0.68 0.68 0.76
- 0.68 0.68 0.66 0.7  0.68 0.72 0.66 0.74 0.64 0.68 0.68 0.68 0.72 0.68
- 0.66 0.66 0.66 0.66 0.7  0.7  0.68 0.7 ]
-Intensity:  1245.2227880138828  +/-  21.497344914554947
-Energy FWHM:  0.6972000000152184  +/-  0.028568514137694144
-Energy FWHM H:  9.22799999999998  +/-  0.3149857139617601
-Energy FWHM V:  7.007999999999985  +/-  0.6939279501504446
+[6116.77262378 5810.16411107 6049.0668608  6000.34697576 5964.43592701
+ 5866.3994785  6034.50892935 6025.11993126 6015.59455828 6019.20434033
+ 6021.14138199 5977.85404603 5996.6295317  5950.25665747 5919.35535765
+ 5917.38959415 6041.94972295 6035.93571876 5960.98161901 6079.35524471
+ 6027.20805808 5978.62986515 6019.89170132 6023.64674408 5966.68405518
+ 6009.90563768 5879.91890233 6025.17524774 6014.57857773 6000.54324171
+ 6032.44814944 6026.15599354 6135.75154178 5975.47339591 6046.6077067
+ 6033.85736565 6028.51355444 5931.2149792  5956.23656591 5960.54539671
+ 5926.14405196 5879.06121133 5944.06720558 5976.10718127 6062.60240338
+ 5960.64337159 6062.17874067 5935.53899728 5939.56951344 5936.93526689] [0.7  0.72 0.72 0.7  0.72 0.72 0.74 0.72 0.78 0.72 0.74 0.72 0.72 0.68
+ 0.7  0.74 0.7  0.7  0.72 0.7  0.72 0.74 0.68 0.74 0.7  0.7  0.72 0.72
+ 0.76 0.68 0.76 0.72 0.74 0.72 0.74 0.74 0.72 0.72 0.72 0.72 0.7  0.7
+ 0.7  0.68 0.76 0.7  0.72 0.7  0.7  0.7 ]
+Intensity:  5989.965944685132  +/-  62.103702227220296
+Energy FWHM:  0.7176000000156637  +/-  0.021777052142581264
+Energy FWHM H:  14.61599999999997  +/-  0.8400857099129809
+Energy FWHM V:  7.1159999999999854  +/-  0.3601999444752865
 >>>>>>>>>>>>>>>> CONFIG 4 crystals <<<<<<<<<<<<<<<<<<<<<<<
-[832.84730008 818.59379016 847.65831569 823.24111171 820.58040917
- 835.48430152 834.26567026 807.96157032 842.02255012 834.52746171
- 817.7502262  803.28128437 831.16414672 830.24127033 839.56573015
- 844.87385291 852.54050643 822.59622958 804.73113898 849.00796759
- 821.75235715 844.31104218 834.46764905 834.19186882 831.92674815
- 833.47984016 803.56939849 855.74819875 846.84286035 817.61065154
- 861.38452986 845.89420558 828.48171354 818.18560584 850.83729318
- 822.39406339 830.34938587 827.90492023 820.61317835 861.83885973
- 826.84925534 799.24136486 826.54262815 826.23532773 848.23704297
- 829.42141337 841.64971447 811.12048554 855.68195973 821.28947336] [0.6  0.58 0.6  0.62 0.62 0.6  0.62 0.66 0.62 0.62 0.64 0.6  0.6  0.6
- 0.58 0.62 0.58 0.6  0.6  0.62 0.64 0.64 0.62 0.64 0.6  0.58 0.6  0.58
- 0.48 0.54 0.54 0.6  0.64 0.62 0.54 0.66 0.58 0.6  0.6  0.56 0.62 0.54
- 0.56 0.58 0.62 0.6  0.64 0.62 0.56 0.62]
-Intensity:  831.4197573947462  +/-  15.211118145673636
-Energy FWHM:  0.6000000000130967  +/-  0.03417601498201611
-Energy FWHM H:  9.203999999999981  +/-  0.3521136180269085
-Energy FWHM V:  6.947999999999984  +/-  0.7808303272798754
+[3973.47872279 3772.04392144 3931.33318901 3905.38858004 3874.48824008
+ 3822.06692111 3929.81242347 3921.07162727 3886.8574084  3916.15722583
+ 3906.43039554 3893.78109937 3898.80181062 3887.11939826 3865.30498004
+ 3848.42700199 3928.28228449 3924.64091031 3859.87721311 3963.31854949
+ 3916.68375618 3886.89909094 3933.00610998 3920.72501784 3882.10216855
+ 3919.74191613 3822.27442108 3912.8777416  3886.39647375 3900.36060471
+ 3916.97850718 3911.86492864 3978.79740324 3885.20650044 3934.5437424
+ 3906.28501138 3922.69894604 3863.51175609 3873.3731375  3889.62390013
+ 3872.64078229 3814.28147018 3853.09517504 3892.78159309 3945.96555277
+ 3900.20996431 3962.47010486 3871.3304448  3879.54559099 3867.46652188] [0.6  0.58 0.62 0.62 0.56 0.58 0.62 0.62 0.62 0.62 0.62 0.62 0.6  0.58
+ 0.58 0.62 0.6  0.58 0.6  0.62 0.62 0.64 0.62 0.62 0.6  0.62 0.6  0.58
+ 0.64 0.58 0.64 0.6  0.62 0.6  0.6  0.66 0.6  0.58 0.6  0.58 0.58 0.58
+ 0.58 0.62 0.6  0.6  0.62 0.6  0.56 0.6 ]
+Intensity:  3896.6484047333524  +/-  40.0838644826502
+Energy FWHM:  0.604000000013184  +/-  0.02116601048897873
+Energy FWHM H:  14.567999999999973  +/-  0.9102615008886165
+Energy FWHM V:  7.037999999999986  +/-  0.40343029137634095
 
 
 """
