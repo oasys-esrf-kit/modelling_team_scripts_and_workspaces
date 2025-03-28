@@ -26,7 +26,6 @@ images_dir = os.path.join(script_dir,"")
 # font and label size for the plots #
 f_size = 12
 
-#TODO implement interpolation for now it work only with equal energy arrays
 
 class MultilayerMirror:
     """
@@ -163,7 +162,7 @@ class MultilayerMirror:
             points at the given axis	
         """
 
-        df_ref = pd.read_csv(self.ref_file, sep=',|\s+', header=None, comment = ';', engine='python')
+        df_ref = pd.read_csv(self.ref_file, sep=r',|\s+', header=None, comment = ';', engine='python')
         
         if axis == 'e':
             tmp = np.array(df_ref.iloc[:,0])
@@ -218,7 +217,9 @@ class MultilayerMirror:
         """        
         e = self.get_und_rad_axis('e')
         h = self.get_und_rad_axis('x')
-        v = self.get_und_rad_axis('y')                
+        v = self.get_und_rad_axis('y') 
+
+                   
 
         if type == 'incoming':
             data3d = self.get_und_rad_data()
@@ -256,7 +257,13 @@ class MultilayerMirror:
             data3d = self.get_und_rad_data()
             f = data3d.sum(axis=2).sum(axis=1)*(h[1]-h[0])*(v[1]-v[0])
             tot_pow = round(f.sum()*1e3*codata.e*(e[1]-e[0]), 1)
+            
+            e2= self.get_reflec_axis('e')
             r= self.get_reflec_axis('r')
+            # interpolation if files not same axis - e used for energy discretization
+            if np.array_equal(e,e2) == False:   
+                r = np.interp(e, e2, r)    
+                
             fig, ax1 = plt.subplots()
             ax1.set_xlabel('Photon energy [eV]')
             ax1.set_ylabel("Flux [photons/s/0.1%bw]", color='r', fontsize=f_size)
@@ -310,8 +317,14 @@ class MultilayerMirror:
         e = self.get_und_rad_axis('e')
         h = self.get_und_rad_axis('x')        
         v = self.get_und_rad_axis('y')
-        r = self.get_reflec_axis('r')
-
+        
+        
+        e2, r = self.get_reflec_axis('e'), self.get_reflec_axis('r')
+        
+        # interpolation if files not same axis - e used for energy discretization
+        if np.array_equal(e,e2) == False:   
+            r = np.interp(e, e2, r)
+        
         energy_step = e[1] - e[0]
 
         input_data = self.get_und_rad_data()
@@ -512,7 +525,7 @@ def add_2d_plot(data2d_list, h, v, save_file=False):
     #plt.axis('equal')
     plt.show()
 
-    #Todo implement save file
+    #TODO: implement save file
 
 if __name__=="__main__":
     pass
