@@ -48,6 +48,10 @@
 		<node id="44" name="Power3Dcomponent" position="(808.0, 1500.0)" project_name="OASYS1-XOPPY" qualified_name="orangecontrib.xoppy.widgets.optics.power3Dcomponent.OWpower3Dcomponent" title="Power3Dcomponent Screen" version="" />
 		<node id="45" name="Power3Dcomponent" position="(1230.0, 1497.0)" project_name="OASYS1-XOPPY" qualified_name="orangecontrib.xoppy.widgets.optics.power3Dcomponent.OWpower3Dcomponent" title="Power3Dcomponent Screen" version="" />
 		<node id="46" name="Power3Dcomponent" position="(1088.0, 1500.0)" project_name="OASYS1-XOPPY" qualified_name="orangecontrib.xoppy.widgets.optics.power3Dcomponent.OWpower3Dcomponent" title="Power3Dcomponent M2" version="" />
+		<node id="47" name="Monochromator" position="(1404.0, 922.0)" project_name="OASYS1-ESRF-Extensions" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.Monochromator.Monochromator" title="Monochromator" version="" />
+		<node id="48" name="Monochromator" position="(1527.0, 929.0)" project_name="OASYS1-ESRF-Extensions" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.Monochromator.Monochromator" title="Monochromator" version="" />
+		<node id="49" name="Python Script" position="(1582.0, 872.0)" project_name="OASYS1" qualified_name="oasys.widgets.tools.ow_python_script.OWPythonScript" title="Python Script" version="" />
+		<node id="50" name="Undulator Spectrum" position="(1260.0, 920.0)" project_name="OASYS1-XOPPY" qualified_name="orangecontrib.xoppy.widgets.source.undulator_spectrum.OWundulator_spectrum" title="Undulator Spectrum FE" version="" />
 	</nodes>
 	<links>
 		<link enabled="true" id="0" sink_channel="SynedData" sink_node_id="2" source_channel="SynedData" source_node_id="0" />
@@ -84,6 +88,9 @@
 		<link enabled="true" id="31" sink_channel="ExchangeData" sink_node_id="46" source_channel="xoppy_data" source_node_id="43" />
 		<link enabled="true" id="32" sink_channel="ExchangeData" sink_node_id="45" source_channel="xoppy_data" source_node_id="46" />
 		<link enabled="true" id="33" sink_channel="ExchangeData" sink_node_id="44" source_channel="xoppy_data" source_node_id="28" />
+		<link enabled="true" id="34" sink_channel="ExchangeData" sink_node_id="48" source_channel="xoppy_data" source_node_id="47" />
+		<link enabled="true" id="35" sink_channel="in_object_1" sink_node_id="49" source_channel="xoppy_data" source_node_id="47" />
+		<link enabled="true" id="36" sink_channel="ExchangeData" sink_node_id="47" source_channel="xoppy_data" source_node_id="50" />
 	</links>
 	<annotations>
 		<text font-family="Helvetica" font-size="16" id="0" rect="(38.0, 165.0, 150.0, 30.0)">0.2 deg</text>
@@ -91,6 +98,7 @@
 		<text font-family="Helvetica" font-size="16" id="2" rect="(132.0, 1262.0, 326.0, 79.0)">35 keV n=5 g=6.02mm WB4C 0.229deg
 </text>
 		<text font-family="Helvetica" font-size="16" id="3" rect="(142.0, 719.0, 276.0, 79.0)">17 keV n=3 g=5.2mm PdC 0.28deg</text>
+		<text font-family="Helvetica" font-size="16" id="4" rect="(1192.0, 825.0, 150.0, 30.0)">MISALIGNED</text>
 	</annotations>
 	<thumbnail />
 	<node_properties>
@@ -790,8 +798,8 @@ TUVUSE9EcSNLAlgIAAAATlBFUklPRFNxJEuGWAgAAABQRVJJT0RJRHElRz+TC+De0ojOWA8AAABQ
 SE9UT05FTkVSR1lNQVhxJkdBEk+AAAAAAFgPAAAAUEhPVE9ORU5FUkdZTUlOcSdHQKdwAAAAAABY
 EgAAAFBIT1RPTkVORVJHWVBPSU5UU3EoTXEXWA0AAABVU0VFTUlUVEFOQ0VTcSlLAVgTAAAAc2F2
 ZWRXaWRnZXRHZW9tZXRyeXEqY3NpcApfdW5waWNrbGVfdHlwZQpxK1gMAAAAUHlRdDUuUXRDb3Jl
-cSxYCgAAAFFCeXRlQXJyYXlxLUNCAdnQywADAAAAAAK5AAABkQAAB+AAAARxAAACuQAAAbYAAAfg
-AAAEcQAAAAAAAAAAB4AAAAK5AAABtgAAB+AAAARxcS6FcS+HcTBScTFYCQAAAHZpZXdfdHlwZXEy
+cSxYCgAAAFFCeXRlQXJyYXlxLUNCAdnQywADAAAAAAEsAAAA+gAABlMAAAO1AAABLAAAAPoAAAZT
+AAADtQAAAAAAAAAAB4AAAAEsAAAA+gAABlMAAAO1cS6FcS+HcTBScTFYCQAAAHZpZXdfdHlwZXEy
 SwF1Lg==
 </properties>
 		<properties format="pickle" node_id="38">gAN9cQAoWAcAAABFTDFfQU5HcQFHQBOPXCj1wo9YBwAAAEVMMV9ERUZxAksAWAcAAABFTDFfREVO
@@ -987,6 +995,61 @@ X2ZpbGVxK1gYAAAAL2hvbWUvc3Jpby9PYXN5cy9sZW5zLmg1cSxYHQAAAHRoaW5fb2JqZWN0X2Jh
 Y2tfcHJvZmlsZV9mbGFncS1LAFgQAAAAdGhpbl9vYmplY3RfZmlsZXEuWBgAAAAvaG9tZS9zcmlv
 L09hc3lzL2xlbnMuaDVxL1gnAAAAdGhpbl9vYmplY3RfdGhpY2tuZXNzX291dHNpZGVfZmlsZV9h
 cmVhcTBHAAAAAAAAAABYCQAAAHZpZXdfdHlwZXExSwF1Lg==
+</properties>
+		<properties format="pickle" node_id="47">gAN9cQAoWAgAAABFTkVSX01BWHEBTUofWAgAAABFTkVSX01JTnECTTYfWAYAAABFTkVSX05xA03Q
+B1gNAAAARU5FUl9TRUxFQ1RFRHEETUAfWAkAAABGSUxFX0RVTVBxBUsAWAgAAABIX01JTExFUnEG
+SwFYCAAAAEtfTUlMTEVScQdLAVgIAAAATF9NSUxMRVJxCEsBWAYAAABNRVRIT0RxCUsAWBQAAABN
+TF9HUkFaSU5HX0FOR0xFX0RFR3EKRz/gAAAAAAAAWAoAAABNTF9INV9GSUxFcQtYEAAAAG11bHRp
+bGF5ZXJQZEMuaDVxDFgNAAAATl9SRUZMRUNUSU9OU3ENSwFYDAAAAFBPTEFSSVpBVElPTnEOSwFY
+BgAAAFNPVVJDRXEPSwBYCwAAAFNPVVJDRV9GSUxFcRBYAQAAAD9xEVgFAAAAVEhJQ0txEksPWAQA
+AABUWVBFcRNLA1gTAAAAc2F2ZWRXaWRnZXRHZW9tZXRyeXEUY3NpcApfdW5waWNrbGVfdHlwZQpx
+FVgMAAAAUHlRdDUuUXRDb3JlcRZYCgAAAFFCeXRlQXJyYXlxF0NCAdnQywADAAAAAAFaAAABTAAA
+BoEAAAQsAAABWgAAAXEAAAaBAAAELAAAAAAAAAAAB4AAAAFaAAABcQAABoEAAAQscRiFcRmHcRpS
+cRtYCQAAAHZpZXdfdHlwZXEcSwF1Lg==
+</properties>
+		<properties format="pickle" node_id="48">gAN9cQAoWAgAAABFTkVSX01BWHEBTUofWAgAAABFTkVSX01JTnECTTYfWAYAAABFTkVSX05xA03Q
+B1gNAAAARU5FUl9TRUxFQ1RFRHEETUAfWAkAAABGSUxFX0RVTVBxBUsAWAgAAABIX01JTExFUnEG
+SwFYCAAAAEtfTUlMTEVScQdLAVgIAAAATF9NSUxMRVJxCEsBWAYAAABNRVRIT0RxCUsAWBQAAABN
+TF9HUkFaSU5HX0FOR0xFX0RFR3EKRz/gAAAAAAAAWAoAAABNTF9INV9GSUxFcQtYEAAAAG11bHRp
+bGF5ZXJQZEMuaDVxDFgNAAAATl9SRUZMRUNUSU9OU3ENSwFYDAAAAFBPTEFSSVpBVElPTnEOSwBY
+BgAAAFNPVVJDRXEPSwBYCwAAAFNPVVJDRV9GSUxFcRBYAQAAAD9xEVgFAAAAVEhJQ0txEksPWAQA
+AABUWVBFcRNLA1gTAAAAc2F2ZWRXaWRnZXRHZW9tZXRyeXEUY3NpcApfdW5waWNrbGVfdHlwZQpx
+FVgMAAAAUHlRdDUuUXRDb3JlcRZYCgAAAFFCeXRlQXJyYXlxF0NCAdnQywADAAAAAAlVAAABugAA
+DnwAAAR1AAAJVQAAAboAAA58AAAEdQAAAAEAAAAAB4AAAAlVAAABugAADnwAAAR1cRiFcRmHcRpS
+cRtYCQAAAHZpZXdfdHlwZXEcSwF1Lg==
+</properties>
+		<properties format="pickle" node_id="49">gAN9cQAoWAwAAABhdXRvX2V4ZWN1dGVxAYlYEgAAAGN1cnJlbnRTY3JpcHRJbmRleHECSwBYCQAA
+AGZvbnRfc2l6ZXEDSwRYEQAAAGxpYnJhcnlMaXN0U291cmNlcQRdcQVjb2FzeXMud2lkZ2V0cy50
+b29scy5vd19weXRob25fc2NyaXB0ClNjcmlwdApxBimBcQd9cQgoWAQAAABuYW1lcQlYCQAAAG92
+ZXJwbG90MXEKWAYAAABzY3JpcHRxC1haAQAAZGF0YSA9IGluX29iamVjdF8xLmdldF9jb250ZW50
+cygieG9wcHlfZGF0YSIpCnByaW50KGRhdGEuc2hhcGUpCgojCiMgZXhhbXBsZSBwbG90cwojCmZy
+b20gc3J4cmF5bGliLnBsb3QuZ29sIGltcG9ydCBwbG90CnBsb3QoZGF0YVs6LCAwXSwgZGF0YVs6
+LCAxXSwKICAgIGRhdGFbOiwgMF0sIGRhdGFbOiwgMl0gKiBkYXRhWzosIDFdLm1heCgpLAogICAg
+ZGF0YVs6LCAwXSwgZGF0YVs6LCAtMV0sCiAgICB4dGl0bGU9IlBob3RvbiBFbmVyZ3kgW2VWXSIs
+CiAgICBsZWdlbmQ9WyJJbnB1dCIsIlJlZmxlY3Rpdml0eSBbYS51Ll0iLCJPdXRwdXQiXSwKICAg
+IHRpdGxlPSdTcGVjdHJhbCBQb3dlciBbVy9lVl0nKXEMWAUAAABmbGFnc3ENSwBYCAAAAGZpbGVu
+YW1lcQ5OdWJhWBMAAABzYXZlZFdpZGdldEdlb21ldHJ5cQ9jc2lwCl91bnBpY2tsZV90eXBlCnEQ
+WAwAAABQeVF0NS5RdENvcmVxEVgKAAAAUUJ5dGVBcnJheXESQ0IB2dDLAAMAAAAAB68AAAFGAAAK
+zwAAA9QAAAevAAABawAACs8AAAPUAAAAAQAAAAAHgAAAB68AAAFrAAAKzwAAA9RxE4VxFIdxFVJx
+FlgNAAAAc3BsaXR0ZXJTdGF0ZXEXTnUu
+</properties>
+		<properties format="pickle" node_id="50">gAN9cQAoWAgAAABESVNUQU5DRXEBR0A9AAAAAAAAWBcAAABFTEVDVFJPTkJFQU1ESVZFUkdFTkNF
+SHECY251bXB5LmNvcmUubXVsdGlhcnJheQpzY2FsYXIKcQNjbnVtcHkKZHR5cGUKcQRYAgAAAGY4
+cQWJiIdxBlJxByhLA1gBAAAAPHEITk5OSv////9K/////0sAdHEJYkMIiUrcU4GI0T5xCoZxC1Jx
+DFgXAAAARUxFQ1RST05CRUFNRElWRVJHRU5DRVZxDWgDaAdDCIWyGwaTRcA+cQ6GcQ9ScRBYEQAA
+AEVMRUNUUk9OQkVBTVNJWkVIcRFoA2gHQwjWqSOgnCP+PnEShnETUnEUWBEAAABFTEVDVFJPTkJF
+QU1TSVpFVnEVaANoB0MICF+Rgnmf1T5xFoZxF1JxGFgPAAAARUxFQ1RST05DVVJSRU5UcRlHP8mZ
+mZmZmZpYDgAAAEVMRUNUUk9ORU5FUkdZcRpHQBgAAAAAAABYFAAAAEVMRUNUUk9ORU5FUkdZU1BS
+RUFEcRtHP1BiTdLxqfxYBAAAAEdBUEhxHEc/ZHrhR64Ue1gLAAAAR0FQSF9DRU5URVJxHUcAAAAA
+AAAAAFgEAAAAR0FQVnEeRz9UeuFHrhR7WAsAAABHQVBWX0NFTlRFUnEfRwAAAAAAAAAAWAIAAABL
+SHEgRwAAAAAAAAAAWAYAAABLUEhBU0VxIUcAAAAAAAAAAFgCAAAAS1ZxIkdAAPI3BHkLhVgGAAAA
+TUVUSE9EcSNLAlgIAAAATlBFUklPRFNxJEuGWAgAAABQRVJJT0RJRHElRz+TC+De0ojOWA8AAABQ
+SE9UT05FTkVSR1lNQVhxJkdBEk+AAAAAAFgPAAAAUEhPVE9ORU5FUkdZTUlOcSdHQKdwAAAAAABY
+EgAAAFBIT1RPTkVORVJHWVBPSU5UU3EoTXEXWA0AAABVU0VFTUlUVEFOQ0VTcSlLAVgTAAAAc2F2
+ZWRXaWRnZXRHZW9tZXRyeXEqY3NpcApfdW5waWNrbGVfdHlwZQpxK1gMAAAAUHlRdDUuUXRDb3Jl
+cSxYCgAAAFFCeXRlQXJyYXlxLUNCAdnQywADAAAAAAEsAAAA+gAABlMAAAO1AAABLAAAAPoAAAZT
+AAADtQAAAAAAAAAAB4AAAAEsAAAA+gAABlMAAAO1cS6FcS+HcTBScTFYCQAAAHZpZXdfdHlwZXEy
+SwF1Lg==
 </properties>
 	</node_properties>
 </scheme>
