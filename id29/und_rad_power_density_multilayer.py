@@ -202,7 +202,8 @@ class MultilayerMirror:
 
         return data
 
-    def plot_spectrum(self, type='incoming'):
+    # TODO: Split calc 1D spectrum and plot spectrum
+    def plot_spectrum(self, type='incoming', shift_e = None):
         """ Plots a spectrum from a given 3D data
         Parameters
         ----------
@@ -264,6 +265,11 @@ class MultilayerMirror:
             if np.array_equal(e,e2) == False:   
                 r = np.interp(e, e2, r)    
                 
+            energy_step = e[2]-e[1]
+            if shift_e is not None:
+                d_roll = round(shift_e/energy_step)
+                r = np.roll(r, d_roll)
+            
             fig, ax1 = plt.subplots()
             ax1.set_xlabel('Photon energy [eV]')
             ax1.set_ylabel("Flux [photons/s/0.1%bw]", color='r', fontsize=f_size)
@@ -281,7 +287,7 @@ class MultilayerMirror:
         else:
             raise RuntimeError('type of spectrum not reconized')                         
 
-
+    
     def plot_ref(self):
         """ Plots the multilayer reflectivity from the input file """
 
@@ -294,7 +300,8 @@ class MultilayerMirror:
         plt.yticks(fontsize=f_size)
         plt.show()
     
-    def calc_mirror_power(self, kind='trans', plot=False, save_data=False):
+    # TODO: Split calc 2D power and plot 2D
+    def calc_mirror_power(self, kind='trans', plot=False, save_data=False, shift_e = None):
         """Gets the 3D data weighted using multilayer mirror reflectivity,
         have the option to plot and directly save the power dentisty data
         as CSV or H5File
@@ -326,7 +333,11 @@ class MultilayerMirror:
             r = np.interp(e, e2, r)
         
         energy_step = e[1] - e[0]
-
+        
+        if shift_e is not None:
+            d_roll = round(shift_e/energy_step)
+            r = np.roll(r, d_roll)
+        
         input_data = self.get_und_rad_data()
 
         data3d = np.zeros_like(input_data)
@@ -502,6 +513,25 @@ class MultilayerMirror:
 
         return data3d
 
+    def calc_1d_absorption(self, shift_e = None):
+        b = self.calc_mirror_power(kind='abs', plot=False, save_data=False, shift_e = shift_e)
+        x = self.get_und_rad_axis('x')
+        y = self.get_und_rad_axis('y')
+        e = self.get_und_rad_axis('e')
+        b = np.trapz(b,e,axis=0) * codata.e * 1e3
+        if self.reflection == 'horizontal':
+            x = x/np.sin(np.deg2rad(self.angle))
+            b = np.trapz(b,y,axis=1)/(y.max()-y.min())
+            return x, b
+        elif self.reflection == 'vertical':
+            y = y/np.sin(np.deg2rad(self.angle))
+            b = np.trapz(b,x,axis=0)/(x.max()-x.min())
+            return y, b
+        else:
+            print('Not the right reflection set!')
+        
+        
+
 def add_2d_plot(data2d_list, h, v, save_file=False):
 
     # just in case it has different energy steps    
@@ -528,6 +558,8 @@ def add_2d_plot(data2d_list, h, v, save_file=False):
     #TODO: implement save file
 
 if __name__=="__main__":
-    pass
-    #id29_ml_mirror = MultilayerMirror('11.56keV_und_rad_ESRF_ID29_EBS_CPMU16_4.h5', 'ml_ref_Pb-B4C-C_9_100keV.txt', 1.06, reflection='horizontal')
-    #b = id29_ml_mirror.calc_mirror_power(kind='abs', plot=True, save_data=False)
+    # pass
+    # id29_ml_mirror = MultilayerMirror('ID29_CPMU16.4_d30m_K1.325.h5', 'Pd1.36_B4C0.8_C0.8-11keV-th1.12deg.txt', 1.12, reflection='horizontal')
+    id29_ml_mirror = MultilayerMirror('und_rad-K1.325-E11.0keV/und_rad-K1.325-n4851-H101-V51.h5', 'Pd1.36_B4C0.8_C0.8-11keV-th1.12deg.txt', 1.12, reflection='horizontal')
+    # id29_ml_mirror = MultilayerMirror('ID29_CPMU16.4_d30m_K1.325.h5', 'Ti_Cr_B4C-E11keV-th1.176deg.txt', 1.1176, reflection='horizontal')
+    b = id29_ml_mirror.calc_mirror_power(kind='abs', plot=True, save_data=False)
