@@ -51,7 +51,7 @@ def run_PP(ASYMMETRY_ANGLE=70.0, E0=100000.0):
         THICKNESS=0.2,
         MOSAIC_FWHM=0.1,
         RSAG=15000.0,
-        RMER=1500.0,
+        RMER=4200.0,
         ANISOTROPY=0,
         POISSON=0.22,
         CUT="2 -1 -1 ; 1 1 1 ; 0 0 0",
