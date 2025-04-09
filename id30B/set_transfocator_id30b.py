@@ -11,7 +11,7 @@ def transfocator_calculate_focal_distance(deltas=[0.999998], nlenses=[1], radii=
     return 1.0 / inverse_focal_distance
 
 
-def run_shadow4(
+def run_beamline(
         n_lens=[1, 2, 4, 8, 1, 2, 1],
         piling_thickness=[0.003, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003],  # syned stuff
         material=['Be', 'Be', 'Be', 'Be', 'Be', 'Be', 'Be'],
@@ -214,18 +214,18 @@ if __name__ == "__main__":
     #
     # analytical calculations
     #
+
+    focal_distance = transfocator_calculate_focal_distance(nlenses=n_lens, deltas=deltas, radii=radius)
+    focal_q = 1.0/( (1.0 / focal_distance) - (1.0 / tf_p) )
+    demagnification_factor = tf_p / focal_q
+
+    print("\n=============== ANALYTICAL CALCULATIONS ================================")
+    print("Photon energy is: %f eV" % (photon_energy_ev))
+    print("Focal distance is: %f m" % (focal_distance))
+    print("for p: %f m we get focal q at: %f m (%f m from q position that was %f m)" % (tf_p, focal_q, focal_q - tf_q, tf_q))
+    print("Demagnification factor: %f" % (demagnification_factor))
+
     if 1:
-        focal_distance = transfocator_calculate_focal_distance(nlenses=n_lens, deltas=deltas, radii=radius)
-        focal_q = 1.0/( (1.0 / focal_distance) - (1.0 / tf_p) )
-        demagnification_factor = tf_p / focal_q
-
-        print("\n=============== ANALYTICAL CALCULATIONS ================================")
-        print("Photon energy is: %f eV" % (photon_energy_ev))
-        print("Focal distance is: %f m" % (focal_distance))
-        print("for p: %f m we get focal q at: %f m (%f m from q position that was %f m)" % (tf_p, focal_q, focal_q - tf_q, tf_q))
-        print("Demagnification factor: %f" % (demagnification_factor))
-
-
         #
         # shadow calculations
         #
@@ -244,13 +244,19 @@ if __name__ == "__main__":
         print(">>>>> empty_space_after_last_interface: ", empty_space_after_last_interface)
         # print(">>>>>>> deltas: ", deltas)
 
-        beam = run_shadow4()
 
+        from srxraylib.plot.gol import plot, plot_image, plot_image_with_histograms, plot_show
 
+        # WARNING: NO incremental result allowed!!"
+        beam = run_beamline()
 
+        ticket = beam.histo2(1, 3, nbins_h=100, nbins_v=100, xrange=[-0.0019283344812185753, 0.0019074550298156779],
+                             yrange=[-0.0019283344812185753, 0.0019074550298156779], nolost=1, ref=23)
 
+        title = "I: %.1f " % ticket['intensity']
+        if ticket['fwhm_h'] is not None: title += "FWHM H: %f " % ticket['fwhm_h']
+        if ticket['fwhm_v'] is not None: title += "FWHM V: %f " % ticket['fwhm_v']
 
-
-
-
-
+        plot_image_with_histograms(ticket['histogram'], ticket['bin_h_center'], ticket['bin_v_center'],
+                                   title=title, xtitle="column 1", ytitle="column 3",
+                                   cmap='jet', add_colorbar=True, figsize=(8, 8), histo_path_flag=1, show=1)
