@@ -5,9 +5,11 @@ Created on Sun Apr 13 20:52:08 2025
 @author: BRUMUND
 """
 import pandas as pd
+import numpy as np
+
 pd.options.mode.chained_assignment = None  # default='warn'
 
-def run_beamline(undulator, ml1_deform = 'none', ml2_deform = 'none'):
+def run_beamline(undulator, ml1_deform = 'none', ml2_deform = 'none', ml_angle = 1.12, ml1_length = 100):
     print(f'running beamline with: ml1:{ml1_deform}, ml2:{ml2_deform}, id={undulator["id"]}, nrays={undulator["nrays"]}')
     
     from shadow4.beamline.s4_beamline import S4Beamline
@@ -20,14 +22,19 @@ def run_beamline(undulator, ml1_deform = 'none', ml2_deform = 'none'):
     
     # optical element number 01 - ML1
     from syned.beamline.shape import Rectangle
-    boundary_shape = Rectangle(x_left=-0.000496, x_right=0.000496, y_bottom=-0.0496, y_top=0.0496)
+    if ml1_length == 100:
+        boundary_shape = Rectangle(x_left=-0.000496, x_right=0.000496, y_bottom=-0.0496, y_top=0.0496)
+    if ml1_length != 100:
+        boundary_shape = Rectangle(x_left=-0.000496, x_right=0.000496, y_bottom=-ml1_length/2000, y_top=ml1_length/2000)
        
     from shadow4.beamline.optical_elements.multilayers.s4_plane_multilayer import S4PlaneMultilayer
     optical_element = S4PlaneMultilayer(name='Plane Multilayer',boundary_shape=boundary_shape,
         f_refl=2,file_refl='C:/Users/brumund/Work Folders/Documents/Oasys/working_directory/Pd1.36_B4C0.8_C0.8-11keV-th1.12deg-shifted_60eV.txt', structure='[C,Pt]x30+Si', period=50.000000, Gamma=0.400000)
     
+    ml_angle_normal = np.pi/2 - np.deg2rad(ml_angle) # ml_angle wrt normal
+    
     from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=31.5, q=0.25, angle_radial=1.551248639, angle_azimuthal=1.570796327, angle_radial_out=1.551248639)
+    coordinates = ElementCoordinates(p=31.5, q=0.25, angle_radial=ml_angle_normal, angle_azimuthal=1.570796327, angle_radial_out=ml_angle_normal)
     
     if ml1_deform != 'none':  
         print('considering ml1 deformation: {ml1_deform}')
@@ -60,14 +67,17 @@ def run_beamline(undulator, ml1_deform = 'none', ml2_deform = 'none'):
     
     # optical element number 02 - ML2
     from syned.beamline.shape import Rectangle
-    boundary_shape = Rectangle(x_left=-0.000498018, x_right=0.000496046, y_bottom=-0.0282957, y_top=0.0495699)
+    if ml1_length == 100:
+        boundary_shape = Rectangle(x_left=-0.000498018, x_right=0.000496046, y_bottom=-0.0282957, y_top=0.0495699)
+    if ml1_length != 100:
+        boundary_shape = Rectangle(x_left=-0.000498018, x_right=0.000496046, y_bottom=-0.0282957*ml1_length/100, y_top=0.0495699*ml1_length/100)
        
     from shadow4.beamline.optical_elements.multilayers.s4_plane_multilayer import S4PlaneMultilayer
     optical_element = S4PlaneMultilayer(name='Plane Multilayer',boundary_shape=boundary_shape,
         f_refl=2,file_refl='C:/Users/brumund/Work Folders/Documents/Oasys/working_directory/Pd1.36_B4C0.8_C0.8-11keV-th1.12deg-shifted_60eV.txt', structure='[C,Pt]x30+Si', period=50.000000, Gamma=0.400000)
     
     from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=0.25, q=1, angle_radial=1.551248639, angle_azimuthal=3.141592654, angle_radial_out=1.551248639)
+    coordinates = ElementCoordinates(p=0.25, q=1, angle_radial=ml_angle_normal, angle_azimuthal=3.141592654, angle_radial_out=ml_angle_normal)
     
     if ml2_deform != 'none':  
         print('considering ml2 deformation: {ml2_deform}')
@@ -80,8 +90,6 @@ def run_beamline(undulator, ml1_deform = 'none', ml2_deform = 'none'):
             f_refl=0,file_refl='', structure='[B/W]x50+Si', period=25.000000, Gamma=0.500000)
         
         numerical_mesh_multilayer = optical_element
-        from syned.beamline.shape import Rectangle
-        boundary_shape = Rectangle(x_left=-0.000498018, x_right=0.000496046, y_bottom=-0.0282957, y_top=0.0495699)
         
         from shadow4.beamline.optical_elements.multilayers.s4_additional_numerical_mesh_multilayer import S4AdditionalNumericalMeshMultilayer
         optical_element = S4AdditionalNumericalMeshMultilayer(name='ideal + error Multilayer', ideal_multilayer=ideal_multilayer, numerical_mesh_multilayer=numerical_mesh_multilayer)
@@ -265,23 +273,30 @@ def run_source(undulator = 'cpmu16', nrays = 1e6, ng_e = 31):
     output = {'beam' : beam, 'light_source' : light_source, 'id' : undulator, 'nrays' : nrays}
     return output
 
-def plot_histo2(beam, nbinsh = 100, nbinsv = 100):
+def plot_histo2(beam, nbinsh = 100, nbinsv = 100, aspect = 'equal', xrange = None, yrange = None):
     ticket = beam.histo2(1, 3, nbins_h=nbinsh, nbins_v=nbinsv, nolost=1, ref=22)
     
     title = "I: %.1f " % ticket['intensity']
-    if ticket['fwhm_h'] is not None: title += "FWHM H: %f um " % (ticket['fwhm_h']*1e6)
-    if ticket['fwhm_v'] is not None: title += "FWHM V: %f um" % (ticket['fwhm_v']*1e6)
+    if ticket['fwhm_h'] is not None: title += "FWHM H: %0.3f um " % (ticket['fwhm_h']*1e6)
+    if ticket['fwhm_v'] is not None: title += "FWHM V: %0.3f um" % (ticket['fwhm_v']*1e6)
     
-    plot_image_with_histograms(ticket['histogram'], ticket['bin_h_center'], ticket['bin_v_center'],
-        title=title, xtitle="horizontal (mm)", ytitle="vertical (mm)",
-        cmap='jet', add_colorbar=True, figsize=(8, 8), histo_path_flag=1, show=1)
+    if xrange is None:
+        plot_image_with_histograms(ticket['histogram'], ticket['bin_h_center'], ticket['bin_v_center'],
+            title=title, xtitle="horizontal (m)", ytitle="vertical (m)",
+            cmap='jet', add_colorbar=True, figsize=(12, 8), histo_path_flag=1, show=1, aspect=aspect);
+    else:
+        plot_image_with_histograms(ticket['histogram'], ticket['bin_h_center'], ticket['bin_v_center'],
+            title=title, xtitle="horizontal (m)", ytitle="vertical (m)",
+            cmap='jet', add_colorbar=True, figsize=(12, 8), 
+            histo_path_flag=1, show=1, aspect=aspect, 
+            xrange=xrange, yrange = yrange)
     return 
 
-def run_dataFrame(design_df, nrays = 1e6):
+def run_dataFrame(design_df, nrays = 1e6, ne = 31):
     import numpy as np
     
-    cpmu16 = run_source('cpmu16', nrays)
-    ivu21 = run_source('ivu21', nrays)
+    cpmu16 = run_source('cpmu16', nrays, ne)
+    ivu21 = run_source('ivu21', nrays, ne)
     design_df['int_slit'] = 0
     design_df['fwhmH_slit'] = 0
     design_df['fwhmV_slit'] = 0
@@ -298,20 +313,22 @@ def run_dataFrame(design_df, nrays = 1e6):
         if row['id'] == 'cpmu16': current_id = cpmu16
         if row['id'] == 'ivu21': current_id = ivu21
         beam, beam_slit = run_beamline(current_id,
-                                       ml1_deform=row['ml1_deform'], 
-                                       ml2_deform=row['ml2_deform'])
+                                       ml1_deform = row['ml1_deform'], 
+                                       ml2_deform = row['ml2_deform'],
+                                       ml_angle = row['ml_angle'],
+                                       ml1_length = row['ml1_length'])
         ticket_slit = beam_slit.histo2(1, 3, nbins=500, nolost=1, ref=22)
         ticket = beam.histo2(1, 3, nbins=500, nolost=1, ref=22)
         design_df['int_slit'][i] = ticket_slit['intensity']
         design_df['fwhmH_slit'][i] = ticket_slit['fwhm_h']
         design_df['fwhmV_slit'][i] = ticket_slit['fwhm_v']
-        design_df['centrH_slit'] = np.average(ticket_slit['fwhm_coordinates_h'])
-        design_df['centrV_slit'] = np.average(ticket_slit['fwhm_coordinates_v'])
+        design_df['centrH_slit'][i] = np.average(beam_slit.get_column(1, nolost=1), weights=beam_slit.get_column(23, nolost=1))
+        design_df['centrV_slit'][i] = np.average(beam_slit.get_column(3, nolost=1), weights=beam_slit.get_column(23, nolost=1))
         design_df['int'][i] = ticket['intensity']
         design_df['fwhmH'][i] = ticket['fwhm_h']
         design_df['fwhmV'][i] = ticket['fwhm_v']
-        design_df['centrH'] = np.average(ticket['fwhm_coordinates_h'])
-        design_df['centrV'] = np.average(ticket['fwhm_coordinates_v'])
+        design_df['centrH'][i] = np.average(beam.get_column(1, nolost=1), weights=beam.get_column(23, nolost=1))
+        design_df['centrV'][i] = np.average(beam.get_column(3, nolost=1), weights=beam.get_column(23, nolost=1))
         
         beams.append(beam)
         beams_slit.append(beam_slit)
@@ -323,6 +340,6 @@ from srxraylib.plot.gol import plot, plot_image, plot_image_with_histograms, plo
 
 
 df = pd.read_csv('./design_table.csv')
-out, beams, beams_slit = run_dataFrame(df)
+out, beams, beams_slit = run_dataFrame(df, 1000000, 31)
 # und = run_source(nrays = 1e4, ng_e=3)
 # beam, beam_slit = run_beamline(und)
