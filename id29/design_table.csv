@@ -1,0 +1,7 @@
+﻿id,ml1_deform,ml2_deform,nrays
+cpmu16,none,none,1000000
+cpmu16,ID29-ML1-CPMU16-11keV-lat.h5,ID29-ML2-CPMU16-11keV-lat.h5,1000000
+cpmu16,ID29-ML1-CPMU16-11keV-plus_front_face_full.h5,ID29-ML2-CPMU16-11keV-lat-plus_front_face.h5,1000000
+ivu21,none,none,1000000
+ivu21,ID29-ML1-IVU21-11keV-lat.h5,ID29-ML2-IVU21-11keV-lat.h5,1000000
+ivu21,ID29-ML1-IVU21-11keV-lat-plus_front_face_full.h5,ID29-ML2-IVU21-11keV-lat-plus_front_face.h5,1000000
