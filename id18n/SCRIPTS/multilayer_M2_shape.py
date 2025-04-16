@@ -1,238 +1,111 @@
+# calculation of the multilayer shape (see https://confluence.esrf.fr/display/id18nanotomo/Multilayer+Monochromator )
+
 import numpy
 from srxraylib.plot.gol import plot, plot_show
 
-
-def pos(theta, theta0=0.0, d=1.0):
-    return d / numpy.sin(theta) * numpy.cos(theta) - d / numpy.sin(theta0) * numpy.cos(theta0)
-
-def angle_from_pos(pos, theta0=0.0, d=1.0):
-    return numpy.arctan(1.0 / (pos / d + 1.0 / numpy.tan(theta0)))
-
-
-def calc1():
-    theta0 = numpy.radians(0.3)
-    theta1 = numpy.radians(0.2)
-    theta2 = numpy.radians(0.4)
-
-    d = 0.004
-
-    M2 = 31.5
-
-    d_M1M2 = d / numpy.sin(theta0)
-    M1 = 31.5 - d_M1M2
-
-    pos0 = pos(theta0, theta0=theta0, d=d)  # d / numpy.sin(theta0) * numpy.cos(theta0) -  d_M1M2 * numpy.cos(theta0)
-    pos1 = pos(theta1, theta0=theta0, d=d)  # d / numpy.sin(theta1) * numpy.cos(theta1) -  d_M1M2 * numpy.cos(theta0)
-    pos2 = pos(theta2, theta0=theta0, d=d)  # d / numpy.sin(theta2) * numpy.cos(theta2) -  d_M1M2 * numpy.cos(theta0)
-
-    print("d [m] = ", d)
-    print("M1 [m] = ", M1)
-    print("M2 [m] = ", M2)
-    print("d_M1M2 [m] = ", d_M1M2)
-    print("pos0 [m] = ", pos0)
-    print("pos1 [m] = ", pos1)
-    print("pos2 [m] = ", pos2)
-
-    q0 = 54.0 - 31.5
-    q1 = q0 - pos1 / numpy.cos(theta1)
-    q2 = q0 - pos2 / numpy.cos(theta2)
-
-    R0 = 2 / ((1/M2 + 1/q0) * numpy.sin(theta0))
-    R1 = 2 / ((1/M2 + 1/q1) * numpy.sin(theta1))
-    R2 = 2 / ((1/M2 + 1/q2) * numpy.sin(theta2))
-
-
-    print("q0 [m] = ", q0)
-    print("q1 [m] = ", q1)
-    print("q2 [m] = ", q2)
-
-
-    print("R0 [m] = ", R0)
-    print("R1 [m] = ", R1)
-    print("R2 [m] = ", R2)
-
-    th0 = angle_from_pos(pos0, theta0=theta0, d=d)  # numpy.arctan( 1.0 / (pos0 / d + 1.0 / numpy.tan(theta0) ))
-    th1 = angle_from_pos(pos1, theta0=theta0, d=d)  # numpy.arctan( 1.0 / (pos1 / d + 1.0 / numpy.tan(theta0) ))
-    th2 = angle_from_pos(pos2, theta0=theta0, d=d)  # numpy.arctan( 1.0 / (pos2 / d + 1.0 / numpy.tan(theta0) ))
-
-    print(theta0, th0)
-    print(theta1, th1)
-    print(theta2, th2)
-
-    npoints = 200
-    xpos = numpy.linspace(pos2, pos1, npoints)
-    thetapos = angle_from_pos(xpos, theta0=theta0, d=d)
-    qpos = q0 - xpos / numpy.cos(thetapos)
-    Rpos = 2 / ((1/M2 + 1/qpos) * numpy.sin(thetapos))
-
-    from srxraylib.plot.gol import plot
-    plot(xpos, Rpos, xtitle="position on M2 [m]", ytitle="R[m]", show=0)
-
-    coeff = numpy.polynomial.polynomial.polyfit(xpos, Rpos, 1)
-    print(coeff)
-
-    plot(xpos, Rpos,
-         xpos, xpos * coeff[1] + coeff[0], xtitle="position on M2 [m]", ytitle="R[m]")
-
-
-    plot(xpos, numpy.cumsum(1/Rpos), xtitle="position on M2 [m]", ytitle="height [m]", show=0)
-
-
-    R00 = coeff[0]
-    alpha00 = coeff[1]
-    ss = R00 + alpha00 * xpos
-    yy = (ss * numpy.log(numpy.abs(ss)) - ss)/ alpha00**2
-
-    plot(xpos, yy, xtitle="position on M2 [m]", ytitle="fit height [m]")
-
-    plot(xpos, 1.0 / numpy.gradient(yy, xpos), xtitle="position on M2 [m]", ytitle="R from slope []")
-
-def integral_result(x, R, c):
-    if c == 0:
-        return x**2 / (2 * R)  # Special case for c = 0
-    else:
-        return ((R + c*x)**2) / (2 * R * c) - (R / c**2) * numpy.log(numpy.abs(R + c*x))
+def h(x, Alpha=1.0, c1=0, c2=0):
+    return Alpha * x * (numpy.log(x) - 1) + c1 * x + c2
 
 if __name__ == "__main__":
-    # calc1()
 
+    offset = 0.006
+    offset_crystals = offset / 2
+    SecS = 54.4
+    p = 29.5
+    q = SecS - p # 24.9
+    M1_length = 0.300
+    print('p, q, offset_crystals: ', p, q, offset_crystals)
 
-    d = 0.003
-    M1 = 29.000
-    M2 = 29.700
-    L_M2 = 0.8
+    f = 1.0 / (1 / p + 1 / q)
+    print("f: ", f )
 
-    thetaN = numpy.arctan(d / (M2 - M1))
-    M1M2 = numpy.sqrt(d**2 + (M2 - M1)**2)
+    theta_min = 3.5e-3
+    theta_max = 7e-3
 
-    # pos0 = pos(theta0, theta0=theta0,
-    #            d=d)  # d / numpy.sin(theta0) * numpy.cos(theta0) -  d_M1M2 * numpy.cos(theta0)
-    # pos1 = pos(theta1, theta0=theta0,
-    #            d=d)  # d / numpy.sin(theta1) * numpy.cos(theta1) -  d_M1M2 * numpy.cos(theta0)
-    # pos2 = pos(theta2, theta0=theta0,
-    #            d=d)  # d / numpy.sin(theta2) * numpy.cos(theta2) -  d_M1M2 * numpy.cos(theta0)
+    print("angle limits: ", theta_min, theta_max, "in degrees: ", numpy.degrees(theta_min), numpy.degrees(theta_max))
 
-    print("d [m] = ", d)
-    print("M1 [m] = ", M1)
-    print("M2 [m] = ", M2)
-    print("M1M2 [m] = ", M1M2)
-    print("Nominal thetaN [deg] = ", numpy.degrees(thetaN))
+    x_min = offset_crystals / numpy.sin(theta_max) * numpy.cos(theta_max)
+    x_max = offset_crystals / numpy.sin(theta_min) * numpy.cos(theta_min)
+    x_0 = 0.5 * (x_min + x_max)
+    M2_length = (x_max - x_min) + M1_length
+    print("x limits: ", x_min, x_max, x_0, M2_length)
 
-    theta1 = numpy.radians(0.2)
-    theta2 = numpy.radians(0.4)
-    # theta11 = numpy.arctan( 1.0 / (-L_M2 / d + numpy.cos(thetaN) / numpy.sin(thetaN)) )
-    # theta22 = numpy.arctan( 1.0 / ( L_M2 / d + numpy.cos(thetaN) / numpy.sin(thetaN)))
-    # theta22 = numpy.arcsin(1.0 / (-L_M2 / 2 + 1.0 / numpy.sin(thetaN)))
-    # print("theta1, theta11 [deg] = ", numpy.degrees(theta1), numpy.degrees(theta11),)
-    # print("theta2, theta22 [deg] = ", numpy.degrees(theta2), numpy.degrees(theta22),)
+    theta_0 = numpy.arctan(offset_crystals / x_0)
+    print("theta_0 = ", theta_0)
 
-    xN = d * numpy.cos(thetaN) / numpy.sin(thetaN)
-    x1 = d * numpy.cos(theta1) / numpy.sin(theta1)
-    x2 = d * numpy.cos(theta2) / numpy.sin(theta2)
-    print("x2, xN, X1, x1-x2 = ", x2, xN, x1, x1-x2)
-    print("x2-xN, xN-xN, x1-xN = ", x2-xN, xN-xN, x1-xN)
+    npoints = 100
+    Alpha = offset / 4 / f
+    x = numpy.linspace(x_0 - 0.5 * M2_length, x_0 + 0.5 * M2_length, npoints)
 
-    xpos = numpy.linspace(x2-xN, x1-xN, 100)
-    thetapos = angle_from_pos(xpos, theta0=thetaN, d=d)
-    plot(thetapos, numpy.degrees(thetapos), xtitle="position on M2 [m]", ytitle="angle [deg]", show=0)
-
-    q0 = 54.0 - M2
-    qpos = q0 - xpos / numpy.cos(thetapos)
-    Rpos = 2 / ((1 / M2 + 1 / qpos) * numpy.sin(thetapos))
-    RN = 2 / ((1 / M2 + 1 / q0) * numpy.sin(thetaN))
-    print("RN = ", RN)
-
-    # plot(xpos, Rpos, xtitle="position on M2 [m]", ytitle="R[m]")
-
-    # linear fot or R
-    coeff = numpy.polynomial.polynomial.polyfit(xpos, Rpos, 1)
-    print(coeff)
-    R00 = coeff[0]
-    alpha00 = coeff[1]
-    ss = R00 + alpha00 * xpos
-    plot(xpos, Rpos, xpos, ss, xtitle="position on M2 [m]", ytitle="R[m]", legend=['calculated', 'linear fit'], show=0)
-
-    y0 = RN * (1 - numpy.sqrt(1 - (xpos / RN)**2 ))
-
-
-    y0series = xpos**2 / (2 * RN)
-
-
-    ii = numpy.argmin(numpy.abs(Rpos - R00))
-    print('ii: ', ii)
-    y = ((R00 + alpha00 * xpos) / alpha00) - (R00 / alpha00) * numpy.log(numpy.abs(R00 + alpha00 * xpos))
-    y2 = integral_result(xpos, R00, alpha00)
-
-    coeff2 = numpy.polynomial.polynomial.polyfit(xpos, y2, 1)
-    y2_base = coeff2[0] + xpos * coeff2[1]
-    y2 = y2 - y2_base
-    y2 = y2 - y2[ii]
-
-
-
-    plot(xpos, y0,
-         xpos, y0series,
-         xpos, y - y[ii],
-         xpos, y2 - y2,
-         legend=['fix exact', 'fix series', 'variable', 'variable 2'], ylog=1)
-
-
-    # plot(xpos, yy, xtitle="position on M2 [m]", ytitle="fit height [m]")
-    # plot(xpos, 1.0 / numpy.gradient(yy, xpos), xtitle="position on M2 [m]", ytitle="R from slope []")
-
-
-
-
-    # print("pos0 [m] = ", pos0)
-    # print("pos1 [m] = ", pos1)
-    # print("pos2 [m] = ", pos2)
     #
-    # q0 = 54.0 - 31.5
-    # q1 = q0 - pos1 / numpy.cos(theta1)
-    # q2 = q0 - pos2 / numpy.cos(theta2)
+    # get c1, c2
     #
-    # R0 = 2 / ((1 / M2 + 1 / q0) * numpy.sin(theta0))
-    # R1 = 2 / ((1 / M2 + 1 / q1) * numpy.sin(theta1))
-    # R2 = 2 / ((1 / M2 + 1 / q2) * numpy.sin(theta2))
+    print(h(x_min, Alpha=Alpha))
+    print(h(x_max, Alpha=Alpha))
+    slope = (h(x_max, Alpha=Alpha) - h(x_min, Alpha=Alpha)) / (x_max - x_min)
+    c1 = -numpy.tan(slope)
+
+    c2 = -numpy.min(h(x, Alpha=Alpha, c1=c1))
+    print('Alpha: ', Alpha)
+    print('c1, c2: ', c1, c2)
+
+
     #
-    # print("q0 [m] = ", q0)
-    # print("q1 [m] = ", q1)
-    # print("q2 [m] = ", q2)
+    # shadow parameters:
     #
-    # print("R0 [m] = ", R0)
-    # print("R1 [m] = ", R1)
-    # print("R2 [m] = ", R2)
+    slit = 27.3
+    p1 = (p - slit)
+    D = x_0 / numpy.cos(theta_0)
+    q1 = 0.5 * D
+    p2 = q1
+    q2 = SecS - (slit + p1 + q1 + p2)
+    print("==============SHADOW parameters: ==================")
+    print("entrance slit at: ", slit)
+    print("p1, q1: ", p1, q1)
+    print("D (inter-mirror distance along the beam): ", D, x_0)
+    print("p2, q2: ", p2, q2)
+    print("theta_0 [mrad]", 1e3 * theta_0)
+    print("Radius: ", 2 * f / numpy.sin(theta_0))
+    print("Demagnification: ", q / p)
+    print("M2 focal distances: ", slit + p1 + q1 + p2, q2)
+    print("Magnification: ", q / p, q2 / (slit + p1 + q1 + p2))
+    print("Size at SecS: ", 64.8 * q / p, 64.8 * q2 / (slit + p1 + q1 + p2))
+    print("Limits in y: ", x.min() - x_0, x.max() - x_0)
+
+
+    yy = (x - x_0)
+    zz = h(x, Alpha=Alpha, c1=c1, c2=c2)
+
     #
-    # th0 = angle_from_pos(pos0, theta0=theta0, d=d)  # numpy.arctan( 1.0 / (pos0 / d + 1.0 / numpy.tan(theta0) ))
-    # th1 = angle_from_pos(pos1, theta0=theta0, d=d)  # numpy.arctan( 1.0 / (pos1 / d + 1.0 / numpy.tan(theta0) ))
-    # th2 = angle_from_pos(pos2, theta0=theta0, d=d)  # numpy.arctan( 1.0 / (pos2 / d + 1.0 / numpy.tan(theta0) ))
+    # write oasys surface file
     #
-    # print(theta0, th0)
-    # print(theta1, th1)
-    # print(theta2, th2)
+
+    npoints_x = 21
+    xx = numpy.linspace(-0.005, 0.005, npoints_x)
+    Z = numpy.outer(numpy.ones_like(xx), zz)
+
+    from shadow4.optical_surfaces.s4_mesh import S4Mesh
+    m = S4Mesh(surface = None,
+                 mesh_x=xx,
+                 mesh_y=yy,
+                 mesh_z=Z )
+    m.write_mesh_h5file(xx, yy, filename="M2_shape.h5")
+
     #
-    # npoints = 200
-    # xpos = numpy.linspace(pos2, pos1, npoints)
-    # thetapos = angle_from_pos(xpos, theta0=theta0, d=d)
-    # qpos = q0 - xpos / numpy.cos(thetapos)
-    # Rpos = 2 / ((1 / M2 + 1 / qpos) * numpy.sin(thetapos))
+    # plot final
     #
-    # from srxraylib.plot.gol import plot
-    # plot(xpos, Rpos, xtitle="position on M2 [m]", ytitle="R[m]", show=0)
-    #
-    # coeff = numpy.polynomial.polynomial.polyfit(xpos, Rpos, 1)
-    # print(coeff)
-    #
-    # plot(xpos, Rpos,
-    #      xpos, xpos * coeff[1] + coeff[0], xtitle="position on M2 [m]", ytitle="R[m]")
-    #
-    # plot(xpos, numpy.cumsum(1 / Rpos), xtitle="position on M2 [m]", ytitle="height [m]", show=0)
-    #
-    # R00 = coeff[0]
-    # alpha00 = coeff[1]
-    # ss = R00 + alpha00 * xpos
-    # yy = (ss * numpy.log(numpy.abs(ss)) - ss) / alpha00 ** 2
-    #
-    # plot(xpos, yy, xtitle="position on M2 [m]", ytitle="fit height [m]")
-    #
-    # plot(xpos, 1.0 / numpy.gradient(yy, xpos), xtitle="position on M2 [m]", ytitle="R from slope []")
+    plot(yy, 1e6 * zz, grid=1, xtitle="x [m]", ytitle="Height [um]", show=0)
+    plot(yy, 1e6 * numpy.gradient(zz, yy), grid=1, xtitle="x [m]", ytitle="Slope [urad]", show=0)
+    Curv =  numpy.gradient(numpy.gradient(zz, yy), yy)
+    plot(yy, Curv, grid=1, xtitle="x [m]", ytitle="Curvature [m^-1]", show=0)
+    plot(yy, 1.0 / Curv, grid=1, xtitle="x [m]", ytitle="Radius [m]", show=0)
+
+    # plot(x - x_0, h(x, Alpha=Alpha),
+    #      x - x_0, h(x, Alpha=Alpha, c1=c1),
+    #      x - x_0, h(x, Alpha=Alpha, c1=c1, c2=c2),
+    #      grid=1, show=0)
+
+    plot_show()
+
+
+
