@@ -111,7 +111,7 @@ def wavelength_m(energy_keV):
 
 if __name__ == "__main__":
 
-    beamline = 'ID31'
+    beamline = 'ID11'
     npoints = 21
     E0_keV = 70.0
 
@@ -125,8 +125,8 @@ if __name__ == "__main__":
         THICKNESS = 0.5 # in cm
     elif beamline == 'ID11':
         # ID 31
-        F1 = 32.157
-        THICKNESS = 0.3 # in cm
+        F1 = 31.6
+        THICKNESS = 0.25 # in cm
     else:
         raise NotImplementedError()
 
@@ -202,6 +202,6 @@ if __name__ == "__main__":
          title=title,
          legend=[OUT_LEGEND[0]+" INT REF [eV]", OUT_LEGEND[1]+" INT REF [eV]", OUT_LEGEND[0]+" DE [eV]", OUT_LEGEND[1]+" DE [eV]"],
          ytitle="", xrange=[-90, 90],
-         xtitle="Asymmetry angle [deg]", grid=1, yrange=[0, 100], color=['b','g','b','g'], linestyle=[None,None,':',':'], show=0)
+         xtitle="Asymmetry angle [deg]", grid=1, yrange=[0, 250], color=['b','g','b','g'], linestyle=[None,None,':',':'], show=0)
 
     plot_show()

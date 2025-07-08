@@ -132,9 +132,9 @@ if __name__ == "__main__":
         CHI_ANGLE = - 36.0
     elif beamline == 'ID11':
         # ID 31
-        F1 = 32.157
-        THICKNESS = 0.3 # in cm
-        CHI_ANGLE = -40.0
+        F1 = 31.6
+        THICKNESS = 0.25 # in cm
+        CHI_ANGLE = -12.5
     else:
         raise NotImplementedError()
 
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     #
     # energy scan
     #
-    for ie, E0_keV in enumerate([90.0, 70.0, 50.0]):
+    for ie, E0_keV in enumerate([80.0, 60.0, 40.0]):
         ENERGY = []
         PEAK = []
         FWHM = []
@@ -198,12 +198,12 @@ if __name__ == "__main__":
          R_m, numpy.array(OUT_INTEG[1]),
          R_m, numpy.array(OUT_INTEG[2]),
          title=title, legend=OUT_LEGEND, ytitle='INTEGRATED REFLECTIVITY [eV]', color=['r','g','b'],
-         xtitle="R [m]", grid=1, yrange=[0, 400], show=0)
+         xtitle="R [m]", grid=1, yrange=[0, 200], show=0)
 
     plot(R_m, numpy.array(OUT_BANDWIDTH[0]),
          R_m, numpy.array(OUT_BANDWIDTH[1]),
          R_m, numpy.array(OUT_BANDWIDTH[2]),
          title=title, legend=OUT_LEGEND, ytitle='BANDWIDTH [%]', color=['r','g','b'],
-         xtitle="R [m]", grid=1, yrange=[0, 0.5], show=0)
+         xtitle="R [m]", grid=1, yrange=[0, 0.25], show=0)
 
     plot_show()

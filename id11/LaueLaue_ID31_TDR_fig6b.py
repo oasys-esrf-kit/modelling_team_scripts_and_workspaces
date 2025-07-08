@@ -124,8 +124,8 @@ if __name__ == "__main__":
         CHI_ANGLE = - 36.0
     elif beamline == 'ID11':
         # ID 31
-        F1 = 32.157
-        CHI_ANGLE = -10.0
+        F1 = 31.6
+        CHI_ANGLE = -30 # -12.5
     else:
         raise NotImplementedError()
 
