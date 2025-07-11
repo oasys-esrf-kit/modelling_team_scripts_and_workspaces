@@ -28,12 +28,12 @@ def run_BraggBragg_energy_scan(ASYMMETRY_ANGLE=00.0, E0=100000.0, RMER=1000.0, T
     from xoppylib.crystals.tools import bragg_calc2, run_diff_pat
     import xraylib
     from dabax.dabax_xraylib import DabaxXraylib
-    dx = DabaxXraylib(dabax_repository="./DABAX",
-                 file_f0="f0_InterTables.dat",
-                 file_f1f2="f1f2_WindtWithCompton.dat",
-                 file_CrossSec = "CrossSec_EPDL97.dat",
-                 file_Crystals="Crystals.dat",)
-
+    # dx = DabaxXraylib(dabax_repository="./DABAX",
+    #              file_f0="f0_InterTables.dat",
+    #              file_f1f2="f1f2_WindtWithCompton.dat",
+    #              file_CrossSec = "CrossSec_EPDL97.dat",
+    #              file_Crystals="Crystals.dat",)
+    dx = DabaxXraylib()
     #
     # run bragg_calc (preprocessor) and create file xcrystal.bra
     #
@@ -64,8 +64,8 @@ def run_BraggBragg_energy_scan(ASYMMETRY_ANGLE=00.0, E0=100000.0, RMER=1000.0, T
         GEOMETRY=0,
         SCAN=3,
         UNIT=1,
-        SCANFROM=E0-50,
-        SCANTO  =E0+50,
+        SCANFROM=E0-10,
+        SCANTO  =E0+10,
         SCANPOINTS=2000,
         ENERGY=-E0,
         ASYMMETRY_ANGLE=ASYMMETRY_ANGLE,
@@ -86,7 +86,7 @@ def run_BraggBragg_energy_scan(ASYMMETRY_ANGLE=00.0, E0=100000.0, RMER=1000.0, T
         from srxraylib.plot.gol import plot
         data = numpy.loadtxt("diff_pat.dat", skiprows=5)
         plot(data[:, 0], data[:, -1], data[:, 0], data[:, -2], ytitle='Crystal reflectivity',
-             legend=['s-polarization', 'p-polarization'])
+             legend=['s-polarization', 'p-polarization'], title="E= %f eV" % E0)
 
     #
     # end script
@@ -258,7 +258,7 @@ if __name__ == "__main__":
         integ = numpy.trapz(ref_s, energy)
         bandwidth = 100 * fwhm / (E0_keV * 1e3)
 
-        print("peak, fwhm, int, bandwidth: ", peak, fwhm, integ, bandwidth)
+        print("LL peak, fwhm, int, bandwidth: ", peak, fwhm, integ, bandwidth)
 
         ENERGY.append(E0_keV)
         PEAK.append(peak)
@@ -278,7 +278,7 @@ if __name__ == "__main__":
         integ = numpy.trapz(ref_s, energy)
         bandwidth = 100 * fwhm / (E0_keV * 1e3)
 
-        print("peak, fwhm, int, bandwidth: ", peak, fwhm, integ, bandwidth)
+        print("BB peak, fwhm, int, bandwidth: ", peak, fwhm, integ, bandwidth)
 
         BB_PEAK.append(peak)
         BB_FWHM.append(fwhm)
@@ -304,5 +304,14 @@ if __name__ == "__main__":
          energies_kev, numpy.array(BB_BANDWIDTH),
          title=title, ytitle='BANDWIDTH [%]',
          legend=["LaueLaue %s" % title_laue, "BraggBragg"], color=['r','g'],
-         xtitle="Photon Energy [keV]", grid=1, ylog=1, show=0)
+         xtitle="Photon Energy [keV]", grid=1, ylog=1, yrange=[.001, .5], show=0)
+
+    print(energies_kev)
+    print(BB_FWHM)
     plot_show()
+
+    f = open("LaueLaue_ID11_vs_BraggBragg.txt", 'w')
+    f.write("#Energy/kev LLdeltaEinEV  BBdeltaEineV\n")
+    for i in range(energies_kev.size):
+        f.write("%g  %g  %g \n"  % (energies_kev[i], FWHM[i], BB_FWHM[i]))
+    f.close()
