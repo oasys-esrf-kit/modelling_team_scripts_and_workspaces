@@ -1,12 +1,17 @@
 import os
 import time
+import copy
 import numpy as np
 from scipy.signal import savgol_filter
 import xrt
 
 from xrt.backends.raycing import BeamLine
+
 from xrt.backends.raycing.sources import Undulator
 from xrt.backends.raycing.screens import Screen
+from xrt.backends.raycing.oes import Plate
+from id09_xrt import ToroidMirrorDistorted
+
 from xrt.plotter import XYCAxis, XYCPlot
 from xrt.runner import run_ray_tracing
 
@@ -56,7 +61,6 @@ xrt_component = Screen(
 
     return oasys_list_of_elements
 
-
 def oasys_xrt_components_objects(oasys_list_of_elements):
     # run components to get xrt objects
     oasys_list_of_elements_objects = []
@@ -90,17 +94,32 @@ def run_process(bl):
     t0 = time.time()
 
     beam_out = dict()
+    screen_out = dict()
     beam_out_list = []
 
     for i, element in enumerate(bl.list_of_elements_objects):
         if isinstance(element, Undulator):
-            out_i = element.shine()
-            beam_out[element.name] = out_i
-            beam_out_list.append(out_i)
+            beam_out_i = element.shine()
+            beam_out[element.name] = beam_out_i
+            beam_out_list.append(beam_out_i)
         elif isinstance(element, Screen):
-            out_i = bl.sample_screen.expose(beam_out_list[i-1])
-            beam_out[element.name] = out_i
-            beam_out_list.append(out_i)
+            beam_out_i = copy.deepcopy(beam_out_list[i-1])
+            screen_i = bl.sample_screen.expose(beam_out_i)
+            beam_out[element.name] = beam_out_i
+            screen_out[element.name] = screen_i
+            beam_out_list.append(beam_out_i)
+        elif isinstance(element, Plate):
+            beam_out_i = copy.deepcopy(beam_out_list[i - 1])
+            beam_out_i, _, _ = element.double_refract(beam_out_i)
+            beam_out[element.name] = beam_out_i
+            beam_out_list.append(beam_out_i)
+        elif isinstance(element, ToroidMirrorDistorted):
+            beam_out_i = copy.deepcopy(beam_out_list[i - 1])
+            element.reflect(beam_out_i)
+            beam_out[element.name] = beam_out_i
+            beam_out_list.append(beam_out_i)
+    else:
+            raise NotImplementedError()
 
     if dump_beams_flag:
         for element in bl.list_of_elements_objects:
@@ -112,7 +131,7 @@ def run_process(bl):
 
     REPETITION += 1
 
-    return beam_out
+    return screen_out
 
 
 def make_plot(bl, screen, size=100, bins=1024, cbins=256):
