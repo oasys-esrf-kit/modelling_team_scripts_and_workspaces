@@ -1,90 +1,59 @@
 import os
 import time
-import copy
 import numpy as np
 from scipy.signal import savgol_filter
 import xrt
 
 from xrt.backends.raycing import BeamLine
-
-from xrt.backends.raycing.sources import Undulator
-from xrt.backends.raycing.screens import Screen
-from xrt.backends.raycing.oes import Plate
-from id09_xrt import ToroidMirrorDistorted
-
 from xrt.plotter import XYCAxis, XYCPlot
 from xrt.runner import run_ray_tracing
 
-#
-# !!!! ADD HERE THE FUNCTION oasys_xrt_components_code() !!!!!!
-#
-def oasys_xrt_components_code():
 
-    oasys_list_of_elements = []
-
-    oasys_list_of_elements.append('''
-from xrt.backends.raycing import BeamLine
-from xrt.backends.raycing.sources import Undulator
-
-xrt_component = Undulator(
-    BeamLine(),
-    name="u17",
-    center=[0,1250,0],
-    period=17,
-    n=117,
-    eE=6.0,
-    eI=0.2,
-    eEpsilonX=0.130,
-    eEpsilonZ=0.010,
-    eEspread=9.4e-4,
-    eSigmaX=30.0,
-    eSigmaZ=5.2,
-    distE="eV",
-    targetE=[18070.0, 1],
-    eMin=17000.0,
-    eMax=18500.0,
-    nrays=20000,
-    )
-''')
-
-    oasys_list_of_elements.append('''
-
-from xrt.backends.raycing import BeamLine
-from xrt.backends.raycing.screens import Screen
-
-xrt_component = Screen(
-    BeamLine(),
-    name="sample_screen",
-    center=[0, 56289, 0],
-    )
-''')
-
-    return oasys_list_of_elements
-
-def oasys_xrt_components_objects(oasys_list_of_elements):
-    # run components to get xrt objects
-    oasys_list_of_elements_objects = []
-    for i in range(len(oasys_list_of_elements)):
-        code = oasys_list_of_elements[i]
-        namespace = dict()
-        exec(code, namespace)
-        element = namespace["xrt_component"]
-        oasys_list_of_elements_objects.append(element)
-    return  oasys_list_of_elements_objects
 
 def build_beamline(name=""):
-    list_of_components_code = oasys_xrt_components_code()
-    list_of_components_objects = oasys_xrt_components_objects(list_of_components_code)
 
-    # add to bl
+    from xrt.backends.raycing import BeamLine
     bl = BeamLine()
     bl.name = name
 
-    for element in list_of_components_objects:
-        setattr(bl, element.name, element)
+    #
+    #
+    #
+    from xrt.backends.raycing import BeamLine
+    from xrt.backends.raycing.sources import Undulator
+    component = Undulator(
+        BeamLine(),
+        name="u17",
+        center=[0, 1250, 0],
+        period=17,
+        n=117,
+        eE=6.0,
+        eI=0.2,
+        eEpsilonX=0.130,
+        eEpsilonZ=0.010,
+        eEspread=9.4e-4,
+        eSigmaX=30.0,
+        eSigmaZ=5.2,
+        distE="eV",
+        targetE=[18070.0, 1],
+        eMin=17000.0,
+        eMax=18500.0,
+        nrays=20000,
+    )
+    setattr(bl, component.name, component)
 
-    bl.list_of_elements = list_of_components_code
-    bl.list_of_elements_objects  = list_of_components_objects
+    #
+    #
+    #
+    from xrt.backends.raycing import BeamLine
+    from xrt.backends.raycing.screens import Screen
+
+    component = Screen(
+        BeamLine(),
+        name="sample_screen",
+        center=[0, 56289, 0],
+    )
+    setattr(bl, component.name, component)
 
     return bl
 
@@ -93,45 +62,31 @@ def run_process(bl):
     print("REPETITION = %d" % REPETITION)
     t0 = time.time()
 
-    beam_out = dict()
-    screen_out = dict()
-    beam_out_list = []
+    beam_at_screens = dict()
 
-    for i, element in enumerate(bl.list_of_elements_objects):
-        if isinstance(element, Undulator):
-            beam_out_i = element.shine()
-            beam_out[element.name] = beam_out_i
-            beam_out_list.append(beam_out_i)
-        elif isinstance(element, Screen):
-            beam_out_i = copy.deepcopy(beam_out_list[i-1])
-            screen_i = element.expose(beam_out_i)
-            beam_out[element.name] = beam_out_i
-            screen_out[element.name] = screen_i
-            beam_out_list.append(beam_out_i)
-        elif isinstance(element, Plate):
-            beam_out_i = copy.deepcopy(beam_out_list[i - 1])
-            beam_out_i, _, _ = element.double_refract(beam_out_i)
-            beam_out[element.name] = beam_out_i
-            beam_out_list.append(beam_out_i)
-        elif isinstance(element, ToroidMirrorDistorted):
-            beam_out_i = copy.deepcopy(beam_out_list[i - 1])
-            element.reflect(beam_out_i)
-            beam_out[element.name] = beam_out_i
-            beam_out_list.append(beam_out_i)
-        else:
-            raise NotImplementedError()
 
-    if dump_beams_flag:
-        for element in bl.list_of_elements_objects:
-            fname = "%s%s_%02d.npy" % (dump_beams_folder, element.name, REPETITION)
-            np.save(fname, beam_out_list[i])
+    #
+    #
+    #
+    component = bl.u17
+    beam = component.shine()
+    if dump_beams_flag: np.save("%s%s_%02d.npy" % (dump_beams_folder, component.name, REPETITION), beam)
+
+    #
+    #
+    #
+    component = bl.sample_screen
+    beam_at_screen = component.expose(beam)
+    beam_at_screens[component.name] = beam_at_screen
+    if dump_beams_flag: np.save("%s%s_%02d.npy" % (dump_beams_folder, component.name, REPETITION), beam)
+
 
     dt = time.time() - t0
     print("Time needed to create source and trace system %.3f sec" % dt)
 
     REPETITION += 1
 
-    return screen_out
+    return beam_at_screens
 
 
 def make_plot(bl, screen, size=100, bins=1024, cbins=256):

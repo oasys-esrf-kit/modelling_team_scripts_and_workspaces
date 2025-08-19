@@ -10,57 +10,88 @@ from xrt.backends.raycing.screens import Screen
 from xrt.plotter import XYCAxis, XYCPlot
 from xrt.runner import run_ray_tracing
 
+# def get_oasys_list_of_elements():
 
-def build_beamline():
+def get_oasys_list_of_elements():
 
-    bl = BeamLine()
+    oasys_list_of_elements = []
 
-    bl.name = 'id09'
-
-    u17 = Undulator(bl, name='u17', center=[0, 1250, 0], period=17,
+    oasys_list_of_elements.append(
+        Undulator(BeamLine(),
+                  name='u17', center=[0, 1250, 0], period=17,
                     n=117, eE=6, eI=0.2, eEpsilonX=0.130, eEpsilonZ=0.010,
                     eEspread=9.4e-4, eSigmaX=30, eSigmaZ=5.2, distE='eV',
                     targetE=[18.07e3, 1], eMin=17000, eMax=18500, nrays=20e3)
+    )
 
-    sample_screen = Screen(bl, name='sample_screen', center=[0, 56289, 0])
 
-    bl.u17 = u17
-    bl.sample_screen = sample_screen
+    oasys_list_of_elements.append(
+        Screen(BeamLine(), name='sample_screen', center=[0, 56289, 0])
+    )
+
+    return oasys_list_of_elements
+
+
+def build_beamline(name=""):
+
+    # bl = BeamLine()
+    # bl.name = 'id09'
+
+    #
+    # define a sorted list of elements
+    #
+    oasys_list_of_elements = get_oasys_list_of_elements()
+
+    #
+    # add to bl
+    #
+    bl = BeamLine()
+    bl.name = name
+
+    for i, element in enumerate(oasys_list_of_elements):
+        setattr(bl, element.name, element)
+
+    bl.oasys_list_of_elements  = oasys_list_of_elements
 
     return bl
 
 
-def run_process(bl, dump=True):
+def run_process(bl):
 
-    global REPETITION, output_folder_beams
+    global REPETITION, output_folder_beams, output_beams_dump
 
     print(f"\nREPETITION = {REPETITION}")
     t0 = time.time()
 
-    out = {}
+    beam_out = {}
+    beam_out_list = []
 
-    if dump:
-        fname_u17 = output_folder_beams + f"u17_{REPETITION:02d}.npy"
-        fname_sample_screen = output_folder_beams + f"sample_screen_{REPETITION:02d}.npy"
+    oasys_list_of_elements = bl.oasys_list_of_elements
+    for i in range(len(oasys_list_of_elements)):
+        element = oasys_list_of_elements[i]
+        element_name = element.name
+        if isinstance(element, Undulator):
+            out_i = element.shine()
+            beam_out[element_name] = out_i
+            beam_out_list.append(out_i)
+        elif isinstance(element, Screen):
+            out_i = bl.sample_screen.expose(beam_out_list[i-1])
+            beam_out[element_name] = out_i
+            beam_out_list.append(out_i)
 
-    u17 = bl.u17.shine()
-    out["u17"] = u17
-    if dump: np.save(fname_u17, u17)
-
-    sample_screen = bl.sample_screen.expose(u17)
-    out["sample_screen"] = sample_screen
-    if dump: np.save(fname_sample_screen, sample_screen)
+    if output_beams_dump:
+        for i in range(len(oasys_list_of_elements)):
+            element = oasys_list_of_elements[i]
+            element_name = element.name
+            fname = output_folder_beams + f"{element_name}_{REPETITION:02d}.npy"
+            np.save(fname, beam_out_list[i])
 
     dt = time.time() - t0
     print(f"Time needed to create source and trace system {dt:.3f} sec")
 
     REPETITION += 1
 
-    return out
-
-
-
-# xrt.backends.raycing.run.run_process = run_process
+    return beam_out
 
 
 def make_plot(bl, screen, size=100, bins=1024, cbins=256):
@@ -89,12 +120,9 @@ def do_after_script(plots):
     global output_folder_scores
 
     out_str1 = ""
-    # out_str1 = crl_info(bl)
-    # d = np.array(d)/1e3
     fwhm_h = np.array([plot.dx for plot in plots])
     fwhm_v = np.array([plot.dy for plot in plots])
     ecen = np.array([plot.cE/1e3 for plot in plots])
-    # bw = np.array([plot.dE/energy*1e2 for plot in plots])
     flux = np.array([plot.flux for plot in plots])
     profile_h = np.array([[p.xaxis.binCenters, p.xaxis.total1D]
                           for p in plots])
@@ -118,7 +146,6 @@ def do_after_script(plots):
     out_str2 = [
         f"epeak = {epeak}",
         f"ecen = {ecen}",
-        # f"bw = {bw}",
         f"fwhm_h = {fwhm_h}",
         f"fwhm_v = {fwhm_v}",
         f"flux = {flux}",
@@ -139,14 +166,15 @@ def main():
     output_folder_scores = f"tmp/scores/"
     os.makedirs(output_folder_scores, exist_ok=True)
 
-    global output_folder_beams
+    global output_beams_dump, output_folder_beams
+    output_beams_dump = False
     output_folder_beams = f"tmp/beams/"
-    os.makedirs(output_folder_beams, exist_ok=True)
+    if output_beams_dump: os.makedirs(output_folder_beams, exist_ok=True)
 
     #
     # beamline elements
     #
-    bl = build_beamline()
+    bl = build_beamline(name="id09")
 
     #
     # run_process() makes the tracing
@@ -173,7 +201,6 @@ def main():
                     beamLine=bl,
                     afterScript=do_after_script,
                     afterScriptArgs=[plots])
-
 
 if __name__ == '__main__':
     main()
