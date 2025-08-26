@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="ID11 - Monos Power" description="" working_directory="C:\Users\brumund\Work Folders\Documents\Oasys\working_directory" workspace_units="0">
+	<nodes>
+		<node id="0" name="ESRF-EBS ID Light Source" qualified_name="orangecontrib.esrf.syned.widgets.extension.ow_ebs.OWEBS" project_name="OASYS1-ESRF-Extensions" version="" title="CPMU18" position="(307.0, 248.0)" />
+		<node id="1" name="Undulator Spectrum" qualified_name="orangecontrib.xoppy.widgets.source.undulator_spectrum.OWundulator_spectrum" project_name="OASYS1-XOPPY" version="" title="Undulator Spectrum" position="(506.0, 249.0)" />
+		<node id="2" name="POWER" qualified_name="orangecontrib.xoppy.widgets.optics.xpower.OWxpower" project_name="OASYS1-XOPPY" version="" title="POWER" position="(782.0, 249.0)" />
+		<node id="3" name="CRYSTAL" qualified_name="orangecontrib.xoppy.widgets.optics.xcrystal.OWxcrystal" project_name="OASYS1-XOPPY" version="" title="CRYSTAL" position="(500.0, 522.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="1" source_channel="SynedData" sink_channel="SynedData" enabled="true" />
+		<link id="1" source_node_id="1" sink_node_id="2" source_channel="xoppy_data" sink_channel="ExchangeData" enabled="true" />
+	</links>
+	<annotations />
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="pickle">gASV/wQAAAAAAAB9lCiMDEtfaG9yaXpvbnRhbJRHAAAAAAAAAACMCktfdmVydGljYWyUjBVudW1w
+eS5jb3JlLm11bHRpYXJyYXmUjAZzY2FsYXKUk5SMBW51bXB5lIwFZHR5cGWUk5SMAmY4lImIh5RS
+lChLA4wBPJROTk5K/////0r/////SwB0lGJDCGSRJt4Bnv0/lIaUUpSMAmEwlIwFMi45NziUjAJh
+MZSMAzAuMJSMAmEylIwFMC45ODiUjAJhM5SMBjEuMDgyNpSMAmE0lIwDMS4wlIwCYTWUjAYxLjE0
+NTaUjAJhNpSMAJSMC2F1dG9fZW5lcmd5lEdA4Rb/rhR64YwUYXV0b19oYXJtb25pY19udW1iZXKU
+SwWMDGVic19pZF9pbmRleJRLEYwVZWxlY3Ryb25fYmVhbV9hbHBoYV9olEeAAAAAAAAAAIwVZWxl
+Y3Ryb25fYmVhbV9hbHBoYV92lEeAAAAAAAAAAIwUZWxlY3Ryb25fYmVhbV9iZXRhX2iUR0Abo6sq
+V3mxjBRlbGVjdHJvbl9iZWFtX2JldGFfdpRHQAUoWJ+znqGMGmVsZWN0cm9uX2JlYW1fZGl2ZXJn
+ZW5jZV9olEc+0lJUbAEas4waZWxlY3Ryb25fYmVhbV9kaXZlcmdlbmNlX3aURz63EX5/ekUpjBll
+bGVjdHJvbl9iZWFtX2VtaXR0YW5jZV9olEc94hhf2pfTwowZZWxlY3Ryb25fYmVhbV9lbWl0dGFu
+Y2VfdpRHPZX9f+F5ZJWME2VsZWN0cm9uX2JlYW1fZXRhX2iURz3iHv/wkfNSjBNlbGVjdHJvbl9i
+ZWFtX2V0YV92lEc9lf19Sv/9aYwUZWxlY3Ryb25fYmVhbV9ldGFwX2iURwAAAAAAAAAAjBRlbGVj
+dHJvbl9iZWFtX2V0YXBfdpRHAAAAAAAAAACMFGVsZWN0cm9uX2JlYW1fc2l6ZV9olEc+/6ZZMrCz
+OowUZWxlY3Ryb25fYmVhbV9zaXplX3aURz7OgSGKB7sTjBZlbGVjdHJvbl9lbmVyZ3lfaW5fR2VW
+lEdAGAAAAAAAAIwWZWxlY3Ryb25fZW5lcmd5X3NwcmVhZJRHP1BiTdLxqfyMB2dhcF9tYXiUR0A+
+AAAAAAAAjAdnYXBfbWlulEdAFAAAAAAAAIwGZ2FwX21tlGgFaAtDCJhuEoPAyhVAlIaUUpSMDGhh
+cm1vbmljX21heJRLA4wLbW9tZW50X3hweHCURz20+uWWEvhJjAltb21lbnRfeHiURz4PTa2QnObL
+jAptb21lbnRfeHhwlEcAAAAAAAAAAIwLbW9tZW50X3lweXCURz2AoS9nm0MzjAltb21lbnRfeXmU
+Rz2tFCf5WoQbjAptb21lbnRfeXlwlEcAAAAAAAAAAIwRbnVtYmVyX29mX2J1bmNoZXOURwAAAAAA
+AAAAjBFudW1iZXJfb2ZfcGVyaW9kc5RHQFvHGp++dsmMDXBlcmlvZF9sZW5ndGiUaAVoC0MIO99P
+jZdukj+UhpRSlIwPcG93X2RlbnNfc2NyZWVulEdAPgAAAAAAAIwMcmluZ19jdXJyZW50lEc/yZmZ
+mZmZmowTc2F2ZWRXaWRnZXRHZW9tZXRyeZROjBJ0eXBlX29mX3Byb3BlcnRpZXOUSwGMJHR5cGVf
+b2ZfcHJvcGVydGllc19pbml0aWFsX3NlbGVjdGlvbpRLBHUu
+</properties>
+		<properties node_id="1" format="pickle">gASVegIAAAAAAAB9lCiMCERJU1RBTkNFlEdAQYAAAAAAAIwXRUxFQ1RST05CRUFNRElWRVJHRU5D
+RUiURz7SUlRsARqzjBdFTEVDVFJPTkJFQU1ESVZFUkdFTkNFVpRHPrcRfn96RSmMEUVMRUNUUk9O
+QkVBTVNJWkVIlEc+/6ZZMrCzOowRRUxFQ1RST05CRUFNU0laRVaURz7OgSGKB7sTjA9FTEVDVFJP
+TkNVUlJFTlSURz/JmZmZmZmajA5FTEVDVFJPTkVORVJHWZRHQBgAAAAAAACMFEVMRUNUUk9ORU5F
+UkdZU1BSRUFElEc/UGJN0vGp/IwER0FQSJRHP1BiTdLxqfyMC0dBUEhfQ0VOVEVSlEcAAAAAAAAA
+AIwER0FQVpRHP1BiTdLxqfyMC0dBUFZfQ0VOVEVSlEcAAAAAAAAAAIwCS0iURwAAAAAAAAAAjAZL
+UEhBU0WURwAAAAAAAAAAjAJLVpRHP/2eAd4mkWSMBk1FVEhPRJRLAowITlBFUklPRFOUS2+MCFBF
+UklPRElElIwVbnVtcHkuY29yZS5tdWx0aWFycmF5lIwGc2NhbGFylJOUjAVudW1weZSMBWR0eXBl
+lJOUjAJmOJSJiIeUUpQoSwOMATyUTk5OSv////9K/////0sAdJRiQwg730+Nl26SP5SGlFKUjA9Q
+SE9UT05FTkVSR1lNQViUR0D9TAAAAAAAjA9QSE9UT05FTkVSR1lNSU6UR0CncAAAAAAAjBJQSE9U
+T05FTkVSR1lQT0lOVFOUTaAPjA1VU0VFTUlUVEFOQ0VTlEsBjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lE6MCXZpZXdfdHlwZZRLAXUu
+</properties>
+		<properties node_id="2" format="literal">{'EL1_ANG': 3.0, 'EL1_DEN': '3.51', 'EL1_FLAG': 0, 'EL1_FOR': 'C', 'EL1_ROU': 0.0, 'EL1_THI': 0.3, 'EL2_ANG': 3.0, 'EL2_DEN': '?', 'EL2_FLAG': 1, 'EL2_FOR': 'Rh', 'EL2_ROU': 0.0, 'EL2_THI': 0.5, 'EL3_ANG': 3.0, 'EL3_DEN': '?', 'EL3_FLAG': 0, 'EL3_FOR': 'Al', 'EL3_ROU': 0.0, 'EL3_THI': 0.5, 'EL4_ANG': 3.0, 'EL4_DEN': '?', 'EL4_FLAG': 0, 'EL4_FOR': 'B', 'EL4_ROU': 0.0, 'EL4_THI': 0.5, 'EL5_ANG': 3.0, 'EL5_DEN': '?', 'EL5_FLAG': 1, 'EL5_FOR': 'Pt', 'EL5_ROU': 0.0, 'EL5_THI': 0.5, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'NELEMENTS': 0, 'PLOT_SETS': 2, 'SOURCE': 0, 'SOURCE_FILE': '?', 'savedWidgetGeometry': None, 'view_type': 1}</properties>
+		<properties node_id="3" format="pickle">gASVaAIAAAAAAAB9lCiMCkFOSVNPVFJPUFmUSwCMD0FTWU1NRVRSWV9BTkdMRZRHAAAAAAAAAACM
+EENSWVNUQUxfTUFURVJJQUyUSyCMA0NVVJSMFzIgLTEgLTEgOyAxIDEgMSA7IDAgMCAwlIwGRU5F
+UkdZlEdAVkAAAAAAAIwORklMRUNPTVBMSUFOQ0WUjBBteWNvbXBsaWFuY2UuZGF0lIwIR0VPTUVU
+UlmUSwOMDk1JTExFUl9JTkRFWF9IlEsBjA5NSUxMRVJfSU5ERVhfS5RLAYwOTUlMTEVSX0lOREVY
+X0yUSwGMBk1PU0FJQ5RLAIwLTU9TQUlDX0ZXSE2URz+5mZmZmZmajAdQT0lTU09OlEc/zCj1wo9c
+KYwEUk1FUpRHQJQoAAAAAACMBFJTQUeUR0BfQAAAAAAAjARTQ0FOlEsDjAhTQ0FORlJPTZRHwFkA
+AAAAAACMClNDQU5QT0lOVFOUS8iMBlNDQU5UT5RHQFkAAAAAAACMBlRFTVBFUpSMAzEuMJSMCVRI
+SUNLTkVTU5RHP+ZmZmZmZmaMBFVOSVSUSwGMH21hdGVyaWFsX2NvbnN0YW50c19saWJyYXJ5X2Zs
+YWeUSwKME3NhdmVkV2lkZ2V0R2VvbWV0cnmUjANzaXCUjA5fdW5waWNrbGVfdHlwZZSTlIwMUHlR
+dDUuUXRDb3JllIwKUUJ5dGVBcnJheZRDQgHZ0MsAAwAAAAAAfwAAACcAAAWoAAADAgAAAIAAAABG
+AAAFpwAAAwEAAAAAAAAAAAoAAAAAgAAAAEYAAAWnAAADAZSFlIeUUpSMCXZpZXdfdHlwZZRLAXUu
+</properties>
+	</node_properties>
+</scheme>
