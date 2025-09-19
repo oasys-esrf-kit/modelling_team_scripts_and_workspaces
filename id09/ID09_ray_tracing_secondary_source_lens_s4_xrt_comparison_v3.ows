@@ -70,7 +70,7 @@
 		<node id="66" name="FocNew" qualified_name="orangecontrib.shadow4.widgets.tools.ow_focnew.FocNew" project_name="OASYS1-shadow4" version="" title="FocNew" position="(1002.0, 549.0)" />
 		<node id="67" name="Info" qualified_name="orangecontrib.shadow4.widgets.tools.ow_info.OWInfo" project_name="OASYS1-shadow4" version="" title="Info" position="(1005.0, 679.0)" />
 		<node id="68" name="Python Script" qualified_name="oasys.widgets.tools.ow_python_script.OWPythonScript" project_name="OASYS1" version="" title="Python Script" position="(77.0, 841.0)" />
-		<node id="69" name="DABAM Height Profile" qualified_name="orangecontrib.syned.widgets.tools.ow_dabam_height_profile.OWdabam_height_profile" project_name="OASYS1-SYNED" version="" title="DABAM Height Profile" position="(938.0, 53.0)" />
+		<node id="69" name="DABAM Height Profile" qualified_name="orangecontrib.syned.widgets.tools.ow_dabam_height_profile.OWdabam_height_profile" project_name="OASYS1-SYNED" version="" title="DABAM Height Profile" position="(939.0, 53.0)" />
 		<node id="70" name="DABAM Height Profile" qualified_name="orangecontrib.syned.widgets.tools.ow_dabam_height_profile.OWdabam_height_profile" project_name="OASYS1-SYNED" version="" title="DABAM Height Profile" position="(1057.0, 758.0)" />
 	</nodes>
 	<links>
@@ -81,63 +81,63 @@
 		<link id="4" source_node_id="6" sink_node_id="7" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 		<link id="5" source_node_id="7" sink_node_id="8" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 		<link id="6" source_node_id="8" sink_node_id="9" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="7" source_node_id="9" sink_node_id="10" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="7" source_node_id="9" sink_node_id="10" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="false" />
 		<link id="8" source_node_id="13" sink_node_id="21" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 		<link id="9" source_node_id="21" sink_node_id="20" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 		<link id="10" source_node_id="20" sink_node_id="15" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 		<link id="11" source_node_id="20" sink_node_id="19" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="false" />
 		<link id="12" source_node_id="20" sink_node_id="16" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 		<link id="13" source_node_id="23" sink_node_id="13" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="14" source_node_id="22" sink_node_id="17" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="15" source_node_id="17" sink_node_id="2" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="16" source_node_id="24" sink_node_id="22" source_channel="SynedData" sink_channel="SynedData" enabled="false" />
-		<link id="17" source_node_id="10" sink_node_id="29" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="18" source_node_id="29" sink_node_id="11" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="19" source_node_id="29" sink_node_id="25" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="false" />
-		<link id="20" source_node_id="29" sink_node_id="28" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="21" source_node_id="11" sink_node_id="30" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="22" source_node_id="30" sink_node_id="26" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="false" />
-		<link id="23" source_node_id="30" sink_node_id="27" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="24" source_node_id="30" sink_node_id="23" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="25" source_node_id="9" sink_node_id="18" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="26" source_node_id="30" sink_node_id="33" source_channel="Shadow Data" sink_channel="in_object_1" enabled="true" />
-		<link id="27" source_node_id="20" sink_node_id="33" source_channel="Shadow Data" sink_channel="in_object_2" enabled="true" />
-		<link id="28" source_node_id="24" sink_node_id="1" source_channel="SynedData" sink_channel="SynedData" enabled="true" />
-		<link id="29" source_node_id="24" sink_node_id="34" source_channel="SynedData" sink_channel="SynedData" enabled="false" />
-		<link id="30" source_node_id="34" sink_node_id="36" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="31" source_node_id="36" sink_node_id="37" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="32" source_node_id="42" sink_node_id="43" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="33" source_node_id="43" sink_node_id="45" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="34" source_node_id="45" sink_node_id="44" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="35" source_node_id="40" sink_node_id="41" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="36" source_node_id="41" sink_node_id="42" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="37" source_node_id="44" sink_node_id="46" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="38" source_node_id="47" sink_node_id="48" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="39" source_node_id="49" sink_node_id="50" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="40" source_node_id="50" sink_node_id="47" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="41" source_node_id="46" sink_node_id="49" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="42" source_node_id="37" sink_node_id="38" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="43" source_node_id="38" sink_node_id="39" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="44" source_node_id="39" sink_node_id="51" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="45" source_node_id="51" sink_node_id="52" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="46" source_node_id="52" sink_node_id="40" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="47" source_node_id="54" sink_node_id="55" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="48" source_node_id="56" sink_node_id="57" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="49" source_node_id="57" sink_node_id="54" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="50" source_node_id="44" sink_node_id="53" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="51" source_node_id="53" sink_node_id="56" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
-		<link id="52" source_node_id="20" sink_node_id="59" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="53" source_node_id="59" sink_node_id="58" source_channel="Shadow3 Beam" sink_channel="Input Beam" enabled="true" />
-		<link id="54" source_node_id="60" sink_node_id="62" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="55" source_node_id="62" sink_node_id="61" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="56" source_node_id="63" sink_node_id="60" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="57" source_node_id="30" sink_node_id="63" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="58" source_node_id="65" sink_node_id="64" source_channel="Shadow3 Beam" sink_channel="Input Beam" enabled="true" />
-		<link id="59" source_node_id="61" sink_node_id="66" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="60" source_node_id="61" sink_node_id="65" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="61" source_node_id="61" sink_node_id="67" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
-		<link id="62" source_node_id="69" sink_node_id="9" source_channel="PreProcessor_Data" sink_channel="PreProcessor_Data" enabled="true" />
-		<link id="63" source_node_id="70" sink_node_id="41" source_channel="PreProcessor_Data" sink_channel="PreProcessor_Data" enabled="true" />
+		<link id="14" source_node_id="17" sink_node_id="2" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="15" source_node_id="24" sink_node_id="22" source_channel="SynedData" sink_channel="SynedData" enabled="false" />
+		<link id="16" source_node_id="10" sink_node_id="29" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="17" source_node_id="29" sink_node_id="11" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="18" source_node_id="29" sink_node_id="25" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="false" />
+		<link id="19" source_node_id="29" sink_node_id="28" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="20" source_node_id="11" sink_node_id="30" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="21" source_node_id="30" sink_node_id="26" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="false" />
+		<link id="22" source_node_id="30" sink_node_id="27" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="23" source_node_id="30" sink_node_id="23" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="24" source_node_id="9" sink_node_id="18" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="25" source_node_id="30" sink_node_id="33" source_channel="Shadow Data" sink_channel="in_object_1" enabled="true" />
+		<link id="26" source_node_id="20" sink_node_id="33" source_channel="Shadow Data" sink_channel="in_object_2" enabled="true" />
+		<link id="27" source_node_id="24" sink_node_id="1" source_channel="SynedData" sink_channel="SynedData" enabled="true" />
+		<link id="28" source_node_id="24" sink_node_id="34" source_channel="SynedData" sink_channel="SynedData" enabled="false" />
+		<link id="29" source_node_id="34" sink_node_id="36" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="30" source_node_id="36" sink_node_id="37" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="31" source_node_id="42" sink_node_id="43" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="32" source_node_id="43" sink_node_id="45" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="33" source_node_id="45" sink_node_id="44" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="34" source_node_id="40" sink_node_id="41" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="35" source_node_id="41" sink_node_id="42" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="36" source_node_id="44" sink_node_id="46" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="37" source_node_id="47" sink_node_id="48" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="38" source_node_id="49" sink_node_id="50" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="39" source_node_id="50" sink_node_id="47" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="40" source_node_id="46" sink_node_id="49" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="41" source_node_id="37" sink_node_id="38" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="42" source_node_id="38" sink_node_id="39" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="43" source_node_id="39" sink_node_id="51" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="44" source_node_id="51" sink_node_id="52" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="45" source_node_id="52" sink_node_id="40" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="46" source_node_id="54" sink_node_id="55" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="47" source_node_id="56" sink_node_id="57" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="48" source_node_id="57" sink_node_id="54" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="49" source_node_id="44" sink_node_id="53" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="50" source_node_id="53" sink_node_id="56" source_channel="XRTData" sink_channel="XRTData" enabled="true" />
+		<link id="51" source_node_id="20" sink_node_id="59" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="52" source_node_id="59" sink_node_id="58" source_channel="Shadow3 Beam" sink_channel="Input Beam" enabled="true" />
+		<link id="53" source_node_id="60" sink_node_id="62" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="54" source_node_id="62" sink_node_id="61" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="55" source_node_id="63" sink_node_id="60" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="56" source_node_id="30" sink_node_id="63" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="57" source_node_id="65" sink_node_id="64" source_channel="Shadow3 Beam" sink_channel="Input Beam" enabled="true" />
+		<link id="58" source_node_id="61" sink_node_id="66" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="59" source_node_id="61" sink_node_id="65" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="60" source_node_id="61" sink_node_id="67" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
+		<link id="61" source_node_id="69" sink_node_id="9" source_channel="PreProcessor_Data" sink_channel="PreProcessor_Data" enabled="true" />
+		<link id="62" source_node_id="70" sink_node_id="41" source_channel="PreProcessor_Data" sink_channel="PreProcessor_Data" enabled="true" />
+		<link id="63" source_node_id="14" sink_node_id="17" source_channel="Shadow Data" sink_channel="Shadow Data" enabled="true" />
 	</links>
 	<annotations>
 		<text id="0" rect="(93.0, 73.0, 150.0, 50.0)" font-family="Helvetica" font-size="16">Model like the xrt script</text>
@@ -325,12 +325,12 @@ bGVfZGVnlEdAVnOkd1vfrYwVcmVmbGVjdGlvbl9hbmdsZV9tcmFklGgVaBtDCPYoXI/C9QpAlIaU
 UpSMEXJlZmxlY3Rpdml0eV9mbGFnlEsBjBNyZWZsZWN0aXZpdHlfc291cmNllEsFjBVyZWZyYWN0
 aW9uX2luZGV4X2JldGGURz9QYk3S8an8jBZyZWZyYWN0aW9uX2luZGV4X2RlbHRhlEc+5Pi1iONo
 8YwTc2F2ZWRXaWRnZXRHZW9tZXRyeZSMA3NpcJSMDl91bnBpY2tsZV90eXBllJOUjAxQeVF0NS5R
-dENvcmWUjApRQnl0ZUFycmF5lENCAdnQywADAAAAAAEsAAABHwAABlMAAAPaAAABLAAAAR8AAAZT
+dENvcmWUjApRQnl0ZUFycmF5lENCAdnQywADAAAAAAEsAAAA+gAABlMAAAPaAAABLAAAAR8AAAZT
 AAAD2gAAAAAAAAAAB4AAAAEsAAABHwAABlMAAAPalIWUh5RSlIwVc291cmNlX3BsYW5lX2Rpc3Rh
 bmNllEdAHCj1wo9cKYwQc3BoZXJpY2FsX3JhZGl1c5RHP/AAAAAAAACMEXN1cmZhY2VfY3VydmF0
 dXJllEsAjBhzdXJmYWNlX3NoYXBlX3BhcmFtZXRlcnOUSwGMEnN1cmZhY2Vfc2hhcGVfdHlwZZRL
 BYwddG9yb2lkYWxfbWlycm9yX3BvbGVfbG9jYXRpb26USwCMEnRvcnVzX21ham9yX3JhZGl1c5RH
-QK+UAAAAAACMEnRvcnVzX21pbm9yX3JhZGl1c5RHP6eNT987ZFqMCXZpZXdfdHlwZZRLAnUu
+QK+UAAAAAACMEnRvcnVzX21pbm9yX3JhZGl1c5RHP6eNT987ZFqMCXZpZXdfdHlwZZRLAHUu
 </properties>
 		<properties node_id="10" format="pickle">gASV+QIAAAAAAAB9lCiMCmFic29ycHRpb26USwCMEWFuZ2xlc19yZXNwZWN0X3RvlEsAjA5hcGVy
 dHVyZV9zaGFwZZRLAIwKYXBlcnR1cmluZ5RLAYwHZGVuc2l0eZRHQDNMzMzMzM2MFGltYWdlX3Bs
@@ -972,7 +972,7 @@ DXNwbGl0dGVyU3RhdGWUTnUu
 		<properties node_id="69" format="pickle">gASV8gMAAAAAAAB9lCiMCGNlbnRlcl94lEsBjAhjZW50ZXJfeZRLAYwVY29udmVyc2lvbl9mYWN0
 b3JfeF94lEc/UGJN0vGp/IwVY29udmVyc2lvbl9mYWN0b3JfeF95lEc+sMb3oLXtjYwUY29ycmVs
 YXRpb25fbGVuZ3RoX3iURz/TMzMzMzMzjBNkYWJhbV9wcm9maWxlX2luZGV4lEsBjAtkZWxpbWl0
-ZXJfeJRLAIwLZGltZW5zaW9uX3iURz+5mZmZmZmajBBkaW1lbnNpb25feV9mcm9tlEcAAAAAAAAA
+ZXJfeJRLAIwLZGltZW5zaW9uX3iURz+3Cj1wo9cKjBBkaW1lbnNpb25feV9mcm9tlEcAAAAAAAAA
 AIwOZGltZW5zaW9uX3lfdG+URwAAAAAAAAAAjAxlbnRyeV9udW1iZXKUSziMDGVycm9yX3R5cGVf
 eJRLAIwMZXJyb3JfdHlwZV95lEsAjA5maWxsZXJfdmFsdWVfeJRHAAAAAAAAAACMDmZpbGxlcl92
 YWx1ZV95lEcAAAAAAAAAAIwdaGVpZ3RoX3Byb2ZpbGVfMURfZmlsZV9uYW1lX3iUjA9taXJyb3Jf
@@ -982,7 +982,7 @@ bnRlY2FybG9fc2VlZF94lE1TIowMbmV3X2xlbmd0aF94lEcAAAAAAAAAAIwMbmV3X2xlbmd0aF95
 lEcAAAAAAAAAAIwZcG93ZXJfbGF3X2V4cG9uZW50X2JldGFfeJRHQAgAAAAAAACMDXJlbm9ybWFs
 aXplX3iUSwCMDXJlbm9ybWFsaXplX3mUSwCMBXJtc194lEc/uZmZmZmZmowFcm1zX3mURz/szMzM
 zMzNjBNzYXZlZFdpZGdldEdlb21ldHJ5lIwDc2lwlIwOX3VucGlja2xlX3R5cGWUk5SMDFB5UXQ1
-LlF0Q29yZZSMClFCeXRlQXJyYXmUQ0IB2dDLAAMAAAAAAe0AAAEZAAAHFAAABHEAAAHtAAABPgAA
+LlF0Q29yZZSMClFCeXRlQXJyYXmUQ0IB2dDLAAMAAAAAAe0AAAE+AAAHFAAABHEAAAHtAAABPgAA
 BxQAAARxAAAAAAAAAAAHgAAAAe0AAAE+AAAHFAAABHGUhZSHlFKUjA5zZXJ2ZXJfYWRkcmVzc5SM
 PGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9vYXN5cy1raXQvRGFiYW1GaWxlcy9t
 YWluL5SMBXNoYXBllEsEjBBzbG9wZV9lcnJvcl9mcm9tlEcAAAAAAAAAAIwOc2xvcGVfZXJyb3Jf
