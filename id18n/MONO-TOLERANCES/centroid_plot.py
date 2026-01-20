@@ -8,13 +8,13 @@ if __name__ in ["__main__"]:
     #
 
 
-    rotation_axis = 'y'
+    rotation_axis = 'x'
 
     file_name5 = "centroid_rotation_%s_17keV_5.dat" % rotation_axis
     file_name6 = "centroid_rotation_%s_17keV_6.dat" % rotation_axis
 
-    # file_name5 = "centroid_und_rotation_%s_17keV_5.dat" % rotation_axis
-    # file_name6 = "centroid_und_rotation_%s_17keV_6.dat" % rotation_axis
+    file_name5 = "centroid_und_rotation_%s_17keV_5.dat" % rotation_axis
+    file_name6 = "centroid_und_rotation_%s_17keV_6.dat" % rotation_axis
 
 
     OFFSET5, CEN_x5, CEN_z5, CEN_xp5, CEN_zp5, SD_x5, SD_z5, SD_xp5, SD_zp5 = numpy.loadtxt(file_name5, unpack=True)

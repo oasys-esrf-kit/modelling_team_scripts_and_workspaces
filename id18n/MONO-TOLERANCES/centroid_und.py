@@ -4,8 +4,9 @@
 # from shadow4.beamline.s4_beamline import S4Beamline
 # print(dir(shadow4))
 import numpy
+from shadow4.beamline.optical_elements.compound.s4_compound import S4Compound, S4CompoundElement
 
-def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.74533e-05):
+def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.74533e-05, dcm=0):
     rotation_x_1 = 0.0
     rotation_x_2 = 0.0
     rotation_x_3 = 0.0
@@ -15,6 +16,9 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
     rotation_y_2 = 0.0
     rotation_y_3 = 0.0
     rotation_y_4 = 0.0
+
+    pitch = 0
+    roll = 0
 
     if rotation_axis == 'x':
         if crystal_number == 1:
@@ -31,6 +35,7 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
         elif crystal_number == 6:
             rotation_x_3 = rotation
             rotation_x_4 = -rotation
+            pitch = rotation
     elif rotation_axis == 'y':
         if crystal_number == 1:
             rotation_y_1 = rotation
@@ -46,6 +51,7 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
         elif crystal_number == 6:
             rotation_y_3 = rotation
             rotation_y_4 = rotation
+            roll = rotation
 
     from shadow4.beamline.s4_beamline import S4Beamline
 
@@ -57,13 +63,13 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
     #
     #
     from shadow4.sources.s4_light_source_from_file import S4LightSourceFromFile
-    light_source = S4LightSourceFromFile(name='Shadow4 File Reader', file_name='C:/Users/srio/Oasys/tmp.h5',
+    light_source = S4LightSourceFromFile(name='Shadow4 File Reader', file_name='/users/srio/Oasys/tmp.h5',
                                          simulation_name='run001', beam_name='begin')
     beam = light_source.get_beam()
 
     beamline.set_light_source(light_source)
 
-    # optical element number XX
+    # optical element number 1
     boundary_shape = None
 
     from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
@@ -75,7 +81,7 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
                                      f_central=1, f_phot_cent=0, phot_cent=17000.0,
                                      file_refl='bragg.dat',
                                      f_ext=0,
-                                     material_constants_library_flag=0,
+                                     material_constants_library_flag=1,
                                      # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
                                      method_efields_management=0,  # 0=new in S4; 1=like in S3
                                      )
@@ -95,7 +101,7 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
 
     beamline.append_beamline_element(beamline_element)
 
-    # optical element number XX
+    # optical element number 2
     boundary_shape = None
 
     from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
@@ -107,7 +113,7 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
                                      f_central=1, f_phot_cent=0, phot_cent=17000.0,
                                      file_refl='bragg.dat',
                                      f_ext=0,
-                                     material_constants_library_flag=0,
+                                     material_constants_library_flag=1,
                                      # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
                                      method_efields_management=0,  # 0=new in S4; 1=like in S3
                                      )
@@ -127,69 +133,102 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
 
     beamline.append_beamline_element(beamline_element)
 
-    # optical element number XX
-    boundary_shape = None
 
-    from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
-    optical_element = S4PlaneCrystal(name='Generic Crystal',
-                                     boundary_shape=boundary_shape, material='Si',
-                                     miller_index_h=1, miller_index_k=1, miller_index_l=1,
-                                     f_bragg_a=False, asymmetry_angle=0.0,
-                                     is_thick=1, thickness=0.001,
-                                     f_central=1, f_phot_cent=0, phot_cent=17000.0,
-                                     file_refl='bragg.dat',
-                                     f_ext=0,
-                                     material_constants_library_flag=0,
-                                     # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
-                                     method_efields_management=0,  # 0=new in S4; 1=like in S3
-                                     )
-    from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=0, q=0.01, angle_radial=1.45421465, angle_azimuthal=0,
-                                     angle_radial_out=1.45421465)
-    from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
-    movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
-                                           rotation_x=rotation_x_3,
-                                           rotation_y=rotation_y_3,
-                                           rotation_z=0)
-    from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystalElement
-    beamline_element = S4PlaneCrystalElement(optical_element=optical_element, coordinates=coordinates,
-                                             movements=movements, input_beam=beam)
+    if dcm:
+        from check_s4rotations_channelcut import get_optical_element_instance_channel_cut
 
-    beam, footprint = beamline_element.trace_beam()
+        optical_element = get_optical_element_instance_channel_cut(
+            crystal_separation=0.05,
+            roll=roll, pitch=pitch, yaw=0,  # applied in this order
+            T=[0, 0, 0],
+            use_mirrors=0,
+        )
 
-    beamline.append_beamline_element(beamline_element)
+        from syned.beamline.element_coordinates import ElementCoordinates
 
-    # optical element number XX
-    boundary_shape = None
+        coordinates = ElementCoordinates(p=0, q=0,
+                                         angle_radial=numpy.radians(90 - theta_bragg_deg),
+                                         angle_azimuthal=0,
+                                         angle_radial_out=numpy.radians(90 + theta_bragg_deg))
 
-    from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
-    optical_element = S4PlaneCrystal(name='Generic Crystal',
-                                     boundary_shape=boundary_shape, material='Si',
-                                     miller_index_h=1, miller_index_k=1, miller_index_l=1,
-                                     f_bragg_a=False, asymmetry_angle=0.0,
-                                     is_thick=1, thickness=0.001,
-                                     f_central=1, f_phot_cent=0, phot_cent=17000.0,
-                                     file_refl='bragg.dat',
-                                     f_ext=0,
-                                     material_constants_library_flag=0,
-                                     # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
-                                     method_efields_management=0,  # 0=new in S4; 1=like in S3
-                                     )
-    from syned.beamline.element_coordinates import ElementCoordinates
-    coordinates = ElementCoordinates(p=0, q=0.01, angle_radial=1.45421465, angle_azimuthal=3.141592654,
-                                     angle_radial_out=1.45421465)
-    from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
-    movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
-                                           rotation_x=rotation_x_4,
-                                           rotation_y=rotation_y_4,
-                                           rotation_z=0)
-    from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystalElement
-    beamline_element = S4PlaneCrystalElement(optical_element=optical_element, coordinates=coordinates,
-                                             movements=movements, input_beam=beam)
+        from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
 
-    beam, footprint = beamline_element.trace_beam()
+        movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
+                                               rotation_x=0, rotation_y=0, rotation_z=0)
 
-    beamline.append_beamline_element(beamline_element)
+        beamline_element = S4CompoundElement(
+            optical_element=optical_element,
+            coordinates=coordinates,
+            movements=movements,
+            input_beam=beam)
+
+        beam, footprints = beamline_element.trace_beam()
+
+        beamline.append_beamline_element(beamline_element)
+    else:
+        # optical element number 3
+        boundary_shape = None
+
+        from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
+        optical_element = S4PlaneCrystal(name='Generic Crystal',
+                                         boundary_shape=boundary_shape, material='Si',
+                                         miller_index_h=1, miller_index_k=1, miller_index_l=1,
+                                         f_bragg_a=False, asymmetry_angle=0.0,
+                                         is_thick=1, thickness=0.001,
+                                         f_central=1, f_phot_cent=0, phot_cent=17000.0,
+                                         file_refl='bragg.dat',
+                                         f_ext=0,
+                                         material_constants_library_flag=1,
+                                         # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
+                                         method_efields_management=0,  # 0=new in S4; 1=like in S3
+                                         )
+        from syned.beamline.element_coordinates import ElementCoordinates
+        coordinates = ElementCoordinates(p=0, q=0.01, angle_radial=1.45421465, angle_azimuthal=0,
+                                         angle_radial_out=1.45421465)
+        from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+        movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
+                                               rotation_x=rotation_x_3,
+                                               rotation_y=rotation_y_3,
+                                               rotation_z=0)
+        from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystalElement
+        beamline_element = S4PlaneCrystalElement(optical_element=optical_element, coordinates=coordinates,
+                                                 movements=movements, input_beam=beam)
+
+        beam, footprint = beamline_element.trace_beam()
+
+        beamline.append_beamline_element(beamline_element)
+
+        # optical element number 4
+        boundary_shape = None
+
+        from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
+        optical_element = S4PlaneCrystal(name='Generic Crystal',
+                                         boundary_shape=boundary_shape, material='Si',
+                                         miller_index_h=1, miller_index_k=1, miller_index_l=1,
+                                         f_bragg_a=False, asymmetry_angle=0.0,
+                                         is_thick=1, thickness=0.001,
+                                         f_central=1, f_phot_cent=0, phot_cent=17000.0,
+                                         file_refl='bragg.dat',
+                                         f_ext=0,
+                                         material_constants_library_flag=1,
+                                         # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
+                                         method_efields_management=0,  # 0=new in S4; 1=like in S3
+                                         )
+        from syned.beamline.element_coordinates import ElementCoordinates
+        coordinates = ElementCoordinates(p=0, q=0.01, angle_radial=1.45421465, angle_azimuthal=3.141592654,
+                                         angle_radial_out=1.45421465)
+        from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+        movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
+                                               rotation_x=rotation_x_4,
+                                               rotation_y=rotation_y_4,
+                                               rotation_z=0)
+        from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystalElement
+        beamline_element = S4PlaneCrystalElement(optical_element=optical_element, coordinates=coordinates,
+                                                 movements=movements, input_beam=beam)
+
+        beam, footprint = beamline_element.trace_beam()
+
+        beamline.append_beamline_element(beamline_element)
 
     # optical element number XX
 
@@ -222,10 +261,12 @@ if __name__ in ["__main__"]:
     # main
     #
     do_calculate = 1
-
-    rotation_axis = 'x'
+    rotation_axis = 'y'
     crystal_number = 6
-    q=0.01
+    q = 0.01
+
+    theta_bragg_deg = 6.679637445440589
+    dcm = 1
 
     file_name = "centroid_und_rotation_%s_17keV_%d.dat" % (rotation_axis, crystal_number)
     if do_calculate:
@@ -250,7 +291,8 @@ if __name__ in ["__main__"]:
             beam1 = run_beamline_17keV(q=q,
                                        crystal_number=crystal_number,
                                        rotation_axis=rotation_axis,
-                                       rotation=rotation)
+                                       rotation=rotation,
+                                       dcm=dcm)
 
             # beam1.retrace(1.0)
 
@@ -260,6 +302,7 @@ if __name__ in ["__main__"]:
             zp = beam1.get_column(6, nolost=1)
             w = beam1.get_column(23, nolost=1)
             titles = ['x', 'z', 'xp', 'zp']
+
 
             for j, array in enumerate([x, z, xp, zp]):
                 average = numpy.average(array, weights=w)
@@ -278,7 +321,7 @@ if __name__ in ["__main__"]:
                     CEN_zp[i] = average
                     SD_zp[i] = numpy.sqrt(variance)
 
-
+            print("intensity: ", beam1.intensity(nolost=1))
 
         numpy.savetxt(file_name, numpy.column_stack((OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp, SD_x, SD_z, SD_xp, SD_zp)))
         print("File %s written to disk." % file_name)
@@ -289,13 +332,13 @@ if __name__ in ["__main__"]:
         OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp, SD_x, SD_z, SD_xp, SD_zp = numpy.loadtxt(file_name, unpack=True)
 
 
-    plot(1e6 * OFFSET, 1e6 * CEN_x,
-         1e6 * OFFSET, 1e6 * CEN_z,
+    plot(1e6 * OFFSET, 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
+         1e6 * OFFSET, 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]),
          title="rot axis '%s'" % (rotation_axis),
          xtitle="rotation [urad]", ytitle="centroid [um]", legend=["x", "z"], grid=1, show=0)
 
-    plot(numpy.degrees(OFFSET), 1e6 * CEN_x,
-         numpy.degrees(OFFSET), 1e6 * CEN_z,
+    plot(numpy.degrees(OFFSET), 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
+         numpy.degrees(OFFSET), 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]),
          title="rot axis '%s'" % (rotation_axis),
          xtitle="rotation [deg]", ytitle="centroid [um]", legend=["x", "z"], grid=1, show=1)
 

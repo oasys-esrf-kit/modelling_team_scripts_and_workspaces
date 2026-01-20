@@ -98,6 +98,7 @@ def get_optical_element_instance_channel_cut(
 
 def run_beamline_17keV(
     crystal_separation=0,
+    q2=0.0,
     theta_bragg_deg=10.0,
     use_mirrors=1,
     use_undulator=0,
@@ -184,7 +185,7 @@ def run_beamline_17keV(
 
     beamline.append_beamline_element(beamline_element)
 
-    print(beamline.info())
+    # print(beamline.info())
 
     return beam0, beam, footprints
 
@@ -256,18 +257,29 @@ if __name__ in ["__main__"]:
     #
     do_calculate = 1
     rotation_axis = 'y'
-    use_mirrors = 0
+    use_mirrors = 1
     use_undulator = 1
     theta_bragg_deg = 6.679637445440589
+    theta_bragg = numpy.radians(theta_bragg_deg)
+
+
+    # q1 = 0.1
+    # crystal_separation = q1 * numpy.sin(numpy.radians(theta_bragg_deg))
+    # q2 = 0.9
+
+    q1 = 0.1
     crystal_separation = 0.005 # * numpy.sin(numpy.radians(theta_bragg_deg))
     q2 = 166.0
+    q1 = crystal_separation / numpy.sin(theta_bragg)
 
 
-    print(">>> crystal_separation: ", crystal_separation)
-    theta_bragg = numpy.radians(theta_bragg_deg)
+    print(">>> crystal_separation, q1: ", crystal_separation, q1)
+
+
     theory_beam_coordinate = crystal_separation / numpy.sin(theta_bragg) * numpy.cos(numpy.pi/2 - 2 * theta_bragg)
     print(">>> theory beam separation: ", theory_beam_coordinate )
-
+    print(">>> theory beam separation 2: ", crystal_separation / numpy.sin(theta_bragg) * numpy.sin(2 * theta_bragg),
+          2 * crystal_separation * numpy.cos(theta_bragg))
 
 
     file_name = "check_s4rotations_rotation_channelcut_%s_17keV.dat" % (rotation_axis)
@@ -295,15 +307,15 @@ if __name__ in ["__main__"]:
             if rotation_axis == 'x':
                 beam0, beam1, footprints = run_beamline_17keV(use_undulator=use_undulator, use_mirrors=use_mirrors,
                                                               crystal_separation=crystal_separation, pitch=OFFSET[i],
-                                                              theta_bragg_deg=theta_bragg_deg)
+                                                              theta_bragg_deg=theta_bragg_deg, q2=q2)
             elif rotation_axis == 'y':
                 beam0, beam1, footprints = run_beamline_17keV(use_undulator=use_undulator, use_mirrors=use_mirrors,
                                                               crystal_separation=crystal_separation, roll=OFFSET[i],
-                                                              theta_bragg_deg=theta_bragg_deg)
+                                                              theta_bragg_deg=theta_bragg_deg, q2=q2)
             elif rotation_axis == 'z':
                 beam0, beam1, footprints = run_beamline_17keV(use_undulator=use_undulator, use_mirrors=use_mirrors,
                                                               crystal_separation=crystal_separation, yaw=OFFSET[i],
-                                                              theta_bragg_deg=theta_bragg_deg)
+                                                              theta_bragg_deg=theta_bragg_deg, q2=q2)
 
             print_centroids(beam0, title='SOURCE', factor=1e6)
             print_centroids(footprints[0], title='CRYSTAL 1', factor=1e3)
@@ -346,27 +358,35 @@ if __name__ in ["__main__"]:
         OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp, SD_x, SD_z, SD_xp, SD_zp = numpy.loadtxt(file_name, unpack=True)
 
 
-    q1 = crystal_separation / numpy.sin(theta_bragg_deg)
+
 
 
     print(">>>> CEN_z: ", CEN_z)
     if rotation_axis == 'x':
-        theory = -(2 * q1 * OFFSET + 2 * q2 * (0.0 * OFFSET))
-        plot(numpy.degrees(OFFSET), 1e6 * CEN_x,
-             numpy.degrees(OFFSET), 1e6 * (CEN_z - theory_beam_coordinate),
-             numpy.degrees(OFFSET), 1e6 * theory,
-             title="rot axis '%s', q1=%.3f m, q2=%.3f m" % (rotation_axis, q1, q2),
-             xtitle="rotation1 [deg]", ytitle="centroid [um]", legend=["x", "z", "pitch equation"],
-             linestyle=[None, None, ':'],
+        theory_old = -(2 * q1 * OFFSET + 2 * q2 * (OFFSET - OFFSET))
+
+        theory = -(2 * crystal_separation * numpy.sin(theta_bragg) * OFFSET + 2 * q2 * (0.0 * OFFSET))
+
+        print(">>>> crystal_separation, q1: ", crystal_separation, q1)
+
+        plot(1e6 * OFFSET, 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
+             1e6 * OFFSET, 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]), # theory_beam_coordinate),
+             1e6 * OFFSET, 1e6 * theory_old,
+             1e6 * OFFSET, 1e6 * theory,
+             title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
+             xtitle="rotation1 [urad]", ytitle="centroid [um]", legend=["x", "z", "pitch equation old", "pitch equation NEW"],
+             linestyle=[None, '--', ':',':'],
              yrange=[-50,50],
              figsize=(10,4), grid=1, show=1)
-    elif rotation_axis == 'y':
-        theory = (2 * q1 * OFFSET + 2 * q2 * (0.0 * OFFSET)) * numpy.sin(numpy.radians(6.7))
 
-        plot(numpy.degrees(OFFSET), 1e6 * CEN_x,
-             numpy.degrees(OFFSET), 1e6 * (CEN_z - theory_beam_coordinate),
+    elif rotation_axis == 'y':
+
+        theory = (2 * crystal_separation / numpy.sin(theta_bragg) * OFFSET + 2 * q2 * (0.0 * OFFSET)) * numpy.sin(theta_bragg)
+
+        plot(numpy.degrees(OFFSET), 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
+             numpy.degrees(OFFSET), 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]), # theory_beam_coordinate),
              numpy.degrees(OFFSET), 1e6 * theory,
-             title="rot axis '%s', q1=%.3f m, q2=%.3f m" % (rotation_axis, q1, q2),
+             title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
              xtitle="rotation1 [deg]", ytitle="centroid [um]", legend=["x", "z", "roll equation"],
              linestyle=[None, None, ':'],
              yrange=[-50,50],

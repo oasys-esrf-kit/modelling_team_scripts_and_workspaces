@@ -46,7 +46,7 @@ def run_beamline_17keV(
                                      f_central=1, f_phot_cent=0, phot_cent=17000.0,
                                      file_refl='bragg.dat',
                                      f_ext=0,
-                                     material_constants_library_flag=0,
+                                     material_constants_library_flag=1,
                                      # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
                                      method_efields_management=0,  # 0=new in S4; 1=like in S3
                                      )
@@ -78,7 +78,7 @@ def run_beamline_17keV(
                                      f_central=1, f_phot_cent=0, phot_cent=17000.0,
                                      file_refl='bragg.dat',
                                      f_ext=0,
-                                     material_constants_library_flag=0,
+                                     material_constants_library_flag=1,
                                      # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
                                      method_efields_management=0,  # 0=new in S4; 1=like in S3
                                      )
@@ -113,12 +113,29 @@ if __name__ in ["__main__"]:
     #
     # main
     #
-    do_calculate = 0
-    rotation_axis = 'z'
-    q1 = 0.1
-    q2 = 1.0 - q1
-    rot2_over_rot1 = -1
+    do_calculate = 1
+    rotation_axis = 'y'
+    # q1 = 0.1
+    # q2 = 1.0 - q1
+    rot2_over_rot1 = 1
     file_name = "check_s4rotations_rotation_%s_17keV.dat" % (rotation_axis)
+
+
+    angle_radial = 1.454214616
+    theta_bragg = numpy.pi / 2 - angle_radial
+    theta_bragg_deg = numpy.degrees(theta_bragg)
+
+    crystal_separation = 0.005
+    q1 = crystal_separation / numpy.sin(numpy.pi/2 - angle_radial)
+
+    q1 = 0.1
+    crystal_separation = q1 * numpy.sin(theta_bragg)
+
+    q2 = 0.9 # 166.0
+
+    print(">>>>>>>> q1, theta_bragg_deg: ", q1, theta_bragg_deg)
+    print(">>>>>>>> crystal_separation: ", crystal_separation)
+
     if do_calculate:
         # WARNING: NO incremental result allowed!!"
 
@@ -184,6 +201,7 @@ if __name__ in ["__main__"]:
 
     if rotation_axis == 'x':
         theory = -(2 * q1 * OFFSET + 2 * q2 * (OFFSET + rot2_over_rot1 * OFFSET))
+        theory = -(2 * crystal_separation / numpy.sin(theta_bragg) * OFFSET + 2 * q2 * (OFFSET + rot2_over_rot1 * OFFSET))
 
         plot(numpy.degrees(OFFSET), 1e6 * CEN_x,
              numpy.degrees(OFFSET), 1e6 * CEN_z,
