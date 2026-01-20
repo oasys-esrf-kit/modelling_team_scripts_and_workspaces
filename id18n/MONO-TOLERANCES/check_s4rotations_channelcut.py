@@ -27,7 +27,7 @@ def get_optical_element_instance_channel_cut(
     from shadow4.beamline.optical_elements.crystals.s4_conic_crystal import S4ConicCrystal
 
     ccc1 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -0.5 * crystal_separation]
-    ccc2 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, -0.5 * crystal_separation]
+    ccc2 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,  1.0, -0.5 * crystal_separation]
 
     # Rx, beta
     R_pitch = [[1, 0, 0],
@@ -102,44 +102,57 @@ def run_beamline_17keV(
     theta_bragg_deg=10.0,
     use_mirrors=1,
     use_undulator=0,
+    is_compound=1,
     pitch=0,
     roll=0,
     yaw=0, ):
 
+
+    theta_bragg = numpy.radians(theta_bragg_deg)
+    angle_radial = numpy.radians(90 - theta_bragg_deg)
+
+    #
+    #
+    #
     from shadow4.beamline.s4_beamline import S4Beamline
 
     beamline = S4Beamline()
 
     if use_undulator:  # undulator
-        # electron beam
-        from shadow4.sources.s4_electron_beam import S4ElectronBeam
 
-        electron_beam = S4ElectronBeam(energy_in_GeV=6, energy_spread=0.001, current=0.2)
-        electron_beam.set_sigmas_all(sigma_x=3.01836e-05, sigma_y=3.63641e-06, sigma_xp=4.36821e-06,
-                                     sigma_yp=1.37498e-06)
-        electron_beam.set_dispersion_all(0, 0, 0, 0)
-
-        # magnetic structure
-        from shadow4.sources.undulator.s4_undulator_gaussian import S4UndulatorGaussian
-
-        source = S4UndulatorGaussian(
-            period_length=0.042,  # syned Undulator parameter (length in m)
-            number_of_periods=38.571,  # syned Undulator parameter
-            photon_energy=17000.0,  # Photon energy (in eV)
-            delta_e=20.0,  # Photon energy width (in eV)
-            ng_e=100,  # Photon energy scan number of points
-            flag_emittance=1,  # when sampling rays: Use emittance (0=No, 1=Yes)
-            flag_energy_spread=0,  # when sampling rays: Use e- energy spread (0=No, 1=Yes)
-            harmonic_number=1,  # harmonic number
-            flag_autoset_flux_central_cone=0,  # value to set the flux peak
-            flux_central_cone=10000000000.0,  # value to set the flux peak
-        )
-
-        # light source
-        from shadow4.sources.undulator.s4_undulator_gaussian_light_source import S4UndulatorGaussianLightSource
-
-        light_source = S4UndulatorGaussianLightSource(name='Undulator Gaussian', electron_beam=electron_beam,
-                                                      magnetic_structure=source, nrays=50000, seed=5676561)
+        from shadow4.sources.s4_light_source_from_file import S4LightSourceFromFile
+        light_source = S4LightSourceFromFile(name='Shadow4 File Reader', file_name='/users/srio/Oasys/tmp.h5', simulation_name='run001',
+                                             beam_name='begin')
+        beam = light_source.get_beam()
+        # # electron beam
+        # from shadow4.sources.s4_electron_beam import S4ElectronBeam
+        #
+        # electron_beam = S4ElectronBeam(energy_in_GeV=6, energy_spread=0.001, current=0.2)
+        # electron_beam.set_sigmas_all(sigma_x=3.01836e-05, sigma_y=3.63641e-06, sigma_xp=4.36821e-06,
+        #                              sigma_yp=1.37498e-06)
+        # electron_beam.set_dispersion_all(0, 0, 0, 0)
+        #
+        # # magnetic structure
+        # from shadow4.sources.undulator.s4_undulator_gaussian import S4UndulatorGaussian
+        #
+        # source = S4UndulatorGaussian(
+        #     period_length=0.042,  # syned Undulator parameter (length in m)
+        #     number_of_periods=38.571,  # syned Undulator parameter
+        #     photon_energy=17000.0,  # Photon energy (in eV)
+        #     delta_e=20.0,  # Photon energy width (in eV)
+        #     ng_e=100,  # Photon energy scan number of points
+        #     flag_emittance=1,  # when sampling rays: Use emittance (0=No, 1=Yes)
+        #     flag_energy_spread=0,  # when sampling rays: Use e- energy spread (0=No, 1=Yes)
+        #     harmonic_number=1,  # harmonic number
+        #     flag_autoset_flux_central_cone=0,  # value to set the flux peak
+        #     flux_central_cone=10000000000.0,  # value to set the flux peak
+        # )
+        #
+        # # light source
+        # from shadow4.sources.undulator.s4_undulator_gaussian_light_source import S4UndulatorGaussianLightSource
+        #
+        # light_source = S4UndulatorGaussianLightSource(name='Undulator Gaussian', electron_beam=electron_beam,
+        #                                               magnetic_structure=source, nrays=50000, seed=5676561)
     else:  # pencil
 
         from shadow4.sources.source_geometrical.source_geometrical import SourceGeometrical
@@ -156,34 +169,182 @@ def run_beamline_17keV(
 
     beamline.set_light_source(light_source)
 
-    optical_element = get_optical_element_instance_channel_cut(
-        crystal_separation=crystal_separation,
-        roll=roll, pitch=pitch, yaw=yaw,  # applied in this order
-        T=[0, 0, 0],
-        use_mirrors=use_mirrors,
-    )
 
-    from syned.beamline.element_coordinates import ElementCoordinates
+    #
+    # monochromator
+    #
+    if is_compound:
+        #
+        # compound
+        #
+        optical_element = get_optical_element_instance_channel_cut(
+            crystal_separation=crystal_separation,
+            roll=roll, pitch=pitch, yaw=yaw,  # applied in this order
+            T=[0, 0, 0],
+            use_mirrors=use_mirrors,
+        )
 
-    coordinates = ElementCoordinates(p=0, q=q2,
-                                     angle_radial=numpy.radians(90 - theta_bragg_deg),
-                                     angle_azimuthal=0,
-                                     angle_radial_out=numpy.radians(90 + theta_bragg_deg))
+        from syned.beamline.element_coordinates import ElementCoordinates
 
-    from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+        coordinates = ElementCoordinates(p=0, q=0,
+                                         angle_radial=angle_radial,
+                                         angle_azimuthal=0,
+                                         angle_radial_out=numpy.radians(90 + theta_bragg_deg))
 
-    movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
-                                           rotation_x=0, rotation_y=0, rotation_z=0)
+        from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
 
-    beamline_element = S4CompoundElement(
-        optical_element=optical_element,
-        coordinates=coordinates,
-        movements=movements,
-        input_beam=beam)
+        movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
+                                               rotation_x=0, rotation_y=0, rotation_z=0)
 
-    beam, footprints = beamline_element.trace_beam()
+        beamline_element = S4CompoundElement(
+            optical_element=optical_element,
+            coordinates=coordinates,
+            movements=movements,
+            input_beam=beam)
 
-    beamline.append_beamline_element(beamline_element)
+        beam, footprints = beamline_element.trace_beam()
+
+        beamline.append_beamline_element(beamline_element)
+
+    else:
+        #
+        # split
+        #
+        footprints = []
+        q_path = crystal_separation / numpy.sin(numpy.radians(theta_bragg_deg))
+        if use_mirrors:
+            # optical element number XX
+            boundary_shape = None
+
+            from shadow4.beamline.optical_elements.mirrors.s4_plane_mirror import S4PlaneMirror
+            optical_element = S4PlaneMirror(name='Generic Mirror', boundary_shape=boundary_shape,
+                                            f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
+                                            coating_material='Si', coating_density=2.33, coating_roughness=0)
+
+            from syned.beamline.element_coordinates import ElementCoordinates
+            coordinates = ElementCoordinates(p=0, q=0.5*q_path, angle_radial=angle_radial, angle_azimuthal=0,
+                                             angle_radial_out=angle_radial)
+            from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+            movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
+                                                   rotation_x=pitch,
+                                                   rotation_y=roll,
+                                                   rotation_z=yaw)
+            from shadow4.beamline.optical_elements.mirrors.s4_plane_mirror import S4PlaneMirrorElement
+            beamline_element = S4PlaneMirrorElement(optical_element=optical_element, coordinates=coordinates,
+                                                    movements=movements, input_beam=beam)
+
+            beam, footprint = beamline_element.trace_beam()
+
+            beamline.append_beamline_element(beamline_element)
+            footprints.append(footprint)
+
+            # optical element number XX
+            boundary_shape = None
+
+            from shadow4.beamline.optical_elements.mirrors.s4_plane_mirror import S4PlaneMirror
+            optical_element = S4PlaneMirror(name='Generic Mirror', boundary_shape=boundary_shape,
+                                            f_reflec=0, f_refl=0, file_refl='<none>', refraction_index=0.99999 + 0.001j,
+                                            coating_material='Si', coating_density=2.33, coating_roughness=0)
+
+            from syned.beamline.element_coordinates import ElementCoordinates
+            coordinates = ElementCoordinates(p=0.5*q_path, q=0, angle_radial=angle_radial, angle_azimuthal=3.141592654,
+                                             angle_radial_out=angle_radial)
+            from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+            movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0,
+                                                   rotation_x=-pitch,
+                                                   rotation_y=roll,
+                                                   rotation_z=yaw)
+            from shadow4.beamline.optical_elements.mirrors.s4_plane_mirror import S4PlaneMirrorElement
+            beamline_element = S4PlaneMirrorElement(optical_element=optical_element, coordinates=coordinates,
+                                                    movements=movements, input_beam=beam)
+
+            beam, footprint = beamline_element.trace_beam()
+
+            beamline.append_beamline_element(beamline_element)
+            footprints.append(footprint)
+        else:
+            # optical element number XX
+            boundary_shape = None
+
+            from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
+            optical_element = S4PlaneCrystal(name='Generic Crystal',
+                                             boundary_shape=boundary_shape, material='Si',
+                                             miller_index_h=1, miller_index_k=1, miller_index_l=1,
+                                             f_bragg_a=False, asymmetry_angle=0.0,
+                                             is_thick=1, thickness=0.001,
+                                             f_central=0, f_phot_cent=0, phot_cent=17000.0,
+                                             file_refl='bragg.dat',
+                                             f_ext=0,
+                                             material_constants_library_flag=1,
+                                             # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
+                                             method_efields_management=0,  # 0=new in S4; 1=like in S3
+                                             )
+            from syned.beamline.element_coordinates import ElementCoordinates
+            coordinates = ElementCoordinates(p=0, q=0.01, angle_radial=angle_radial, angle_azimuthal=0,
+                                             angle_radial_out=angle_radial)
+            from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+            movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0, rotation_x=0,
+                                                   rotation_y=0, rotation_z=0)
+            from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystalElement
+            beamline_element = S4PlaneCrystalElement(optical_element=optical_element, coordinates=coordinates,
+                                                     movements=movements, input_beam=beam)
+
+            beam, footprint = beamline_element.trace_beam()
+            footprints.append(footprint)
+
+            beamline.append_beamline_element(beamline_element)
+
+            # optical element number XX
+            boundary_shape = None
+
+            from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystal
+            optical_element = S4PlaneCrystal(name='Generic Crystal',
+                                             boundary_shape=boundary_shape, material='Si',
+                                             miller_index_h=1, miller_index_k=1, miller_index_l=1,
+                                             f_bragg_a=False, asymmetry_angle=0.0,
+                                             is_thick=1, thickness=0.001,
+                                             f_central=0, f_phot_cent=0, phot_cent=17000.0,
+                                             file_refl='bragg.dat',
+                                             f_ext=0,
+                                             material_constants_library_flag=1,
+                                             # 0=xraylib,1=dabax,2=preprocessor v1,3=preprocessor v2
+                                             method_efields_management=0,  # 0=new in S4; 1=like in S3
+                                             )
+            from syned.beamline.element_coordinates import ElementCoordinates
+            coordinates = ElementCoordinates(p=0, q=0.01, angle_radial=angle_radial, angle_azimuthal=3.141592654,
+                                             angle_radial_out=angle_radial)
+            from shadow4.beamline.s4_beamline_element_movements import S4BeamlineElementMovements
+            movements = S4BeamlineElementMovements(f_move=1, offset_x=0, offset_y=0, offset_z=0, rotation_x=0,
+                                                   rotation_y=0, rotation_z=0)
+            from shadow4.beamline.optical_elements.crystals.s4_plane_crystal import S4PlaneCrystalElement
+            beamline_element = S4PlaneCrystalElement(optical_element=optical_element, coordinates=coordinates,
+                                                     movements=movements, input_beam=beam)
+
+            beam, footprint = beamline_element.trace_beam()
+            footprints.append(footprint)
+
+            beamline.append_beamline_element(beamline_element)
+
+
+        #
+        # propagate until the KB and reverse axes
+        #
+
+        # optical element number XX
+        from shadow4.beamline.optical_elements.ideal_elements.s4_empty import S4Empty
+        optical_element = S4Empty(name='Empty Element (propagate to KB entrance)')
+
+        from syned.beamline.element_coordinates import ElementCoordinates
+        coordinates = ElementCoordinates(p=q2, q=0, angle_radial=0,
+                                         angle_azimuthal=0,#4.71238898,
+                                         angle_radial_out=3.141592654)
+        from shadow4.beamline.optical_elements.ideal_elements.s4_empty import S4EmptyElement
+        beamline_element = S4EmptyElement(optical_element=optical_element, coordinates=coordinates, input_beam=beam)
+
+        beam, footprint = beamline_element.trace_beam()
+
+        beamline.append_beamline_element(beamline_element)
+
 
     # print(beamline.info())
 
@@ -256,21 +417,21 @@ if __name__ in ["__main__"]:
     # main
     #
     do_calculate = 1
-    rotation_axis = 'y'
-    use_mirrors = 1
-    use_undulator = 1
+    rotation_axis = 'x'
+    use_mirrors = 0
+    use_undulator = 0
+    is_compound = 0
     theta_bragg_deg = 6.679637445440589
     theta_bragg = numpy.radians(theta_bragg_deg)
 
 
-    # q1 = 0.1
-    # crystal_separation = q1 * numpy.sin(numpy.radians(theta_bragg_deg))
-    # q2 = 0.9
-
     q1 = 0.1
-    crystal_separation = 0.005 # * numpy.sin(numpy.radians(theta_bragg_deg))
-    q2 = 166.0
-    q1 = crystal_separation / numpy.sin(theta_bragg)
+    crystal_separation = q1 * numpy.sin(numpy.radians(theta_bragg_deg))
+    q2 = 0.9
+
+    # crystal_separation = 0.005 # * numpy.sin(numpy.radians(theta_bragg_deg))
+    # q2 = 166.0
+    # q1 = crystal_separation / numpy.sin(theta_bragg)
 
 
     print(">>> crystal_separation, q1: ", crystal_separation, q1)
@@ -300,20 +461,25 @@ if __name__ in ["__main__"]:
         SD_z = numpy.zeros_like(OFFSET)
         SD_xp = numpy.zeros_like(OFFSET)
         SD_zp = numpy.zeros_like(OFFSET)
+        INTENSITY1 = numpy.zeros_like(OFFSET)
+        INTENSITY2 = numpy.zeros_like(OFFSET)
 
 
         for i, rotation in enumerate(OFFSET):
             print ("iteration %d of %d" % (i, OFFSET.size))
             if rotation_axis == 'x':
                 beam0, beam1, footprints = run_beamline_17keV(use_undulator=use_undulator, use_mirrors=use_mirrors,
+                                                              is_compound=is_compound,
                                                               crystal_separation=crystal_separation, pitch=OFFSET[i],
                                                               theta_bragg_deg=theta_bragg_deg, q2=q2)
             elif rotation_axis == 'y':
                 beam0, beam1, footprints = run_beamline_17keV(use_undulator=use_undulator, use_mirrors=use_mirrors,
+                                                              is_compound=is_compound,
                                                               crystal_separation=crystal_separation, roll=OFFSET[i],
                                                               theta_bragg_deg=theta_bragg_deg, q2=q2)
             elif rotation_axis == 'z':
                 beam0, beam1, footprints = run_beamline_17keV(use_undulator=use_undulator, use_mirrors=use_mirrors,
+                                                              is_compound=is_compound,
                                                               crystal_separation=crystal_separation, yaw=OFFSET[i],
                                                               theta_bragg_deg=theta_bragg_deg, q2=q2)
 
@@ -332,6 +498,8 @@ if __name__ in ["__main__"]:
 
             # plot_2d(beam1, footprints, irange=[-1e-3, 1e-3])
 
+            INTENSITY1[i] = footprints[0].intensity(nolost=1)
+            INTENSITY2[i] = footprints[1].intensity(nolost=1)
             for j, array in enumerate([x, z, xp, zp]):
                 average = numpy.average(array, weights=w)
                 variance = numpy.average((array - average) ** 2, weights=w)
@@ -359,7 +527,12 @@ if __name__ in ["__main__"]:
 
 
 
-
+    plot(1e6 * OFFSET, INTENSITY1,
+         1e6 * OFFSET, INTENSITY2,
+         title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
+         xtitle="rotation1 [urad]", ytitle="intensity [a.u.]",
+         yrange=[0,5000],
+         figsize=(10,4), grid=1, show=0)
 
     print(">>>> CEN_z: ", CEN_z)
     if rotation_axis == 'x':
@@ -374,9 +547,9 @@ if __name__ in ["__main__"]:
              1e6 * OFFSET, 1e6 * theory_old,
              1e6 * OFFSET, 1e6 * theory,
              title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
-             xtitle="rotation1 [urad]", ytitle="centroid [um]", legend=["x", "z", "pitch equation old", "pitch equation NEW"],
+             xtitle="rotation1 [urad]", ytitle="centroid [um]", legend=["x (V)", "z (H)", "pitch equation old", "pitch equation NEW"],
              linestyle=[None, '--', ':',':'],
-             yrange=[-50,50],
+             yrange=[-20,20],
              figsize=(10,4), grid=1, show=1)
 
     elif rotation_axis == 'y':
@@ -387,19 +560,19 @@ if __name__ in ["__main__"]:
              numpy.degrees(OFFSET), 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]), # theory_beam_coordinate),
              numpy.degrees(OFFSET), 1e6 * theory,
              title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
-             xtitle="rotation1 [deg]", ytitle="centroid [um]", legend=["x", "z", "roll equation"],
+             xtitle="rotation1 [deg]", ytitle="centroid [um]", legend=["x (V)", "z (H)", "roll equation"],
              linestyle=[None, None, ':'],
              yrange=[-50,50],
              figsize=(10,4), grid=1, show=1)
 
     elif rotation_axis == 'z':
         theory = OFFSET * 0
-        plot(numpy.degrees(OFFSET), 1e6 * CEN_x,
+        plot(numpy.degrees(OFFSET), 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
              numpy.degrees(OFFSET), 1e6 * (CEN_z - theory_beam_coordinate),
              numpy.degrees(OFFSET), 1e6 * theory,
              title="rot axis '%s', q1=%.3f m, q2=%.3f m" % (rotation_axis, q1, q2),
-             xtitle="rotation1 [deg]", ytitle="centroid [um]", legend=["x", "z", "yaw equation"],
+             xtitle="rotation1 [deg]", ytitle="centroid [um]", legend=["x (V)", "z (H)", "yaw equation"],
              linestyle=[None, None, ':'],
-             yrange=[-50,50],
+             yrange=[-20,20],
              figsize=(10,4), grid=1, show=1)
 
