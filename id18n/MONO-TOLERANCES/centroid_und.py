@@ -6,7 +6,7 @@
 import numpy
 from shadow4.beamline.optical_elements.compound.s4_compound import S4Compound, S4CompoundElement
 
-def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.74533e-05, dcm=0):
+def run_beamline_17keV(crystal_number=-1, rotation_axis=None, rotation=1.74533e-05, dcm=0):
     rotation_x_1 = 0.0
     rotation_x_2 = 0.0
     rotation_x_3 = 0.0
@@ -135,10 +135,12 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
 
 
     if dcm:
+        if crystal_number != 6:
+            raise(NotImplementedError())
         from check_s4rotations_channelcut import get_optical_element_instance_channel_cut
 
         optical_element = get_optical_element_instance_channel_cut(
-            crystal_separation=0.05,
+            crystal_separation=0.01 * numpy.sin(numpy.radians(theta_bragg_deg)),
             roll=roll, pitch=pitch, yaw=0,  # applied in this order
             T=[0, 0, 0],
             use_mirrors=0,
@@ -146,7 +148,7 @@ def run_beamline_17keV(q=0.0, crystal_number=-1, rotation_axis=None, rotation=1.
 
         from syned.beamline.element_coordinates import ElementCoordinates
 
-        coordinates = ElementCoordinates(p=0, q=0,
+        coordinates = ElementCoordinates(p=0, q=0.01,
                                          angle_radial=numpy.radians(90 - theta_bragg_deg),
                                          angle_azimuthal=0,
                                          angle_radial_out=numpy.radians(90 + theta_bragg_deg))
@@ -263,10 +265,9 @@ if __name__ in ["__main__"]:
     do_calculate = 1
     rotation_axis = 'y'
     crystal_number = 6
-    q = 0.01
 
     theta_bragg_deg = 6.679637445440589
-    dcm = 1
+    dcm = 0
 
     file_name = "centroid_und_rotation_%s_17keV_%d.dat" % (rotation_axis, crystal_number)
     if do_calculate:
@@ -288,8 +289,7 @@ if __name__ in ["__main__"]:
 
         for i, rotation in enumerate(OFFSET):
             print ("iteration %d of %d" % (i, OFFSET.size))
-            beam1 = run_beamline_17keV(q=q,
-                                       crystal_number=crystal_number,
+            beam1 = run_beamline_17keV(crystal_number=crystal_number,
                                        rotation_axis=rotation_axis,
                                        rotation=rotation,
                                        dcm=dcm)
@@ -334,11 +334,11 @@ if __name__ in ["__main__"]:
 
     plot(1e6 * OFFSET, 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
          1e6 * OFFSET, 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]),
-         title="rot axis '%s'" % (rotation_axis),
+         title="rot axis '%s'" % (rotation_axis), color=['g','r'],
          xtitle="rotation [urad]", ytitle="centroid [um]", legend=["x", "z"], grid=1, show=0)
 
     plot(numpy.degrees(OFFSET), 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
          numpy.degrees(OFFSET), 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]),
-         title="rot axis '%s'" % (rotation_axis),
+         title="rot axis '%s'" % (rotation_axis), color=['g','r'],
          xtitle="rotation [deg]", ytitle="centroid [um]", legend=["x", "z"], grid=1, show=1)
 

@@ -121,7 +121,7 @@ def run_beamline_17keV(
     if use_undulator:  # undulator
 
         from shadow4.sources.s4_light_source_from_file import S4LightSourceFromFile
-        light_source = S4LightSourceFromFile(name='Shadow4 File Reader', file_name='/users/srio/Oasys/tmp.h5', simulation_name='run001',
+        light_source = S4LightSourceFromFile(name='Shadow4 File Reader', file_name='c:/users/srio/Oasys/tmp.h5', simulation_name='run001',
                                              beam_name='begin')
         beam = light_source.get_beam()
         # # electron beam
@@ -420,13 +420,13 @@ if __name__ in ["__main__"]:
     rotation_axis = 'x'
     use_mirrors = 0
     use_undulator = 0
-    is_compound = 0
+    is_compound = 1
     theta_bragg_deg = 6.679637445440589
     theta_bragg = numpy.radians(theta_bragg_deg)
 
 
     q1 = 0.1
-    crystal_separation = q1 * numpy.sin(numpy.radians(theta_bragg_deg))
+    crystal_separation = q1 * numpy.sin(theta_bragg)
     q2 = 0.9
 
     # crystal_separation = 0.005 # * numpy.sin(numpy.radians(theta_bragg_deg))
@@ -448,7 +448,7 @@ if __name__ in ["__main__"]:
         # WARNING: NO incremental result allowed!!"
 
         if rotation_axis == 'x':
-            OFFSET = numpy.linspace(numpy.radians(-0.001), numpy.radians(0.001), 5)
+            OFFSET = numpy.linspace(numpy.radians(-0.001), numpy.radians(0.001), 25)
         elif rotation_axis == 'y':
             OFFSET = numpy.linspace(numpy.radians(-0.1), numpy.radians(0.1), 5)
         elif rotation_axis == 'z':
@@ -517,13 +517,16 @@ if __name__ in ["__main__"]:
                     CEN_zp[i] = average
                     SD_zp[i] = numpy.sqrt(variance)
 
-        # numpy.savetxt(file_name, numpy.column_stack((OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp, SD_x, SD_z, SD_xp, SD_zp)))
-        # print("File %s written to disk." % file_name)
+        numpy.savetxt(file_name, numpy.column_stack((OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp,
+                                                     SD_x, SD_z, SD_xp, SD_zp,
+                                                     INTENSITY1, INTENSITY2)))
+        print("File %s written to disk." % file_name)
 
 
 
     else:
-        OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp, SD_x, SD_z, SD_xp, SD_zp = numpy.loadtxt(file_name, unpack=True)
+        OFFSET, CEN_x, CEN_z, CEN_xp, CEN_zp, SD_x, SD_z, SD_xp, SD_zp, INTENSITY1, INTENSITY2 = \
+            numpy.loadtxt(file_name, unpack=True)
 
 
 
@@ -531,16 +534,20 @@ if __name__ in ["__main__"]:
          1e6 * OFFSET, INTENSITY2,
          title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
          xtitle="rotation1 [urad]", ytitle="intensity [a.u.]",
-         yrange=[0,5000],
+         # yrange=[0,5000],
          figsize=(10,4), grid=1, show=0)
 
-    print(">>>> CEN_z: ", CEN_z)
+    print(">>>>  m CEN_z: ", CEN_z)
+    print(">>>> um CEN_z - CEN_z0: ", (CEN_z - CEN_z[CEN_z.size // 2]) * 1e6)
+    print(">>>> um SD_z: ", SD_z * 1e6)
+
     if rotation_axis == 'x':
         theory_old = -(2 * q1 * OFFSET + 2 * q2 * (OFFSET - OFFSET))
 
         theory = -(2 * crystal_separation * numpy.sin(theta_bragg) * OFFSET + 2 * q2 * (0.0 * OFFSET))
 
         print(">>>> crystal_separation, q1: ", crystal_separation, q1)
+
 
         plot(1e6 * OFFSET, 1e6 * (CEN_x - CEN_x[CEN_x.size // 2]),
              1e6 * OFFSET, 1e6 * (CEN_z - CEN_z[CEN_z.size // 2]), # theory_beam_coordinate),
@@ -549,7 +556,7 @@ if __name__ in ["__main__"]:
              title="rot axis '%s', d=%.3f m, q2=%.3f m" % (rotation_axis, crystal_separation, q2),
              xtitle="rotation1 [urad]", ytitle="centroid [um]", legend=["x (V)", "z (H)", "pitch equation old", "pitch equation NEW"],
              linestyle=[None, '--', ':',':'],
-             yrange=[-20,20],
+             yrange=[-5,5],
              figsize=(10,4), grid=1, show=1)
 
     elif rotation_axis == 'y':
