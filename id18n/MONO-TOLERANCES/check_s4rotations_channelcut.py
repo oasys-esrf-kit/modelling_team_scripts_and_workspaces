@@ -72,7 +72,7 @@ def get_optical_element_instance_channel_cut(
                                           material='Si', miller_index_h=1, miller_index_k=1, miller_index_l=1,
                                           f_bragg_a=False, asymmetry_angle=0.0,
                                           is_thick=1, thickness=0.001,
-                                          f_central=1, f_phot_cent=0, phot_cent=5000.0,
+                                          f_central=0, f_phot_cent=0, phot_cent=5000.0,
                                           file_refl='bragg.dat',
                                           f_ext=0,
                                           material_constants_library_flag=1,
