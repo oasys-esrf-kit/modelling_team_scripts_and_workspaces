@@ -1,0 +1,27 @@
+
+**************************************************
+***********************************************
+
+Total Incident Energy: 6.11e+08 eV
+Mean energy of each particle: 3.06e+04 eV
+
+Absorbed energy in the silicon = 464070000.0+-5400000.0 eV
+Scattered energy to the upper detector = 28201000.0+-3000000.0 eV
+Scattered energy to the lower detector = 53637600.0+-4200000.0 eV
+Scattered energy to the Copper = 65553400.0+-3600000.0 eV
+
+
+Total Power in Source: 1143.718 W
+
+Absorbed power in the silicon: 8.680e+02+-1.010e+01 W
+Scattered power to the upper detector: 5.275e+01+-5.611e+00 W
+Scattered power to the lower detector: 1.003e+02+-7.856e+00 W
+Scattered power to the copper: 1.226e+02+-6.734e+00 W
+
+Absorbed energy fraction in the silicon: 75.895+-0.883 %
+Absorbed energy fraction in the upper detector: 4.612+-0.491 %
+Absorbed energy fraction in the lower detector: 8.772+-0.687 %
+Absorbed energy fraction in the copper: 10.721+-0.589 %
+
+***********************************************
+**************************************************

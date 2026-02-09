@@ -1,0 +1,73 @@
+#!/bin/bash
+
+quit=n 
+while [  "$quit"   =   "n"  ] 
+do 
+#clear 
+echo 
+echo "0. to QUIT" 
+echo "1. to obtain the numerical results" 
+echo "2. to show histogram of the average energy deposited by the particles in the silicon (tallyEnergyDepositionSilicon.gpl)"
+echo "3. to show histogram of the average energy deposited by the particles in the upper detector (tallyEnergyDepositionDetectorUp.gpl)"
+echo "4. to show histogram of the average energy deposited by the particles in the lower detector (tallyEnergyDepositionDetectorDown.gpl)"
+echo "5. to show histogram of the average energy deposited by the particles in the copper (tallyEnergyDepositionCopper.gpl)"
+echo "6. to show 2.,3.,4.,5., plus the SOURCE in the same plot (tallyEnergyDepositionSystem.gpl)"
+echo "7. to show the energy distribution vs x in the silicon (HistoSiliconEnX.py)"
+echo "8. to show the energy distribution vs y in the silicon (HistoSiliconEnY.py)"
+echo "9. to show the energy distribution vs z in the silicon (HistoSiliconEnZ.py)"
+echo "10. to show the energy distribution vs x in the upper detector (HistoDetUpEnX.py)"
+echo "11. to show the energy distribution vs y in the upper detector (HistoDetUpEnY.py)"
+echo "12. to show the energy distribution vs z in the upper detector (HistoDetUpEnZ.py)"
+echo "13. to show the energy distribution vs x in the lower detector (HistoDetDownEnX.py)"
+echo "14. to show the energy distribution vs y in the lower detector (HistoDetDownEnY.py)"
+echo "15. to show the energy distribution vs z in the lower detector (HistoDetDownEnZ.py)"
+echo "16. to show the energy distribution vs x in the copper (HistoCopperEnX.py)"
+echo "17. to show the energy distribution vs y in the copper (HistoCopperEnY.py)"
+echo "18. to show the energy distribution vs z in the copper (HistoCopperEnZ.py)"
+echo 
+echo "Please enter the choice:" 
+read choice 
+case $choice in 
+0)echo "Thank you, come again!!!" 
+  exit
+  read junk;;
+1)more OutputValues.dat
+  read junk;;
+2)gnuplot tallyEnergyDepositionSilicon.gpl
+  read junk;;
+3)gnuplot tallyEnergyDepositionDetectorUp.gpl
+  read junk;;
+4)gnuplot tallyEnergyDepositionDetectorDown.gpl
+  read junk;;
+5)gnuplot tallyEnergyDepositionCopper.gpl
+  read junk;;
+6)gnuplot tallyEnergyDepositionSystem.gpl
+  read junk;;
+7)python HistoSiliconEnX.py
+  read junk;;
+8)python HistoSiliconEnY.py
+  read junk;;
+9)python HistoSiliconEnZ.py
+  read junk;;
+10)python HistoDetUpEnX.py
+  read junk;;
+11)python HistoDetUpEnY.py
+  read junk;;
+12)python HistoDetUpEnZ.py
+  read junk;;
+13)python HistoDetDownEnX.py
+  read junk;;
+14)python HistoDetDownEnY.py
+  read junk;;
+15)python HistoDetDownEnZ.py
+  read junk;;
+16)python HistoCopperEnX.py
+  read junk;;
+17)python HistoCopperEnY.py
+  read junk;;
+18)python HistoCopperEnZ.py
+  read junk;;
+*) echo "Try Again" 
+sleep 1 
+esac 
+done 

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+quit=n 
+while [  "$quit"   =   "n"  ] 
+do 
+#clear 
+echo 
+echo "0. to QUIT" 
+echo "1. to obtain the numerical results" 
+echo "2. to show histogram of the average energy deposited by the particles in the silicon (tallyEnergyDepositionSilicon.gpl)"
+echo "3. to show histogram of the average energy deposited by the particles in the detector (tallyEnergyDepositionDetectorUp.gpl)"
+echo "4. to show 2.,3. plus the SOURCE in the same plot (tallyEnergyDepositionSystem.gpl)"
+echo "5. to show the energy distribution vs x in the silicon (HistoSiliconEnX.py)"
+echo "6. to show the energy distribution vs y in the silicon (HistoSiliconEnY.py)"
+echo "7. to show the energy distribution vs z in the silicon (HistoSiliconEnZ.py)"
+echo "8. to show the energy distribution vs x in the detector (HistoDetUpEnX.py)"
+echo "9. to show the energy distribution vs y in the detector (HistoDetUpEnY.py)"
+echo "10. to show the energy distribution vs z in the detector (HistoDetUpEnZ.py)"
+echo 
+echo "Please enter the choice:" 
+read choice 
+case $choice in 
+0)echo "Thank you, come again!!!" 
+  exit
+  read junk;;
+1)more OutputValues.dat
+  read junk;;
+2)gnuplot tallyEnergyDepositionSilicon.gpl
+  read junk;;
+3)gnuplot tallyEnergyDepositionDetectorUp.gpl
+  read junk;;
+4)gnuplot tallyEnergyDepositionSystem.gpl
+  read junk;;
+5)python HistoSiliconEnX.py
+  read junk;;
+6)python HistoSiliconEnY.py
+  read junk;;
+7)python HistoSiliconEnZ.py
+  read junk;;
+8)python HistoDetUpEnX.py
+  read junk;;
+9)python HistoDetUpEnY.py
+  read junk;;
+10)python HistoDetUpEnZ.py
+  read junk;;
+*) echo "Try Again" 
+sleep 1 
+esac 
+done 
