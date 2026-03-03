@@ -386,7 +386,7 @@ def run_beamline(rotation_x=0):
 #
 from srxraylib.plot.gol import plot, plot_image, plot_image_with_histograms, plot_show
 
-do_calculate = 0
+do_calculate = 1
 
 ##
 
