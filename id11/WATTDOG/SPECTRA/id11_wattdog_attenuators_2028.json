@@ -1,0 +1,240 @@
+{
+    "Axis1": {
+        "_name": "Att1",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        }
+    },
+    "Axis2": {
+        "_name": "Att2",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "C filter 0.5 mm",
+            "substance": "C",
+            "thickness": 0.5,
+            "density": 3.52
+        },
+        "filter2": {
+            "name": "Cu filter 0.0015 mm",
+            "substance": "Cu",
+            "thickness": 0.0015,
+            "density": 8.96
+        },
+        "filter3": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter4": {
+            "name": "Cu filter 0.0015 mm",
+            "substance": "Cu",
+            "thickness": 0.0015,
+            "density": 8.96
+        }
+    },
+    "Axis3": {
+        "_name": "Att3",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.0025 mm",
+            "substance": "Cu",
+            "thickness": 0.0025,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.0025 mm",
+            "substance": "Cu",
+            "thickness": 0.0025,
+            "density": 8.96
+        },
+        "filter4": {
+            "name": "Cu filter 0.005 mm",
+            "substance": "Cu",
+            "thickness": 0.005,
+            "density": 8.96
+        },
+        "filter5": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter6": {
+            "name": "Cu filter 0.005 mm",
+            "substance": "Cu",
+            "thickness": 0.005,
+            "density": 8.96
+        }
+    },
+    "Axis4": {
+        "_name": "Att4",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.0075 mm",
+            "substance": "Cu",
+            "thickness": 0.0075,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.0075 mm",
+            "substance": "Cu",
+            "thickness": 0.0075,
+            "density": 8.96
+        },
+        "filter4": {
+            "name": "Cu filter 0.01 mm",
+            "substance": "Cu",
+            "thickness": 0.01,
+            "density": 8.96
+        },
+        "filter5": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter6": {
+            "name": "Cu filter 0.01 mm",
+            "substance": "Cu",
+            "thickness": 0.01,
+            "density": 8.96
+        }
+    },
+    "Axis5": {
+        "_name": "Att5",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.015 mm",
+            "substance": "Cu",
+            "thickness": 0.015,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.015 mm",
+            "substance": "Cu",
+            "thickness": 0.015,
+            "density": 8.96
+        },
+        "filter4": {
+            "name": "Ag filter 0.005 mm",
+            "substance": "Ag",
+            "thickness": 0.005,
+            "density": 10.49
+        },
+        "filter5": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter6": {
+            "name": "Ag filter 0.005 mm",
+            "substance": "Ag",
+            "thickness": 0.005,
+            "density": 10.49
+        }
+    },
+    "Axis6": {
+        "_name": "Att6",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.0075 mm",
+            "substance": "Cu",
+            "thickness": 0.0075,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.0075 mm",
+            "substance": "Cu",
+            "thickness": 0.0075,
+            "density": 8.96
+        },
+        "filter4": {
+            "name": "Ag filter 0.01 mm",
+            "substance": "Ag",
+            "thickness": 0.01,
+            "density": 10.49
+        },
+        "filter5": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter6": {
+            "name": "Ag filter 0.01 mm",
+            "substance": "Ag",
+            "thickness": 0.01,
+            "density": 10.49
+        }
+    },
+    "Axis7": {
+        "_name": "Att7",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.015 mm",
+            "substance": "Cu",
+            "thickness": 0.015,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.015 mm",
+            "substance": "Cu",
+            "thickness": 0.015,
+            "density": 8.96
+        },
+        "filter4": {
+            "name": "Ag filter 0.025 mm",
+            "substance": "Ag",
+            "thickness": 0.025,
+            "density": 10.49
+        },
+        "filter5": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter6": {
+            "name": "Ag filter 0.025 mm",
+            "substance": "Ag",
+            "thickness": 0.025,
+            "density": 10.49
+        }
+    }
+}

@@ -41,43 +41,45 @@ for name in energy:
 
 import pylab as plt
 
-f, a = plt.subplots(3, 7, constrained_layout=True, figsize=(15, 8))
+if 0:
+    f, a = plt.subplots(3, 7, constrained_layout=True, figsize=(15, 8))
 
-for j, device in enumerate(('cpmu18', 'cpmu20', 'u22')):
-    Kvs = list(results[device]['SRW'])
-    attenuators = list(results[device]['SRW'][Kvs[0]])
-    attenuators.append(attenuators.pop(0))  # 2026 last
-    for i, attenuator in enumerate(attenuators):
-        ll = []
-        bb = []
-        for K in Kvs:
-            data = results[device]['SRW'][K][attenuator]
-            e = data[0]
-            de = e[1] - e[0]
-            ll.append(data[-8].sum() * de)
-            bb.append((data[-8].sum() + data[-2].sum()) * de)
-        llw = []
-        bbw = []
-        for K in Kvs:
-            data = results[device]['WS'][K][attenuator]
-            e = data[0]
-            de = e[1] - e[0]
-            llw.append(data[-8].sum() * de)
-            bbw.append((data[-8].sum() + data[-2].sum()) * de)
-        a[j, i].plot([float(k) for k in Kvs], ll, "o-", label='ll srw')
-        a[j, i].plot([float(k) for k in Kvs], llw, "o-", label='ll ws')
-        a[j, i].plot([float(k) for k in Kvs], bb, "o-", label='bb srw')
-        a[j, i].plot([float(k) for k in Kvs], bbw, "o-", label='bb ws')
-        a[j, i].set(title=f'{device} {attenuator}', ylim=(0, None), xlim=(0, None))
-        a[j, i].legend(loc='upper left')
+    for j, device in enumerate(('cpmu18', 'cpmu20', 'u22')):
+        Kvs = list(results[device]['SRW'])
+        attenuators = list(results[device]['SRW'][Kvs[0]])
+        attenuators.append(attenuators.pop(0))  # 2026 last
+        for i, attenuator in enumerate(attenuators):
+            ll = []
+            bb = []
+            for K in Kvs:
+                data = results[device]['SRW'][K][attenuator]
+                e = data[0]
+                de = e[1] - e[0]
+                ll.append(data[-8].sum() * de)
+                bb.append((data[-8].sum() + data[-2].sum()) * de)
+            llw = []
+            bbw = []
+            for K in Kvs:
+                data = results[device]['WS'][K][attenuator]
+                e = data[0]
+                de = e[1] - e[0]
+                llw.append(data[-8].sum() * de)
+                bbw.append((data[-8].sum() + data[-2].sum()) * de)
+            a[j, i].plot([float(k) for k in Kvs], ll, "o-", label='ll srw')
+            a[j, i].plot([float(k) for k in Kvs], llw, "o-", label='ll ws')
+            a[j, i].plot([float(k) for k in Kvs], bb, "o-", label='bb srw')
+            a[j, i].plot([float(k) for k in Kvs], bbw, "o-", label='bb ws')
+            a[j, i].set(title=f'{device} {attenuator}', ylim=(0, None), xlim=(0, None))
+            a[j, i].legend(loc='upper left')
 
-for i in range(a.shape[0]):
-    a[i, 0].set(ylabel='Power/W')
-for i in range(a.shape[1]):
-    a[-1, i].set(xlabel='K')
+    for i in range(a.shape[0]):
+        a[i, 0].set(ylabel='Power/W')
+    for i in range(a.shape[1]):
+        a[-1, i].set(xlabel='K')
 
-plt.show()
+    plt.show()
 
+import numpy as np
 
 
 # https://physics.nist.gov/PhysRefData/XrayMassCoef/ElemTab/z14.html
@@ -85,7 +87,6 @@ plt.show()
 #      (MeV)      (cm2/g)     (cm2/g)
 #____________________________________
 #
-import numpy as np
 nist = np.transpose([[float(x) for x in line.split()] for line in """1.00000E-03  1.570E+03  1.567E+03 
    1.50000E-03  5.355E+02  5.331E+02 
    1.83890E-03  3.092E+02  3.070E+02 
@@ -123,24 +124,22 @@ nist = np.transpose([[float(x) for x in line.split()] for line in """1.00000E-03
    8.00000E+00  2.574E-02  1.773E-02 
    1.00000E+01  2.462E-02  1.753E-02 
    1.50000E+01  2.352E-02  1.746E-02 
-   2.00000E+01  2.338E-02  1.757E-02 """.split('\n')])
+2.00000E+01  2.338E-02  1.757E-02 """.split('\n')])
 
-f,a = plt.subplots(1,2)
-a[0].plot( nist[0], nist[1], '-', label='mu')
-a[0].plot( nist[0], nist[2], '-', label='mu_en')
-a[0].legend()
-a[0].set( xscale='log', yscale='log')
-a[1].plot( nist[0]*1e3, nist[2]/nist[1], '-', label='mu_en/mu')
-a[1].set( xscale='log', title='Fraction')
-a[1].legend()
+if 0:
+    f,a = plt.subplots(1,2)
+    a[0].plot( nist[0], nist[1], '-', label='mu')
+    a[0].plot( nist[0], nist[2], '-', label='mu_en')
+    a[0].legend()
+    a[0].set( xscale='log', yscale='log')
+    a[1].plot( nist[0]*1e3, nist[2]/nist[1], '-', label='mu_en/mu')
+    a[1].set( xscale='log', title='Fraction')
+    a[1].legend()
 
-plt.show()
-
+    plt.show()
 
 import xraylib
-
 Z_Si = xraylib.SymbolToAtomicNumber( 'Si' )
-
 def nistcalc( data_in, plot=True ):
     data = data_in[:-6] # snip off bragg
     dE = (data[0][1:]-data[0][:-1]).mean() # constant step in energy
@@ -175,48 +174,50 @@ def nistcalc( data_in, plot=True ):
     e_deposited = np.sum(data[-2]*muen_nist/mu_nist)*dE
     return e_deposited
 
-nistcalc( results['cpmu18']['SRW']['1.6563']['2028.5'] )
+if 0:
+    nistcalc( results['cpmu18']['SRW']['1.6563']['2028.5'] )
+    plt.show()
 
-plt.show()
 
-nistcalc( results['cpmu18']['WS']['1.6563']['2028.5'] )
+    nistcalc( results['cpmu18']['WS']['1.6563']['2028.5'] )
+    plt.show()
 
-plt.show()
+if 1:
 
-f, a = plt.subplots( 3, 7, constrained_layout=True, figsize=(15,8))
+    f, a = plt.subplots( 3, 7, constrained_layout=True, figsize=(15,8))
 
-for j, device in enumerate( ('cpmu18' , 'cpmu20', 'u22' )):
-    Kvs = list(results[device]['SRW'])
-    attenuators = list(results[device]['SRW'][Kvs[0]])
-    attenuators.append( attenuators.pop(0) ) # 2026 last
-    for i, attenuator in enumerate( attenuators ):
-        ll = []
-        lln = []
-        for K in Kvs:
-            data = results[device]['SRW'][K][attenuator]
-            e = data[0]
-            de = e[1]-e[0]
-            ll.append( data[-8].sum() * de )
-            lln.append( nistcalc( results[device]['SRW'][K][attenuator], plot=False))
-        llw = []
-        llwn = []
-        for K in Kvs:
-                data = results[device]['WS'][K][attenuator]
+    for j, device in enumerate( ('cpmu18' , 'cpmu20', 'u22' )):
+        Kvs = list(results[device]['SRW'])
+        attenuators = list(results[device]['SRW'][Kvs[0]])
+        attenuators.append( attenuators.pop(0) ) # 2026 last
+        for i, attenuator in enumerate( attenuators ):
+            ll = []
+            lln = []
+            for K in Kvs:
+                data = results[device]['SRW'][K][attenuator]
                 e = data[0]
                 de = e[1]-e[0]
-                llw.append( data[-8].sum() * de )
-                llwn.append( nistcalc( results[device]['WS'][K][attenuator], plot=False))
-        a[j,i].plot( [ float(k) for k in Kvs ], ll, "o-", label='ll srw' )
-        a[j,i].plot( [ float(k) for k in Kvs ], llw, "o-", label='ll ws' )
-        a[j,i].plot( [ float(k) for k in Kvs ], lln, "o-", label='ll nist srw' )
-        a[j,i].plot( [ float(k) for k in Kvs ], llwn, "o-", label='ll nist ws' )
-        a[j,i].set( title=f'{device} {attenuator}', ylim=(0,None), xlim=(0,None))
-        a[j,i].legend(loc='upper left')
+                ll.append( data[-8].sum() * de )
+                lln.append( nistcalc( results[device]['SRW'][K][attenuator], plot=False))
+            llw = []
+            llwn = []
+            for K in Kvs:
+                    data = results[device]['WS'][K][attenuator]
+                    e = data[0]
+                    de = e[1]-e[0]
+                    llw.append( data[-8].sum() * de )
+                    llwn.append( nistcalc( results[device]['WS'][K][attenuator], plot=False))
+            a[j,i].plot( [ float(k) for k in Kvs ], ll, "o-", label='ll srw' )
+            a[j,i].plot( [ float(k) for k in Kvs ], llw, "o-", label='ll ws' )
+            a[j,i].plot( [ float(k) for k in Kvs ], lln, "o-", label='ll nist srw' )
+            a[j,i].plot( [ float(k) for k in Kvs ], llwn, "o-", label='ll nist ws' )
+            a[j,i].set( title=f'{device} {attenuator}', ylim=(0,None), xlim=(0,None))
+            a[j,i].legend(loc='upper left')
 
-for i in range(a.shape[0]):
-    a[i,0].set(ylabel='Power/W')
-for i in range(a.shape[1]):
-    a[-1,i].set(xlabel='K')
+    for i in range(a.shape[0]):
+        a[i,0].set(ylabel='Power/W')
+    for i in range(a.shape[1]):
+        a[-1,i].set(xlabel='K')
 
 
-plt.show()
+    plt.show()

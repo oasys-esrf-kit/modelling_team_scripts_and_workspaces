@@ -1,0 +1,249 @@
+{
+    "CLASS_NAME": "FilterBox",
+    "filter_blocks_list": [
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Cu filter 0.0025 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Cu",
+                    "thickness": 0.0025,
+                    "density": 8.96
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Cu filter 0.0025 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Cu",
+                    "thickness": 0.0025,
+                    "density": 8.96
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Cu filter 0.0025 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Cu",
+                    "thickness": 0.0025,
+                    "density": 8.96
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Cu filter 0.0025 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Cu",
+                    "thickness": 0.0025,
+                    "density": 8.96
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Au filter 0.0038 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Au",
+                    "thickness": 0.0038,
+                    "density": 19.32
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Au filter 0.0038 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Au",
+                    "thickness": 0.0038,
+                    "density": 19.32
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Au filter 0.0013 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Au",
+                    "thickness": 0.0013,
+                    "density": 19.32
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Au filter 0.0038 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Au",
+                    "thickness": 0.0038,
+                    "density": 19.32
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Au filter 0.0013 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Au",
+                    "thickness": 0.0013,
+                    "density": 19.32
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "C filter 0.3 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "C",
+                    "thickness": 0.3,
+                    "density": 3.52
+                },
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Au filter 0.0038 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Au",
+                    "thickness": 0.0038,
+                    "density": 19.32
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Al filter 1 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Al",
+                    "thickness": 1.0,
+                    "density": 2.7
+                }
+            ],
+            "selection": 0
+        },
+        {
+            "CLASS_NAME": "FilterBlock",
+            "filters_list": [
+                {
+                    "CLASS_NAME": "FilterWithDensity",
+                    "name": "Al filter 1 mm",
+                    "boundary_shape": {
+                        "CLASS_NAME": "BoundaryShape"
+                    },
+                    "material": "Al",
+                    "thickness": 1.0,
+                    "density": 2.7
+                }
+            ],
+            "selection": 0
+        }
+    ]
+}

@@ -1,0 +1,152 @@
+{
+    "Axis1": {
+        "_name": "Att1",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        }
+    },
+    "Axis2": {
+        "_name": "Att2",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        }
+    },
+    "Axis3": {
+        "_name": "Att3",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.0025 mm",
+            "substance": "Cu",
+            "thickness": 0.0025,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.0025 mm",
+            "substance": "Cu",
+            "thickness": 0.0025,
+            "density": 8.96
+        }
+    },
+    "Axis4": {
+        "_name": "Att4",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Cu filter 0.0025 mm",
+            "substance": "Cu",
+            "thickness": 0.0025,
+            "density": 8.96
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Cu filter 0.0025 mm",
+            "substance": "Cu",
+            "thickness": 0.0025,
+            "density": 8.96
+        }
+    },
+    "Axis5": {
+        "_name": "Att5",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Au filter 0.0038 mm",
+            "substance": "Au",
+            "thickness": 0.0038,
+            "density": 19.32
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Au filter 0.0038 mm",
+            "substance": "Au",
+            "thickness": 0.0038,
+            "density": 19.32
+        }
+    },
+    "Axis6": {
+        "_name": "Att6",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Au filter 0.0013 mm",
+            "substance": "Au",
+            "thickness": 0.0013,
+            "density": 19.32
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Au filter 0.0038 mm",
+            "substance": "Au",
+            "thickness": 0.0038,
+            "density": 19.32
+        }
+    },
+    "Axis7": {
+        "_name": "Att7",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Au filter 0.0013 mm",
+            "substance": "Au",
+            "thickness": 0.0013,
+            "density": 19.32
+        },
+        "filter2": {
+            "name": "C filter 0.3 mm",
+            "substance": "C",
+            "thickness": 0.3,
+            "density": 3.52
+        },
+        "filter3": {
+            "name": "Au filter 0.0038 mm",
+            "substance": "Au",
+            "thickness": 0.0038,
+            "density": 19.32
+        }
+    },
+    "Axis8": {
+        "_name": "Att8",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Al filter 1 mm",
+            "substance": "Al",
+            "thickness": 1.0,
+            "density": 2.7
+        }
+    },
+    "Axis9": {
+        "_name": "Att9",
+        "_att_pos": 0,
+        "filter1": {
+            "name": "Al filter 1 mm",
+            "substance": "Al",
+            "thickness": 1.0,
+            "density": 2.7
+        }
+    }
+}
