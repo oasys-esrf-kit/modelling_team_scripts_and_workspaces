@@ -160,7 +160,7 @@ $f_K$ by a cheaper incoherent-pole estimate suited to fast thermal-load calculat
 \subsection{On-Axis Brilliance: Wiggler versus Undulator}
 
 We have seen that the expressions for the total power emitted by the undulator
-and wiggler are the same, when integrated over all the photon energies. 
+and wiggler are the same, when integrated over all the photon energies.
 The headline distinction lies in how the radiation from successive magnet
 periods combines, and it appears directly in the scaling with the number of
 periods $N$. The two regimes are set by the deflection parameter $K$
@@ -227,12 +227,12 @@ lines. Physically, the crossover is simply whether $K/\gamma$ is smaller than
 \subsection{The undulator spectrum approximated by the wiggler}
 
 In the wiggler limit, the undulator spectrum will show a multitude of peaks that tend
-to merge and approaches $2N$ times the spectrum of an ``averaged" 
+to merge and approaches $2N$ times the spectrum of an ``averaged"
 single bending magnet.
-%Even for moderate $K \sim 1$--2 this approximation reproduces integrated powers to within 20--30\,\%, sufficient for most thermal load estimates.  
+%Even for moderate $K \sim 1$--2 this approximation reproduces integrated powers to within 20--30\,\%, sufficient for most thermal load estimates.
 Figure~\ref{fig:spectral_power} compares the spectral power
-computed by exact (SRW in OASYS/XOPPY Undulator Spectrum), wiggler (WS in OASYS/XOPPY WS). Two 
-cases are compared, the full emission (or radiation collected in a very wide slit, in this case 30 x 10 mm$^2$ at 23~m) or in a ``small slit" as defined by the front end and primary slit (FE aperture is 1.8 x 1.0 mm$^2$ at 23 m). The cumulated power plots show that the total integrated power is the same full emission and emission on a small aperture  (equations~\ref{eq:ptotal} and \ref{eq:Pslit}, respectively). The cumulated power vs photon energy shows steps for the undulator and is very smooth for the wiggler, meaning that if some non-constant filtering is applied (when using attenuators and mirrors) the total integrated values will show differences. However, in cases where the filtering is not very selective, i.e., it is applied over undulator peaks that average out on the wiggler continuum, which appears for $K$ larger than one and is the case when the total power is higher, the use of a wiggler approximation may be reasonable for calculating the total power. This is exploited in this document.
+computed by exact (SRW \cite{srw1998} in OASYS/XOPPY \cite{oasys} Undulator Spectrum), wiggler (WS in OASYS/XOPPY WS). Two
+cases are compared, the full emission (or radiation collected in a very wide slit, in this case 30 x 10 mm$^2$ at 23~m) or in a ``small slit" as defined by the front end and primary slit (FE aperture is 1.8 x 1.0 mm$^2$ at 23 m). The cumulated power plots (Figure~\ref{fig:cumulated_power}) show that the total integrated power is the same full emission and emission on a small aperture  (equations~\ref{eq:ptotal} and \ref{eq:Pslit}, respectively). The cumulated power vs photon energy shows steps for the undulator and is very smooth for the wiggler, meaning that if some non-constant filtering is applied (when using attenuators and mirrors) the total integrated values will show differences. However, in cases where the filtering is not very selective, i.e., it is applied over undulator peaks that average out on the wiggler continuum, which appears for $K$ larger than one and is the case when the total power is higher, the use of a wiggler approximation may be reasonable for calculating the total power. This is exploited in this document.
 
 \begin{figure}[htbp]
   \centering
@@ -248,7 +248,7 @@ cases are compared, the full emission (or radiation collected in a very wide sli
   \includegraphics[width=0.45\textwidth]{figures/cumulated_power_large_slits.png}
   \includegraphics[width=0.45\textwidth]{figures/cumulated_power_small_slits.png}
   \caption{Cumulated power for a large slit (left, $30\times10$\,mm$^2$) and a small
-           slit (right, $1.8\times1.0$\,mm$^2$) at 23\,m.  
+           slit (right, $1.8\times1.0$\,mm$^2$) at 23\,m.
 	   (For the small slit WS slightly overestimates the integrated power.)}
   \label{fig:cumulated_power}
 \end{figure}
@@ -312,7 +312,7 @@ $\Delta\theta = L/\rho$ with $B\rho\,[\text{T\,m}] = 3.3356\,E_e\,[\text{GeV}]$,
 so integrating Eq.\,(\ref{eq:dPdtheta}) over the arc gives:
 \begin{equation}
   P_\text{BM} = \frac{4.221\times10^3}{3.3356}\; E_e^2\; B^2\; L\; I
-  \approx 1268\; E_e^2\,[\text{GeV}^2]\; B^2\,[\text{T}^2]\; L\,[\text{m}]\; I\,[\text{A}]
+  \approx 1266\; E_e^2\,[\text{GeV}^2]\; B^2\,[\text{T}^2]\; L\,[\text{m}]\; I\,[\text{A}]
   \quad[\text{W}].
   \label{eq:PBM}
 \end{equation}
@@ -348,21 +348,20 @@ Evaluating the prefactor with $e=1.602\times10^{-19}$\,C,
 $\epsilon_0=8.854\times10^{-12}$\,F/m:
 \begin{equation}
   \frac{e\,(1956.95)^4}{6\pi\epsilon_0\times 3.3356}
-  = \frac{1.602\times10^{-19}\times 1.463\times10^{13}}
+  = \frac{1.602\times10^{-19}\times 1.4666\times10^{13}}
          {6\pi\times 8.854\times10^{-12}\times 3.3356}
-  = \frac{2.344\times10^{-6}}{5.567\times10^{-10}}
-  = 4211 \quad [\text{W\,rad}^{-1}\text{GeV}^{-3}\text{T}^{-1}\text{A}^{-1}],
+  = \frac{2.350\times10^{-6}}{5.567\times10^{-10}}
+  = 4221 \quad [\text{W\,rad}^{-1}\text{GeV}^{-3}\text{T}^{-1}\text{A}^{-1}],
 \end{equation}
 giving
 \begin{equation}
-  \boxed{\frac{dP}{d\theta} = 4211\cdot E_e^3[\text{GeV}^3]\cdot B[\text{T}]
+  \boxed{\frac{dP}{d\theta} = 4221\cdot E_e^3[\text{GeV}^3]\cdot B[\text{T}]
          \cdot I[\text{A}] \quad [\text{W/rad}]}
-  = 4.211\cdot E_e^3\cdot B\cdot I \quad [\text{W/mrad}].
+  = 4.221\cdot E_e^3\cdot B\cdot I \quad [\text{W/mrad}].
   \label{eq:dPdtheta_larmor}
 \end{equation}
-This agrees with the spectral-formula result of $4.221$\,W/mrad
-(Eq.\,\ref{eq:dPdtheta}) to within \textbf{0.4\%}, the residual being purely
-rounding of the fundamental constants.  The two routes --- relativistic Larmor
+This is identical to the spectral-formula result of $4.221$\,W/mrad
+(Eq.\,\ref{eq:dPdtheta}).  The two routes --- relativistic Larmor
 from first principles, and integration of the BM spectral formula with
 $\int_0^\infty G_1\,dy = 8\pi/(9\sqrt{3})$ --- are therefore fully consistent.
 
@@ -381,15 +380,15 @@ sinusoidal arc $B(s) = B_0\cos(2\pi s/\lambda_u)$, with $d\theta = |B(s)|/(B\rho
   P &= 2N \int_0^{\lambda_u/2}
        \frac{dP}{d\theta}\bigg|_{B(s)} \frac{|B(s)|}{B\rho}\,ds
   \nonumber\\
-    &= \frac{2N \times 4.229\times10^3}{3.3356}\; E_e^2\; I
+    &= \frac{2N \times 4.221\times10^3}{3.3356}\; E_e^2\; I
        \int_0^{\lambda_u/2} B_0^2\cos^2\!\left(\frac{2\pi s}{\lambda_u}\right)ds
   \nonumber\\
-    &= \frac{2N \times 4.229\times10^3}{3.3356}\; E_e^2\; I \cdot
+    &= \frac{2N \times 4.221\times10^3}{3.3356}\; E_e^2\; I \cdot
        \frac{B_0^2\,\lambda_u}{4}.
   \label{eq:approach1}
 \end{align}
-This gives coefficient $634$\,W\,T$^{-2}$\,m$^{-1}$\,GeV$^{-2}$\,A$^{-1}$, in
-excellent agreement with the LBL reference value \cite{kim1989}:
+This gives coefficient $633$\,W\,T$^{-2}$\,m$^{-1}$\,GeV$^{-2}$\,A$^{-1}$, in
+exact agreement with the LBL reference value \cite{kim1989}:
 \begin{equation}
   \boxed{P\,[\text{W}] = 633\; B_0^2\,[\text{T}^2]\; L\,[\text{m}]\;
          E_e^2\,[\text{GeV}^2]\; I\,[\text{A}]},
@@ -407,7 +406,7 @@ agreement with WS for large apertures.
 angle; it cannot account for a finite slit that selects only part of the fan.
 
 \textbf{Application:} Approach~1 is used in OASYS/XOPPY Wiggler (full emission) and in
-shadow4. 
+shadow4.
 
 \subsubsection*{Approach~2 --- peak field with slit acceptance}
 
@@ -430,7 +429,7 @@ and the slit-integrated flux is
 Here $\Phi_\text{BM}$ must be the vertically-clipped flux integrated over $\psi \in [-w_v/(2D), +w_v/(2D)]$ (i.e. {\tt f\_psi=2} in {\tt sync\_ene()}).
 
 When $\Delta\theta_h^\text{slit} \geq 2K/\gamma$ (full aperture), Approach~2
-overestimates by exactly $\pi/4$, because $dP/d\theta \propto B$ 
+overestimates by exactly $4/\pi \approx 1.273$, because $dP/d\theta \propto B$
 and the fan-average of the local field $B(\theta)=B_0\sqrt{1-(\theta \gamma / K)^2}$
 is $\langle B\rangle = (\pi / 4) B_0$.
 
@@ -445,7 +444,7 @@ The two approaches are selected automatically based on the slit-to-fan ratio:
 \end{equation}
 
 \begin{center}
-\begin{tabular}{lllll}
+\begin{tabular}{llll}
 \toprule
 Approach & $E_c$ used & Horizontal weight & Best for  \\
 \midrule
@@ -455,17 +454,18 @@ Approach & $E_c$ used & Horizontal weight & Best for  \\
 \end{tabular}
 \end{center}
 
-Note that the hybrid switch (Eq. \ref{eq:hybrid}) has a 27\% discontinuity at 
+Note that the hybrid switch (Eq. \ref{eq:hybrid}) has a 27\% discontinuity at
 $w_h/D=2K/\gamma$:
-Approach 2 hits the boundary at 1.273$\times$ exact while Approach 1 is exact. 
+Approach 2 hits the boundary at 1.273$\times$ exact while Approach 1 is exact.
 A smooth alternative is the elliptical weighting:
 \begin{equation}
-\Delta\theta_h^\text{eff} = \frac{K}{\gamma}\left[\arcsin u + u\sqrt{1-u^2}\right], \qquad u = \min\!\left(1,\ \frac{w_h\gamma}{2DK}\right) 
+\Delta\theta_h^\text{eff} = \frac{K}{\gamma}\left[\arcsin u + u\sqrt{1-u^2}\right], \qquad u = \min\!\left(1,\ \frac{w_h\gamma}{2DK}\right)
+\label{eq:elliptic}
 \end{equation}
-which  $\rightarrow w_h/D$ for small slits (the rectangle is fine near the axis, 
+which  $\rightarrow w_h/D$ for small slits (the rectangle is fine near the axis,
 since $B(\theta)\approx B_0$
 there) and $ \rightarrow (\pi/2)K/\gamma$
-at full aperture (exact total power). The check above confirms both limits, and for the CPMU18 slit (u=0.27) it differs from the rectangle by only 1.2\% — confirming why the small-slit results were already excellent.
+at full aperture (exact total power). Both limits are easily verified, and for the CPMU18 slit ($u=0.28$) Eq.\,(\ref{eq:elliptic}) differs from the rectangle by only 1.3\% --- confirming why the small-slit results were already excellent.
 
 
 % -----------------------------------------------------------------------
@@ -481,10 +481,10 @@ at full aperture (exact total power). The check above confirms both limits, and 
         $E_c(B_0)$ with $\Delta\theta_h^\text{used} = \min(2K/\gamma,\,w_h/D)$
         gives near-exact agreement with SRW ($\sim$2\,\%) for a slit that clips
         the horizontal fan.  This is the recommended approach for
-        \textbf{slit-integrated power}. This is the approach to be used for the 
+        \textbf{slit-integrated power}. This is the approach to be used for the
 		wattdog ID11 calculations, where the maximum aperture is 1.8$\times$1.0 mm$^2$ at 23~m.
   \item A \textbf{hybrid implementation} selects automatically between the two
-        approaches based on whether the slit is narrower or wider than $2K/\gamma$. The correction for smoothing the transition has not been implemented.
+        approaches based on whether the slit is narrower or wider than $2K/\gamma$. The elliptical correction of Eq.\,(\ref{eq:elliptic}) for smoothing the transition has not been implemented.
   \item The approximation \textbf{fails for spectral shape}: it produces a smooth
         BM-like continuum and misses the harmonic structure entirely.  It should
         \emph{not} be used for monochromatic flux, rocking-curve calculations, or
