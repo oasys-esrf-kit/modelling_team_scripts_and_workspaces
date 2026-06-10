@@ -1,7 +1,5 @@
 import numpy
 import scipy.constants as codata
-from fontTools.ttLib import xmlToTag
-
 
 def K_vs_gap(gap_mm=6.0, u='u18', ):
     Bmax = 0.0
@@ -59,7 +57,7 @@ def get_undulator_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             GAPV=1e-3 * slit_v_mm,
             GAPH_CENTER=0.0,
             GAPV_CENTER=0.0,
-            PHOTONENERGYMIN=1000.0,
+            PHOTONENERGYMIN=100.0,
             PHOTONENERGYMAX=200000.0,
             PHOTONENERGYPOINTS=2000,
             METHOD=2,
@@ -87,7 +85,7 @@ def get_undulator_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             GAPV=1e-3 * slit_v_mm,
             GAPH_CENTER=0.0,
             GAPV_CENTER=0.0,
-            PHOTONENERGYMIN=1000.0,
+            PHOTONENERGYMIN=100.0,
             PHOTONENERGYMAX=200000.0,
             PHOTONENERGYPOINTS=2000,
             METHOD=2,
@@ -115,7 +113,7 @@ def get_undulator_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             GAPV=1e-3 * slit_v_mm,
             GAPH_CENTER=0.0,
             GAPV_CENTER=0.0,
-            PHOTONENERGYMIN=1000.0,
+            PHOTONENERGYMIN=100.0,
             PHOTONENERGYMAX=200000.0,
             PHOTONENERGYPOINTS=2000,
             METHOD=2,
@@ -139,7 +137,7 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             N=111.0,
             KX=0.0,
             KY=K,
-            EMIN=1000.0,
+            EMIN=100.0,
             EMAX=200000.0,
             NEE=2000,
             D=23.0,
@@ -147,8 +145,8 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             YPC=0.0,
             XPS=slit_h_mm,
             YPS=slit_v_mm,
-            NXP=10,
-            NYP=10,
+            NXP=30,
+            NYP=30,
         )
 
         # data to pass to power
@@ -173,7 +171,7 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             N=98.0,
             KX=0.0,
             KY=K,
-            EMIN=1000.0,
+            EMIN=100.0,
             EMAX=200000.0,
             NEE=2000,
             D=23.0,
@@ -181,8 +179,8 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             YPC=0.0,
             XPS=slit_h_mm,
             YPS=slit_v_mm,
-            NXP=10,
-            NYP=10,
+            NXP=30,
+            NYP=30,
         )
 
         # data to pass to power
@@ -206,7 +204,7 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             N=91.0,
             KX=0.0,
             KY=K,
-            EMIN=1000.0,
+            EMIN=100.0,
             EMAX=200000.0,
             NEE=2000,
             D=23.0,
@@ -214,8 +212,8 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
             YPC=0.0,
             XPS=slit_h_mm,
             YPS=slit_v_mm,
-            NXP=10,
-            NYP=10,
+            NXP=30,
+            NYP=30,
         )
 
         # data to pass to power
@@ -227,7 +225,7 @@ def get_ws_spectrum( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
 
     return energy, flux, spectral_power, cumulated_power
 
-def get_undulator_power_density_from_harmonics( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0, use_python=0):
+def get_undulator_power_density_from_harmonics( K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0, use_python=1):
 
     if u == 'u18':
         #
@@ -454,67 +452,29 @@ def get_undulator_power_density_from_harmonics( K=1.0, u='u18', slit_h_mm=1.8, s
     return energy, flux, spectral_power, cumulated_power
 
 
-
-###############################################
-
-# import numpy as np
+import numpy
+from srxraylib.sources.srfunc import sync_ene
 
 
-# -----------------------------------------------------------------------
-# Hard-coded machine / energy-range parameters
-# -----------------------------------------------------------------------
-# _E_GEV       = 6.0       # electron energy [GeV]
-# _I_A         = 0.2       # beam current [A]
-# _DISTANCE    = 23.0      # source-to-slit distance [m]
-# _E_MIN_EV    = 1000.0
-# _E_MAX_EV    = 200000.0
-# _N_POINTS    = 2000
-# _PSI_NPOINTS = 50        # vertical integration points (slit case)
-
-
-
-# # -----------------------------------------------------------------------
-# def _bm_flux_and_power(ec_ev, n_periods, f_psi,
-#                        hdiv_mrad, psi_min=0.0, psi_max=0.0):
-#     from srxraylib.sources.srfunc import sync_ene
-#     """Internal helper: compute flux, spectral_power, cumulated_power for one case."""
-#     energy = np.linspace(_E_MIN_EV, _E_MAX_EV, _N_POINTS)
-#
-#     flux = np.array(sync_ene(
-#         f_psi       = f_psi,
-#         energy_ev   = energy,
-#         ec_ev       = ec_ev,
-#         e_gev       = _E_GEV,
-#         i_a         = _I_A,
-#         hdiv_mrad   = hdiv_mrad,
-#         psi_min     = psi_min,
-#         psi_max     = psi_max,
-#         psi_npoints = _PSI_NPOINTS,
-#     )).flatten() * 2 * n_periods
-#
-#     eV_to_J        = 1.60218e-19
-#     spectral_power = flux * eV_to_J / 1e-3           # W/eV
-#     de             = energy[1] - energy[0]
-#     cumulated_power = np.cumsum(spectral_power) * de  # W
-#
-#     return energy, flux, spectral_power, cumulated_power
-
-
-
-# -----------------------------------------------------------------------
-def get_bending_magnet_spectrum(K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
+def get_bending_magnet_spectrum(K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0,
+                                approach=None, # None: automatic 1: slit > full sweep (arc integration) 2: slit < full sweep
+                                ):
     """
-    Approximate the undulator spectrum using the 2N × BM (wiggler) formula.
+    Approximate the wiggler spectrum using BM formulas.
 
-    Identical signature and return arrays to get_undulator_spectrum().
-    Returns the slit-integrated spectrum (through GAPH × GAPV aperture).
+    Two regimes selected automatically:
+    - slit < full sweep (2K/gamma): use approach 2 (peak B0, hdiv_used_mrad)
+      -> correct for slit power
+    - slit >= full sweep: use approach 3 (arc integration, full sweep)
+      -> correct for total integrated power
 
     Parameters
     ----------
     K         : deflection parameter
     u         : undulator tag ('u18', 'u20', 'u22')
     slit_h_mm : slit horizontal full width [mm]
-    slit_v_mm : slit vertical full height [mm]  (TOTAL angle)
+    slit_v_mm : slit vertical full height [mm]
+    approach  : None: automatic selection; 1 =  slit larger than full sweep (full integration); 2:  slit smaller than full sweep
 
     Returns
     -------
@@ -523,60 +483,108 @@ def get_bending_magnet_spectrum(K=1.0, u='u18', slit_h_mm=1.8, slit_v_mm=1.0):
     spectral_power  : spectral power [W/eV]            shape (N,)
     cumulated_power : cumulated power [W]               shape (N,)
     """
-    from srxraylib.sources.srfunc import sync_ene
 
     if u == 'u18':
-        period_m=0.018
-        n_periods=111
+        period_m  = 0.018
+        n_periods = 111
     elif u == 'u20':
-        period_m=0.0205
-        n_periods=98
+        period_m  = 0.0205
+        n_periods = 98
     elif u == 'u22':
-        period_m=0.022
-        n_periods=91
+        period_m  = 0.022
+        n_periods = 91
 
-
-    _E_GEV = 6.0
-    _I_A         = 0.2       # beam current [A]
-    _DISTANCE    = 23.0      # source-to-slit distance [m]
-    _E_MIN_EV    = 1000.0
+    _E_GEV       = 6.0
+    _I_A         = 0.2
+    _DISTANCE    = 23.0
+    _E_MIN_EV    = 100.0
     _E_MAX_EV    = 200000.0
     _N_POINTS    = 2000
-    _PSI_NPOINTS = 50        # vertical integration points (slit case)
+    _N_ARC       = 100
 
-    gamma  = _E_GEV * 1e3 / 0.51099895          # Lorentz factor
-    B0_T   = K / (0.9337 * period_m * 100.0)    # peak field [T]
-    EC_EV  = 0.6650 * _E_GEV**2 * B0_T * 1e3   # critical energy [eV]
-
-    psi_half_mrad  = (slit_v_mm * 1e-3 / _DISTANCE) * 1e3 / 2.0  # half of total angle
-    hdiv_full_mrad = 2.0 * K / gamma * 1e3
-    hdiv_slit_mrad = (slit_h_mm * 1e-3 / _DISTANCE) * 1e3
-    hdiv_used_mrad = min(hdiv_slit_mrad, hdiv_full_mrad)
+    gamma = _E_GEV * 1e3 / 0.51099895        # Lorentz factor
+    B0_T  = K / (0.9337 * period_m * 100.0)  # peak field [T]
+    Brho  = 3.3356 * _E_GEV                   # magnetic rigidity [T*m]
+    EC_EV = 665.0 * _E_GEV**2 * B0_T         # critical energy at peak B0 [eV]
 
     energy = numpy.linspace(_E_MIN_EV, _E_MAX_EV, _N_POINTS)
 
-    flux = numpy.array(sync_ene(
-        f_psi       = 2,
-        energy_ev   = energy,
-        ec_ev       = EC_EV,
-        e_gev       = _E_GEV,
-        i_a         = _I_A,
-        hdiv_mrad   = hdiv_used_mrad,
-        psi_min     = -psi_half_mrad,
-        psi_max     = psi_half_mrad,
-        psi_npoints = 50,
-    )).flatten() * 2 * n_periods
+    hdiv_full_mrad = 2.0 * K / gamma * 1e3
+    hdiv_slit_mrad = (slit_h_mm * 1e-3 / _DISTANCE) * 1e3
+    psi_half_mrad  = (slit_v_mm * 1e-3 / _DISTANCE) * 1e3 / 2.0  # half of total angle
 
-    eV_to_J        = 1.60218e-19
-    spectral_power = flux * eV_to_J / 1e-3           # W/eV
-    de             = energy[1] - energy[0]
-    cumulated_power = numpy.cumsum(spectral_power) * de  # W
+    if approach is None:
+        if hdiv_slit_mrad < hdiv_full_mrad: # slit smaller than full sweep
+            approach = 2
+        else:
+            approach = 1
+
+
+    if approach == 1:
+        # -------------------------------------------------------------------
+        # APPROACH 1: slit larger than full sweep (full integration)
+        # integrate BM spectrum along sinusoidal arc weighted by local d_theta
+        # correct for total integrated power
+        # -------------------------------------------------------------------
+        s_arr = numpy.linspace(0, period_m / 2.0, _N_ARC + 1)
+        ds    = s_arr[1] - s_arr[0]
+        s_mid = 0.5 * (s_arr[:-1] + s_arr[1:])
+
+        B_mid       = B0_T * numpy.cos(2 * numpy.pi * s_mid / period_m)
+        dtheta_mrad = numpy.abs(B_mid) / Brho * ds * 1e3
+        Ec_mid      = 665.0 * _E_GEV**2 * numpy.abs(B_mid)
+
+        flux_weighted = numpy.zeros(_N_POINTS)
+        for i in range(_N_ARC):
+            if Ec_mid[i] <= 0:
+                continue
+            flux_local = numpy.array(sync_ene(
+                f_psi     = 2,
+                energy_ev = energy,
+                ec_ev     = Ec_mid[i],
+                e_gev     = _E_GEV,
+                i_a       = _I_A,
+                hdiv_mrad = 1.0,
+                psi_min=-psi_half_mrad,
+                psi_max=psi_half_mrad,
+                psi_npoints=20,
+            )).flatten()
+            flux_weighted += flux_local * dtheta_mrad[i]
+
+        # normalize by total_dtheta -> per mrad, then multiply by hdiv_full
+        total_dtheta_mrad = dtheta_mrad.sum()
+        flux = flux_weighted / total_dtheta_mrad * 2 * n_periods * hdiv_full_mrad
+
+
+    else:
+        # -------------------------------------------------------------------
+        # APPROACH 2: slit smaller than full sweep
+        # use peak B0 and Ec, multiply by hdiv_used = slit
+        # correct for slit power
+        # -------------------------------------------------------------------
+
+        hdiv_slit_mrad = numpy.min((hdiv_slit_mrad , hdiv_full_mrad)) # not larger than full!
+
+        energy = numpy.linspace(_E_MIN_EV, _E_MAX_EV, _N_POINTS)
+
+        flux = numpy.array(sync_ene(
+            f_psi=2,
+            energy_ev=energy,
+            ec_ev=EC_EV,
+            e_gev=_E_GEV,
+            i_a=_I_A,
+            hdiv_mrad=hdiv_slit_mrad,
+            psi_min=-psi_half_mrad,
+            psi_max=psi_half_mrad,
+            psi_npoints=50,
+        )).flatten() * 2 * n_periods
+
+    eV_to_J         = 1.60218e-19
+    spectral_power  = flux * eV_to_J / 1e-3
+    de              = energy[1] - energy[0]
+    cumulated_power = numpy.cumsum(spectral_power) * de
 
     return energy, flux, spectral_power, cumulated_power
-
-#######################################################################################
-
-
 
 def get_att_transmission(attenuators_json, attenuators_up_to_axis=None, energy=None, verbose=1, do_plot=0):
     from syned.util.json_tools import load_from_json_file, load_from_json_url
@@ -642,7 +650,7 @@ def get_att_transmission(attenuators_json, attenuators_up_to_axis=None, energy=N
 
 
 
-def get_mono_absorption(energy, thick=2.0, file_CrossSec="CrossSec_NIST_MassEnergyAbsorption.dat"):
+def get_mono_absorption(energy, thick=2.5, file_CrossSec="CrossSec_NIST_MassEnergyAbsorption.dat"):
     import numpy
     spectral_power = numpy.ones_like(energy)
 
@@ -721,7 +729,7 @@ def calculate_power(method=1, # 0=SRW, 1=WS
     POWER.append(get_power(spectral_power_absorbed_in_bragg, energy)) # absorbed in laue
 
 
-    spectral_power_absorbed_in_laue = spectral_power_attenuated * get_mono_absorption(energy, thick=2.0, file_CrossSec=file_CrossSec)
+    spectral_power_absorbed_in_laue = spectral_power_attenuated * get_mono_absorption(energy, thick=2.5, file_CrossSec=file_CrossSec)
     POWER.append(get_power(spectral_power_absorbed_in_laue, energy)) # absorbed in laue
 
     return POWER
@@ -737,7 +745,7 @@ if '__main__' == __name__:
         #
         # settings
         #
-        method = 3 # 0=SRW, 1=WS, 2=URGENT-HARMONICS, 3=BM approx
+        method = 1 # 0=SRW, 1=WS, 2=URGENT-HARMONICS, 3=BM approx
         file_CrossSec = "CrossSec_NIST_MassEnergyAbsorption.dat" # For Laue and Bragg
         # file_CrossSec = "CrossSec_EPDL97.dat"  # For Laue and Bragg
 
@@ -757,7 +765,7 @@ if '__main__' == __name__:
         #
         # results
         #
-        if 0:
+        if 1:
             for i in range(7):
                 POWER = calculate_power(method=method,
                                         u=u,
@@ -826,65 +834,268 @@ if '__main__' == __name__:
              linestyle=[None,None,None,None,None,None,None,":"],
              )
 
-    from syned.util.json_tools import load_from_json_file, load_from_json_url
-    syned_filterbox = load_from_json_file('id11_wattdog_attenuators_2028_syned.json')
+        atts = numpy.zeros((e.size, 10))
+        atts[:, 0] = e
+        for i in range(8):
+            atts[:, i+1] = RESULT[i]
+        atts[:, 9] = get_mono_absorption(e, thick=2.5, file_CrossSec="CrossSec_NIST_MassEnergyAbsorption.dat")
+
+        numpy.savetxt("tmp.txt", atts, delimiter=',', header="Energy/eV 2028.0 2028.1 2028.2 2028.3 2028.4 2028.5 2028.6 2026 LL_absorption")
+
+        atts1 = numpy.loadtxt("tmp.txt", skiprows=1, delimiter=',')
+
+        from syned.util.json_tools import load_from_json_file, load_from_json_url
+        syned_filterbox = load_from_json_file('id11_wattdog_attenuators_2028_syned.json')
 
 
-    for i in range(7):
-        syned_filterbox_i = syned_filterbox.duplicate()
-        syned_filterbox_i.set_n(i + 1)
-        materials, thicknesses, densities = syned_filterbox_i.get_lists_materials_thicknesses_densities(cumulate=1)
-        print("2028.%d " % i, materials, thicknesses)
+        for i in range(7):
+            syned_filterbox_i = syned_filterbox.duplicate()
+            syned_filterbox_i.set_n(i + 1)
+            materials, thicknesses, densities = syned_filterbox_i.get_lists_materials_thicknesses_densities(cumulate=1)
+            print("2028.%d " % i, materials, thicknesses)
+
+
 
     #
-    # make spectra plot
     #
-    if 0:
+    #
+    if 0: # power on slit
         # energy, flux, spectral_power, cumulated_power
         u='u18'
         Kmax = {'u18': 1.6563, 'u20': 2.334, 'u22': 1.5426}
         N = {'u18': 111, 'u20': 98, 'u22': 91}
         PERIOD = {'u18': 0.018, 'u20': 0.0205, 'u22': 0.022}
-        s0 = get_id_spectrum(K=Kmax[u], u=u, method=0, slit_h_mm=1.8 * 10, slit_v_mm=1.0 * 5)
-        s1 = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=1.8 * 10, slit_v_mm=1.0 * 5)
-        s2 = get_id_spectrum(K=Kmax[u], u=u, method=2, slit_h_mm=1.8 * 10, slit_v_mm=1.0 * 5)
-        s3 = get_id_spectrum(K=Kmax[u], u=u, method=3, slit_h_mm=1.8 * 10, slit_v_mm=1.0 * 5)
-        # s0 = get_id_spectrum(K=Kmax[u], u=u, method=0, slit_h_mm=1.8, slit_v_mm=1.0)
-        # s1 = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=1.8, slit_v_mm=1.0)
-        # s2 = get_id_spectrum(K=Kmax[u], u=u, method=2, slit_h_mm=1.8, slit_v_mm=1.0)
-        # s3 = get_id_spectrum(K=Kmax[u], u=u, method=3, slit_h_mm=1.8, slit_v_mm=1.0)
+        slit_h_mm = 1.8
+        slit_v_mm = 1.0
 
-        # total_power = 7.257e-2 * 6**2 * Kmax[u]**2 * N[u] * 0.2 / PERIOD[u]
-
-        # Formula 1: via K
-        total_power = 7.257e-5 * 6 ** 2 * Kmax[u] ** 2 * N[u] * 0.2 / PERIOD[u]
-        print(f"P (K formula) = {total_power:.2f} kW")
-
-        # Formula 2: 2N bending magnets
-        B = Kmax[u] / 0.9337 / (PERIOD[u] * 1e2)  # peak field [T]
-        gamma = 6000 / 0.511  # Lorentz factor
-        theta = numpy.pi * Kmax[u] / gamma  # half-period bending angle [rad]
-        total_power_bm = 2.110 * 6 ** 3 * B * theta * 2 * N[u] * 0.2
-        print(f"P (BM formula) = {total_power_bm:.2f} kW")
-
+        s1 = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm)
+        s2 = get_id_spectrum(K=Kmax[u], u=u, method=2, slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm)
+        s3 = get_id_spectrum(K=Kmax[u], u=u, method=3, slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm)
+        s0 = get_id_spectrum(K=Kmax[u], u=u, method=0, slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm)
 
         from srxraylib.plot.gol import plot
 
-        legend = ["SRW", "WS", "URGENT", "BM"]
-        plot(s0[0] * 1e-3, s0[2],
+        from kimpy_power_density import id_power_on_slit
+        total_power_on_slit = id_power_on_slit(K=Kmax[u], period_m=PERIOD[u], n_periods=N[u],
+                                      energy_GeV=6.0, current=0.2,
+                                      slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm, distance=23.0)
+        print(f"P (on slit, Kim formula) = {total_power_on_slit:.2f} kW")
+
+        legend = ["SRW", "WS", "URGENT", "BM",]
+        plot(
+            s0[0] * 1e-3, s0[2],
              s1[0] * 1e-3, s1[2],
              s2[0] * 1e-3, s2[2],
              s3[0] * 1e-3, s3[2],
              ylog=1,
-             legend=legend, title="%s K=%.3f" % (u, Kmax[u]),
+             legend=legend, title="ON SLIT; %s K=%.3f" % (u, Kmax[u]),
              xtitle="Energy [keV]",ytitle="Spectral Power [W/eV]", grid=1, show=0,
              )
 
-        plot(s0[0] * 1e-3, s0[3],
+        print("\npower numeric [SWR]=", s0[3][-1])
+        print("power numeric [WS]=", s1[3][-1])
+        print("power numeric [URGENT]=", s2[3][-1])
+        print("power numeric [BM]=", s3[3][-1])
+
+
+        legend = ["SRW", "WS", "URGENT", "BM", "Kim's formula"]
+        plot(
+            s0[0] * 1e-3, s0[3],
              s1[0] * 1e-3, s1[3],
              s2[0] * 1e-3, s2[3],
              s3[0] * 1e-3, s3[3],
-             ylog=0,
-             legend=legend, title="%s K=%.3f Total power %.3f kW" % (u, Kmax[u], total_power),
+             s3[0] * 1e-3, s3[2] * 0 + total_power_on_slit,
+            ylog=0,
+             legend=legend, title="ON SLIT; %s K=%.3f" % (u, Kmax[u]),
+             xtitle="Energy [keV]",ytitle="Cumulated Power [W]", grid=1, show=1,
+             )
+
+    #
+    #
+    #
+    if 0: # total power
+        # energy, flux, spectral_power, cumulated_power
+        u='u18'
+        Kmax = {'u18': 1.6563, 'u20': 2.334, 'u22': 1.5426}
+        N = {'u18': 111, 'u20': 98, 'u22': 91}
+        PERIOD = {'u18': 0.018, 'u20': 0.0205, 'u22': 0.022}
+        s1 = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=30, slit_v_mm=15)
+        s3 = get_id_spectrum(K=Kmax[u], u=u, method=3, slit_h_mm=30, slit_v_mm=15)
+        s2 = get_id_spectrum(K=Kmax[u], u=u, method=2, slit_h_mm=30, slit_v_mm=15)
+        s0 = get_id_spectrum(K=Kmax[u], u=u, method=0, slit_h_mm=30, slit_v_mm=15)
+
+
+        # Formula 1: via ID
+        total_power = 7.257e-5 * 6 ** 2 * Kmax[u] ** 2 * N[u] * 0.2 / PERIOD[u]
+        print(f"P (K formula) = {total_power:.2f} kW")
+
+        # Formula 2: via BM
+        B = Kmax[u] / 0.9337 / (PERIOD[u] * 1e2)  # peak field [T]
+        # total_power_bm = 0.845 * 6 **2 * B **2 * (N[u] * PERIOD[u]) * 0.2
+        # print(f"P (BM formula) = {total_power_bm:.2f} kW")
+        # print(f"ratio theoretical BM/Wiggler = {total_power_bm/total_power:.2f} ", 845/633)
+        print("\npower numeric [SWR]=", s0[3][-1])
+        print("power numeric [WS]=", s1[3][-1])
+        print("power numeric [URGENT]=", s2[3][-1])
+        print("power numeric [BM]=", s3[3][-1])
+
+        print("\nratio numeric/analytical [SWR]=", s0[3][-1] / total_power)
+        print("ratio numeric/analytical [WS]=", s1[3][-1] / total_power)
+        print("ratio numeric/analytical [URGENT]=", s2[3][-1] / total_power)
+        print("ratio numeric/analytical [BM]=", s3[3][-1] / total_power)
+
+
+        from srxraylib.plot.gol import plot
+
+
+        legend = ["SRW", "WS", "URGENT", "BM"]
+
+        plot(
+            s0[0] * 1e-3, s0[2],
+             s1[0] * 1e-3, s1[2],
+             s2[0] * 1e-3, s2[2],
+             s3[0] * 1e-3, s3[2],
+             ylog=1,
+             legend=legend, title="FULLY INTEGRATED; %s K=%.3f" % (u, Kmax[u]),
+             xtitle="Energy [keV]",ytitle="Spectral Power [W/eV]", grid=1, show=0,
+             )
+
+        legend = ["SRW", "WS", "URGENT", "BM", "TOTAL ID"]
+        plot(s0[0] * 1e-3, s0[3],
+            s1[0] * 1e-3, s1[3],
+            s2[0] * 1e-3, s2[3],
+            s3[0] * 1e-3, s3[3],
+            s3[0] * 1e-3, s3[3] * 0 + total_power * 1e3,
+            # s3[0] * 1e-3, s3[3] * 0 + total_power_bm * 1e3,
+            ylog=0,
+             legend=legend, title="FULLY INTEGRATED; %s K=%.3f Total power %.3f kW" % (u, Kmax[u], total_power),
+             xtitle="Energy [keV]",ytitle="Cumulated Power [W]", grid=1, show=1,
+             )
+
+        #
+        #
+        #
+    if 0:  # BM test
+        # energy, flux, spectral_power, cumulated_power
+        u = 'u18'
+        Kmax = {'u18': 1.6563, 'u20': 2.334, 'u22': 1.5426}
+        N = {'u18': 111, 'u20': 98, 'u22': 91}
+        PERIOD = {'u18': 0.018, 'u20': 0.0205, 'u22': 0.022}
+        slit_h_mm = 1.8
+        slit_v_mm = 1.0
+        # s1 = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=30, slit_v_mm=15)
+        # s3 = get_id_spectrum(K=Kmax[u], u=u, method=3, slit_h_mm=30, slit_v_mm=15)
+
+        s1 = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm)
+        s3 = get_id_spectrum(K=Kmax[u], u=u, method=3, slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm)
+
+        # Formula 1: via ID
+        total_power = 7.257e-2 * 6 ** 2 * Kmax[u] ** 2 * N[u] * 0.2 / PERIOD[u]
+        print(f"P (full emission) = {total_power:.2f} W")
+
+        from kimpy_power_density import id_power_on_slit
+
+        total_power_on_slit = id_power_on_slit(K=Kmax[u], period_m=PERIOD[u], n_periods=N[u],
+                                               energy_GeV=6.0, current=0.2,
+                                               slit_h_mm=slit_h_mm, slit_v_mm=slit_v_mm, distance=23.0)
+        print(f"P (on slit) = {total_power_on_slit:.2f} kW")
+
+        # Formula 2: via BM
+        B = Kmax[u] / 0.9337 / (PERIOD[u] * 1e2)  # peak field [T]
+        # total_power_bm = 0.845 * 6 **2 * B **2 * (N[u] * PERIOD[u]) * 0.2
+        # print(f"P (BM formula) = {total_power_bm:.2f} kW")
+        # print(f"ratio theoretical BM/Wiggler = {total_power_bm/total_power:.2f} ", 845/633)
+        print("power numeric [WS]=", s1[3][-1])
+        print("power numeric [BM]=", s3[3][-1])
+
+        print("ratio numeric/analytical [WS]=", s1[3][-1] / (1e3 * total_power))
+        print("ratio numeric/analytical [BM]=", s3[3][-1] / (1e3 * total_power))
+        print("ratio numeric/numeric [BM/WS]=", s3[3][-1] / s1[3][-1])
+
+        from srxraylib.plot.gol import plot
+
+        legend = ["WS", "BM"]
+
+        plot(
+            s1[0] * 1e-3, s1[2],
+            s3[0] * 1e-3, s3[2],
+            ylog=1,
+            legend=legend, title="FULLY INTEGRATED; %s K=%.3f" % (u, Kmax[u]),
+            xtitle="Energy [keV]", ytitle="Spectral Power [W/eV]", grid=1, show=0,
+        )
+
+        legend = ["WS", "BM", "Kim's formula"]
+        plot(
+            s1[0] * 1e-3, s1[3],
+            s3[0] * 1e-3, s3[3],
+            s3[0] * 1e-3, s3[3] * 0 + total_power_on_slit,
+            # s3[0] * 1e-3, s3[3] * 0 + total_power_bm * 1e3,
+            ylog=0,
+            legend=legend, title="FULLY INTEGRATED; %s K=%.3f Total power %.3f kW" % (u, Kmax[u], total_power),
+            xtitle="Energy [keV]", ytitle="Cumulated Power [W]", grid=1, show=1,
+        )
+
+    #
+    #
+    #
+    if 0: # SRW vs WS
+        # energy, flux, spectral_power, cumulated_power
+        u='u18'
+        Kmax = {'u18': 1.6563, 'u20': 2.334, 'u22': 1.5426}
+        N = {'u18': 111, 'u20': 98, 'u22': 91}
+        PERIOD = {'u18': 0.018, 'u20': 0.0205, 'u22': 0.022}
+
+        s0slit = get_id_spectrum(K=Kmax[u], u=u, method=0, slit_h_mm=1.8, slit_v_mm=1.0)
+        s1slit = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=1.8, slit_v_mm=1.0)
+
+        s0full = get_id_spectrum(K=Kmax[u], u=u, method=0, slit_h_mm=30.0, slit_v_mm=10.0)
+        s1full = get_id_spectrum(K=Kmax[u], u=u, method=1, slit_h_mm=30.0, slit_v_mm=10.0)
+
+
+        # Formula 1: via ID
+        total_power = 7.257e-2 * 6 ** 2 * Kmax[u] ** 2 * N[u] * 0.2 / PERIOD[u]
+        print(f"P (full emission) = {total_power:.2f} W")
+
+        from kimpy_power_density import id_power_on_slit
+        total_power_on_slit = id_power_on_slit(K=Kmax[u], period_m=PERIOD[u], n_periods=N[u],
+                                      energy_GeV=6.0, current=0.2,
+                                      slit_h_mm=1.8, slit_v_mm=1.0, distance=23.0)
+        print(f"P (on slit) = {total_power_on_slit:.2f} kW")
+
+        from srxraylib.plot.gol import plot
+        legend = ["SRW", "WS"]
+
+        plot(
+             s0full[0] * 1e-3, s0full[2],
+             s1full[0] * 1e-3, s1full[2],
+             ylog=1,
+             legend=legend, title="FULLY INTEGRATED; %s K=%.3f" % (u, Kmax[u]),
+             xtitle="Energy [keV]",ytitle="Spectral Power [W/eV]", grid=1, show=0,
+             )
+
+        plot(
+             s0slit[0] * 1e-3, s0slit[2],
+             s1slit[0] * 1e-3, s1slit[2],
+             ylog=1,
+             legend=legend, title="ON SLIT; %s K=%.3f" % (u, Kmax[u]),
+             xtitle="Energy [keV]",ytitle="Spectral Power [W/eV]", grid=1, show=0,
+             )
+
+        legend = ["SRW", "WS", "Analytical"]
+        plot(
+            s0full[0] * 1e-3, s0full[3],
+            s1full[0] * 1e-3, s1full[3],
+            s1full[0] * 1e-3, s1full[3] * 0 + total_power,
+            ylog=0,
+             legend=legend, title="FULLY INTEGRATED; %s K=%.3f Total power %.3f kW" % (u, Kmax[u], total_power),
+             xtitle="Energy [keV]",ytitle="Cumulated Power [W]", grid=1, show=0,
+             )
+
+        plot(
+            s0slit[0] * 1e-3, s0slit[3],
+            s1slit[0] * 1e-3, s1slit[3],
+            s1slit[0] * 1e-3, s1slit[3] * 0 + total_power_on_slit,
+            ylog=0,
+             legend=legend, title="ON SLIT; %s K=%.3f Total power %.3f kW" % (u, Kmax[u], total_power_on_slit),
              xtitle="Energy [keV]",ytitle="Cumulated Power [W]", grid=1, show=1,
              )
