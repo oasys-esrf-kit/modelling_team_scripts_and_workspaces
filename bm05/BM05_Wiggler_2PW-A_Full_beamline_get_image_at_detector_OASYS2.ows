@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="BM05_Wiggler_2PW-A_Full_beamline" description="Study the 2PW-A spectrum considering WB attenuators, mounting setup, sample setup, etc, comparing with Excel file" working_directory="C:\Users\srio\Oasys2">
+	<nodes>
+		<node id="0" name="BM05_WB_Attenuators" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_WB_Attenuators.OWBM05WBAttenuators" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="BM05_WB_Attenuators" position="(407.0, 351.0)" />
+		<node id="1" name="BM05_Scintillators" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Scintillators.OWBM05Scintillators" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="BM05_Scintillators" position="(1181.0, 214.0)" />
+		<node id="2" name="POWER" qualified_name="orangecontrib.xoppy.widgets.optics.xpower.OWxpower" project_name="OASYS2-XOPPY" version="" title="beamline setup" position="(246.0, 351.0)" />
+		<node id="3" name="BM05_Calculator" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Calculator.OWBM05Calculator" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="Spectrum after sample" position="(915.0, 87.0)" />
+		<node id="4" name="WIGGLER" qualified_name="orangecontrib.xoppy.widgets.source.xwiggler.OWxwiggler" project_name="OASYS2-XOPPY" version="" title="WIGGLER" position="(57.0, 352.0)" />
+		<node id="5" name="BM05_Calculator" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Calculator.OWBM05Calculator" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="Spectrum at sample surface" position="(622.0, 516.0)" />
+		<node id="6" name="POWER" qualified_name="orangecontrib.xoppy.widgets.optics.xpower.OWxpower" project_name="OASYS2-XOPPY" version="" title="Mounting Setup for HiP-CT" position="(582.0, 347.0)" />
+		<node id="7" name="POWER" qualified_name="orangecontrib.xoppy.widgets.optics.xpower.OWxpower" project_name="OASYS2-XOPPY" version="" title="Sample setup" position="(729.0, 196.0)" />
+		<node id="8" name="POWER" qualified_name="orangecontrib.xoppy.widgets.optics.xpower.OWxpower" project_name="OASYS2-XOPPY" version="" title="Propagation setup" position="(1003.0, 205.0)" />
+		<node id="9" name="BM05_Calculator" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Calculator.OWBM05Calculator" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="Detected spectrum with sample" position="(1276.0, 95.0)" />
+		<node id="10" name="BM05_Calculator" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Calculator.OWBM05Calculator" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="Spectrum after sample (1)" position="(1117.0, 91.0)" />
+		<node id="11" name="BM05_Scintillators" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Scintillators.OWBM05Scintillators" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="BM05_Scintillators (1)" position="(1207.0, 508.0)" />
+		<node id="12" name="POWER" qualified_name="orangecontrib.xoppy.widgets.optics.xpower.OWxpower" project_name="OASYS2-XOPPY" version="" title="Propagation setup (1)" position="(1029.0, 499.0)" />
+		<node id="13" name="BM05_Calculator" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Calculator.OWBM05Calculator" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="Detected spectrum with sample (1)" position="(1302.0, 389.0)" />
+		<node id="14" name="BM05_Calculator" qualified_name="orangecontrib.esrf.xoppy.widgets.extension.BM05_Calculator.OWBM05Calculator" project_name="OASYS2-ESRF-EXTENSIONS" version="" title="Spectrum after sample (2)" position="(1143.0, 385.0)" />
+		<node id="15" name="Python Script" qualified_name="oasys2.widgets.tools.ow_python_script.OWPythonScript" project_name="oasys2" version="" title="Python Script - Scintillator Absorption Function" position="(1343.0, 765.0)" />
+		<node id="16" name="Wiggler Radiation" qualified_name="orangecontrib.xoppy.widgets.source.wiggler_radiation.OWwiggler_radiation" project_name="OASYS2-XOPPY" version="" title="Wiggler Radiation" position="(178.0, 1184.0)" />
+		<node id="17" name="Python Script" qualified_name="oasys2.widgets.tools.ow_python_script.OWPythonScript" project_name="oasys2" version="" title="Python Script Apply transmission from file" position="(413.0, 1174.0)" />
+		<node id="18" name="Power3Dcomponent" qualified_name="orangecontrib.xoppy.widgets.optics.power3Dcomponent.OWpower3Dcomponent" project_name="OASYS2-XOPPY" version="" title="Power3Dcomponent" position="(601.0, 1177.0)" />
+		<node id="19" name="Power3Dcomponent" qualified_name="orangecontrib.xoppy.widgets.optics.power3Dcomponent.OWpower3Dcomponent" project_name="OASYS2-XOPPY" version="" title="Power3Dcomponent (1)" position="(594.0, 1315.0)" />
+		<node id="20" name="Python Script" qualified_name="oasys2.widgets.tools.ow_python_script.OWPythonScript" project_name="oasys2" version="" title="Python Script Image with number of photons" position="(802.0, 1173.0)" />
+		<node id="21" name="Python Script" qualified_name="oasys2.widgets.tools.ow_python_script.OWPythonScript" project_name="oasys2" version="" title="Python Script Image with number of photons " position="(799.0, 1308.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="4" sink_node_id="2" source_channel="Xoppy Data" sink_channel="Exchange Data" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="1" source_node_id="2" sink_node_id="0" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="2" source_node_id="0" sink_node_id="6" source_channel="Xoppy Data" sink_channel="Exchange Data" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="3" source_node_id="6" sink_node_id="5" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="4" source_node_id="6" sink_node_id="7" source_channel="Xoppy Data" sink_channel="Exchange Data" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="5" source_node_id="7" sink_node_id="3" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="6" source_node_id="7" sink_node_id="8" source_channel="Xoppy Data" sink_channel="Exchange Data" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="7" source_node_id="8" sink_node_id="1" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="8" source_node_id="1" sink_node_id="9" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="9" source_node_id="8" sink_node_id="10" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="10" source_node_id="12" sink_node_id="11" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="11" source_node_id="11" sink_node_id="13" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="12" source_node_id="12" sink_node_id="14" source_channel="Xoppy Data" sink_channel="ExchangeData" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="13" source_node_id="6" sink_node_id="12" source_channel="Xoppy Data" sink_channel="Exchange Data" enabled="true" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="14" source_node_id="4" sink_node_id="15" source_channel="Xoppy Data" sink_channel="In Object #1" enabled="true" source_channel_id="xoppy_data" sink_channel_id="object_1" />
+		<link id="15" source_node_id="12" sink_node_id="15" source_channel="Xoppy Data" sink_channel="In Object #2" enabled="true" source_channel_id="xoppy_data" sink_channel_id="object_2" />
+		<link id="16" source_node_id="16" sink_node_id="17" source_channel="Xoppy Data" sink_channel="In Object #1" enabled="true" source_channel_id="xoppy_data" sink_channel_id="object_1" />
+		<link id="17" source_node_id="17" sink_node_id="18" source_channel="Out Object" sink_channel="Exchange Data" enabled="true" source_channel_id="object" sink_channel_id="exchange_data" />
+		<link id="18" source_node_id="16" sink_node_id="19" source_channel="Xoppy Data" sink_channel="Exchange Data" enabled="false" source_channel_id="xoppy_data" sink_channel_id="exchange_data" />
+		<link id="19" source_node_id="18" sink_node_id="20" source_channel="Xoppy Data" sink_channel="In Object #1" enabled="true" source_channel_id="xoppy_data" sink_channel_id="object_1" />
+		<link id="20" source_node_id="19" sink_node_id="21" source_channel="Xoppy Data" sink_channel="In Object #1" enabled="true" source_channel_id="xoppy_data" sink_channel_id="object_1" />
+	</links>
+	<annotations>
+		<text id="0" type="text/plain" rect="(525.0, 64.0, 150.0, 29.0)" font-family="Segoe UI" font-size="16">With sample</text>
+		<arrow id="1" start="(566.0, 121.0)" end="(678.0, 181.0)" fill="#C1272D" />
+		<text id="2" type="text/plain" rect="(759.0, 554.0, 150.0, 34.0)" font-family="Segoe UI" font-size="16">Without sample</text>
+		<arrow id="3" start="(859.0, 550.0)" end="(985.0, 512.0)" fill="#C1272D" />
+		<text id="4" type="text/plain" rect="(855.0, 727.0, 447.0, 91.0)" font-family="Segoe UI" font-size="16">1) run workflow to compute the ratio of what is absorbed in the scintillator over what is emitted at the source as a function of the photon energy. It is saven in config.dat file.</text>
+		<arrow id="5" start="(1082.0, 809.0)" end="(1294.0, 809.0)" fill="#C1272D" />
+		<text id="6" type="text/plain" rect="(85.0, 913.0, 386.0, 131.0)" font-family="Segoe UI" font-size="16">2) Compute the 3D spectrum. Use the config.dat file to get what is absorbed in the scintillator. Use a Power3Dcomponent as a monitor, and finally use a script to display what is absorbed at the scintillator in units of  number of photons</text>
+	</annotations>
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'Axis1': 2, 'Axis2': 0, 'Axis3': 4, 'Axis4': 19, 'Axis5': 19, 'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'ENER_MAX': 100000.0, 'ENER_MIN': 1000.0, 'ENER_N': 500, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'PLOT_SETS': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00\xa7\x00\x00\x00\x90\x00\x00\x05\xce\x00\x00\x03\x8d\x00\x00\x00\xa7\x00\x00\x00\xae\x00\x00\x05\xce\x00\x00\x03\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\xa7\x00\x00\x00\xae\x00\x00\x05\xce\x00\x00\x03\x8d', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="1" format="literal">{'Axis1': 1, 'Axis2': 0, 'Axis3': 0, 'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'ENER_MAX': 100000.0, 'ENER_MIN': 1000.0, 'ENER_N': 500, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00\x96\x00\x00\x00\x89\x00\x00\x05\xbd\x00\x00\x03\x86\x00\x00\x00\x96\x00\x00\x00\xa7\x00\x00\x05\xbd\x00\x00\x03\x86\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x96\x00\x00\x00\xa7\x00\x00\x05\xbd\x00\x00\x03\x86', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="2" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEN': '?', 'EL1_FLAG': 0, 'EL1_FOR': 'Be', 'EL1_ROU': 0.0, 'EL1_THI': 0.4, 'EL2_ANG': 3.0, 'EL2_DEN': '?', 'EL2_FLAG': 0, 'EL2_FOR': 'Kapton Polyimide Film', 'EL2_ROU': 0.0, 'EL2_THI': 1e-10, 'EL3_ANG': 3.0, 'EL3_DEN': '0.001184', 'EL3_FLAG': 0, 'EL3_FOR': 'Air, Dry (near sea level)', 'EL3_ROU': 0.0, 'EL3_THI': 12000.0, 'EL4_ANG': 3.0, 'EL4_DEN': '2.7', 'EL4_FLAG': 0, 'EL4_FOR': 'Al', 'EL4_ROU': 0.0, 'EL4_THI': 2.0, 'EL5_ANG': 3.0, 'EL5_DEN': '?', 'EL5_FLAG': 1, 'EL5_FOR': 'Pt', 'EL5_ROU': 0.0, 'EL5_THI': 0.5, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'NELEMENTS': 2, 'PLOT_SETS': 2, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00d\x00\x00\x00\x9e\x00\x00\x05\x8b\x00\x00\x03\x9b\x00\x00\x00d\x00\x00\x00\xbc\x00\x00\x05\x8b\x00\x00\x03\x9b\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00d\x00\x00\x00\xbc\x00\x00\x05\x8b\x00\x00\x03\x9b', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="3" format="literal">{'BM05_CONFIGURATION': 3, 'CALCULATION_TYPE': 0, 'CHOPPER': 100.0, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'EXTRA_AIR_BEFORE_SAMPLE': 0.0, 'PROPAGATION_DISTANCE': 10, 'SCINTILLATOR_EFFICIENCY': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x006\x00\x00\x00\x92\x00\x00\x05]\x00\x00\x03k\x00\x00\x006\x00\x00\x00\xb0\x00\x00\x05]\x00\x00\x03k\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x006\x00\x00\x00\xb0\x00\x00\x05]\x00\x00\x03k', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="4" format="literal">{'CURRENT': 200.0, 'ENERGY': 6.0, 'FIELD': 1, 'FILE': 'https://raw.githubusercontent.com/oasys-esrf-kit/ebs_short_ids/refs/heads/main/SW_2PA.txt', 'K': 0.83, 'NPERIODS': 1, 'NPOINTS': 2000, 'NTRAJPOINTS': 51, 'PHOT_ENERGY_MAX': 400000.0, 'PHOT_ENERGY_MIN': 100.0, 'SHIFT_BETAX_FLAG': 5, 'SHIFT_BETAX_VALUE': 0.005, 'SHIFT_X_FLAG': 1, 'SHIFT_X_VALUE': 0.0, 'SLIT_CENTER_H_MM': 0.0, 'SLIT_CENTER_V_MM': 0.0, 'SLIT_D': 56.5, 'SLIT_FLAG': 1, 'SLIT_HEIGHT_V_MM': 5.0, 'SLIT_NY': 101, 'SLIT_POINTS_FACTOR': 3.0, 'SLIT_WIDTH_H_MM': 10.0, 'TRAJ_RESAMPLING_FACTOR': 20.0, 'ULAMBDA': 0.017, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00\xa6\x00\x00\x00\xb4\x00\x00\x05[\x00\x00\x03\xb1\x00\x00\x00\xa6\x00\x00\x00\xd2\x00\x00\x05[\x00\x00\x03\xb1\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\xa6\x00\x00\x00\xd2\x00\x00\x05[\x00\x00\x03\xb1', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="5" format="literal">{'BM05_CONFIGURATION': 3, 'CALCULATION_TYPE': 0, 'CHOPPER': 100.0, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'EXTRA_AIR_BEFORE_SAMPLE': 0.0, 'PROPAGATION_DISTANCE': 10, 'SCINTILLATOR_EFFICIENCY': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00h\x00\x00\x00\xfd\x00\x00\x05\x8f\x00\x00\x03\xd6\x00\x00\x00h\x00\x00\x01\x1b\x00\x00\x05\x8f\x00\x00\x03\xd6\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00h\x00\x00\x01\x1b\x00\x00\x05\x8f\x00\x00\x03\xd6', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="6" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEN': '?', 'EL1_FLAG': 0, 'EL1_FOR': 'Polymethyl Methacralate (Lucite, Perspex)', 'EL1_ROU': 0.0, 'EL1_THI': 1e-10, 'EL2_ANG': 3.0, 'EL2_DEN': '0.789', 'EL2_FLAG': 0, 'EL2_FOR': 'C2H5OH', 'EL2_ROU': 0.0, 'EL2_THI': 14.0, 'EL3_ANG': 3.0, 'EL3_DEN': '?', 'EL3_FLAG': 0, 'EL3_FOR': 'Water, Liquid', 'EL3_ROU': 0.0, 'EL3_THI': 6.0, 'EL4_ANG': 3.0, 'EL4_DEN': '?', 'EL4_FLAG': 0, 'EL4_FOR': 'Al', 'EL4_ROU': 0.0, 'EL4_THI': 0.0, 'EL5_ANG': 3.0, 'EL5_DEN': '?', 'EL5_FLAG': 1, 'EL5_FOR': 'Pt', 'EL5_ROU': 0.0, 'EL5_THI': 0.5, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'NELEMENTS': 3, 'PLOT_SETS': 1, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00Y\x00\x00\x00\x8a\x00\x00\x05\x80\x00\x00\x03\x87\x00\x00\x00Y\x00\x00\x00\xa8\x00\x00\x05\x80\x00\x00\x03\x87\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00Y\x00\x00\x00\xa8\x00\x00\x05\x80\x00\x00\x03\x87', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="7" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEN': '?', 'EL1_FLAG': 0, 'EL1_FOR': 'Water, Liquid', 'EL1_ROU': 0.0, 'EL1_THI': 30.0, 'EL2_ANG': 3.0, 'EL2_DEN': '0.789', 'EL2_FLAG': 0, 'EL2_FOR': 'C2H5OH', 'EL2_ROU': 0.0, 'EL2_THI': 70.0, 'EL3_ANG': 3.0, 'EL3_DEN': '?', 'EL3_FLAG': 0, 'EL3_FOR': 'Water, Liquid', 'EL3_ROU': 0.0, 'EL3_THI': 6.0, 'EL4_ANG': 3.0, 'EL4_DEN': '?', 'EL4_FLAG': 0, 'EL4_FOR': 'Al', 'EL4_ROU': 0.0, 'EL4_THI': 0.0, 'EL5_ANG': 3.0, 'EL5_DEN': '?', 'EL5_FLAG': 1, 'EL5_FOR': 'Pt', 'EL5_ROU': 0.0, 'EL5_THI': 0.5, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'NELEMENTS': 1, 'PLOT_SETS': 1, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00t\x00\x00\x00\xc8\x00\x00\x05\x9b\x00\x00\x03\xc5\x00\x00\x00t\x00\x00\x00\xe6\x00\x00\x05\x9b\x00\x00\x03\xc5\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00t\x00\x00\x00\xe6\x00\x00\x05\x9b\x00\x00\x03\xc5', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="8" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEN': '0.001184', 'EL1_FLAG': 0, 'EL1_FOR': 'Air, Dry (near sea level)', 'EL1_ROU': 0.0, 'EL1_THI': 10000.0, 'EL2_ANG': 3.0, 'EL2_DEN': '?', 'EL2_FLAG': 0, 'EL2_FOR': 'He', 'EL2_ROU': 0.0, 'EL2_THI': 0.0, 'EL3_ANG': 3.0, 'EL3_DEN': '?', 'EL3_FLAG': 0, 'EL3_FOR': 'Water, Liquid', 'EL3_ROU': 0.0, 'EL3_THI': 6.0, 'EL4_ANG': 3.0, 'EL4_DEN': '?', 'EL4_FLAG': 0, 'EL4_FOR': 'Al', 'EL4_ROU': 0.0, 'EL4_THI': 0.0, 'EL5_ANG': 3.0, 'EL5_DEN': '?', 'EL5_FLAG': 1, 'EL5_FOR': 'Pt', 'EL5_ROU': 0.0, 'EL5_THI': 0.5, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'NELEMENTS': 1, 'PLOT_SETS': 1, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00V\x00\x00\x00\xa8\x00\x00\x05}\x00\x00\x03\xa5\x00\x00\x00V\x00\x00\x00\xc6\x00\x00\x05}\x00\x00\x03\xa5\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00V\x00\x00\x00\xc6\x00\x00\x05}\x00\x00\x03\xa5', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="9" format="literal">{'BM05_CONFIGURATION': 3, 'CALCULATION_TYPE': 5, 'CHOPPER': 100.0, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'EXTRA_AIR_BEFORE_SAMPLE': 0.0, 'PROPAGATION_DISTANCE': 10, 'SCINTILLATOR_EFFICIENCY': 25, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00&lt;\x00\x00\x00\x8d\x00\x00\x05c\x00\x00\x03f\x00\x00\x00&lt;\x00\x00\x00\xab\x00\x00\x05c\x00\x00\x03f\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00&lt;\x00\x00\x00\xab\x00\x00\x05c\x00\x00\x03f', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="10" format="literal">{'BM05_CONFIGURATION': 3, 'CALCULATION_TYPE': 3, 'CHOPPER': 100.0, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'EXTRA_AIR_BEFORE_SAMPLE': 0.0, 'PROPAGATION_DISTANCE': 10, 'SCINTILLATOR_EFFICIENCY': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\xff\xff\xff\xc7\x00\x00\x00\xc4\x00\x00\x04\xee\x00\x00\x03\x9d\xff\xff\xff\xc7\x00\x00\x00\xe2\x00\x00\x04\xee\x00\x00\x03\x9d\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\xff\xff\xff\xc7\x00\x00\x00\xe2\x00\x00\x04\xee\x00\x00\x03\x9d', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="11" format="literal">{'Axis1': 1, 'Axis2': 0, 'Axis3': 0, 'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'ENER_MAX': 100000.0, 'ENER_MIN': 1000.0, 'ENER_N': 500, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\xff\xff\xff\xd2\x00\x00\x00\xd1\x00\x00\x04\xf9\x00\x00\x03\xce\xff\xff\xff\xd2\x00\x00\x00\xef\x00\x00\x04\xf9\x00\x00\x03\xce\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\xff\xff\xff\xd2\x00\x00\x00\xef\x00\x00\x04\xf9\x00\x00\x03\xce', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="12" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEN': '0.001184', 'EL1_FLAG': 0, 'EL1_FOR': 'Air, Dry (near sea level)', 'EL1_ROU': 0.0, 'EL1_THI': 10000.0, 'EL2_ANG': 3.0, 'EL2_DEN': '?', 'EL2_FLAG': 0, 'EL2_FOR': 'He', 'EL2_ROU': 0.0, 'EL2_THI': 0.0, 'EL3_ANG': 3.0, 'EL3_DEN': '?', 'EL3_FLAG': 0, 'EL3_FOR': 'Water, Liquid', 'EL3_ROU': 0.0, 'EL3_THI': 6.0, 'EL4_ANG': 3.0, 'EL4_DEN': '?', 'EL4_FLAG': 0, 'EL4_FOR': 'Al', 'EL4_ROU': 0.0, 'EL4_THI': 0.0, 'EL5_ANG': 3.0, 'EL5_DEN': '?', 'EL5_FLAG': 1, 'EL5_FOR': 'Pt', 'EL5_ROU': 0.0, 'EL5_THI': 0.5, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'NELEMENTS': 1, 'PLOT_SETS': 1, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00g\x00\x00\x01T\x00\x00\x05\x8e\x00\x00\x04Q\x00\x00\x00g\x00\x00\x01r\x00\x00\x05\x8e\x00\x00\x04Q\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00g\x00\x00\x01r\x00\x00\x05\x8e\x00\x00\x04Q', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="13" format="literal">{'BM05_CONFIGURATION': 3, 'CALCULATION_TYPE': 5, 'CHOPPER': 100.0, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'EXTRA_AIR_BEFORE_SAMPLE': 0.0, 'PROPAGATION_DISTANCE': 10, 'SCINTILLATOR_EFFICIENCY': 25, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00&lt;\x00\x00\x00\x8d\x00\x00\x05c\x00\x00\x03f\x00\x00\x00&lt;\x00\x00\x00\xab\x00\x00\x05c\x00\x00\x03f\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00&lt;\x00\x00\x00\xab\x00\x00\x05c\x00\x00\x03f', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="14" format="literal">{'BM05_CONFIGURATION': 3, 'CALCULATION_TYPE': 2, 'CHOPPER': 100.0, 'ENER_MAX': 50000.0, 'ENER_MIN': 1000.0, 'ENER_N': 100, 'EXTRA_AIR_BEFORE_SAMPLE': 0.0, 'PROPAGATION_DISTANCE': 10, 'SCINTILLATOR_EFFICIENCY': 0, 'SOURCE': 0, 'SOURCE_FILE': '?', 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x005\x00\x00\x00\x87\x00\x00\x05\\\x00\x00\x03`\x00\x00\x005\x00\x00\x00\xa5\x00\x00\x05\\\x00\x00\x03`\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x005\x00\x00\x00\xa5\x00\x00\x05\\\x00\x00\x03`', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="15" format="pickle">gASVkAkAAAAAAAB9lCiMDGF1dG9fZXhlY3V0ZZSIjBJjb250cm9sQXJlYVZpc2libGWUiIwSY3Vy
+cmVudFNjcmlwdEluZGV4lEsAjAlmb250X3NpemWUSwOMEWxpYnJhcnlMaXN0U291cmNllF2UjCVv
+YXN5czIud2lkZ2V0cy50b29scy5vd19weXRob25fc2NyaXB0lIwGU2NyaXB0lJOUKYGUfZQojARu
+YW1llIwWY3VtdWxhdGVkIHRyYW5zbWlzc2lvbpSMBnNjcmlwdJRYLQgAAGltcG9ydCBudW1weQpm
+cm9tIHNyeHJheWxpYi5wbG90LmdvbCBpbXBvcnQgcGxvdAppbXBvcnQgc2NpcHkuY29uc3RhbnRz
+IGFzIGNvZGF0YQoKaW1wb3J0IG1hdHBsb3RsaWIucHlsYWIgYXMgcGx0CgpwbHQuY2xvc2UoJ2Fs
+bCcpCgoKZGVmIGZsdXhfY29udih4KToKICAgICNjb252ZXJ0IFcvZXYgdG8gUGhvdHMvcy8wLjEl
+QlcKICAgIHJldHVybiB4L2NvZGF0YS5lLzFlMwoKCiIiIgogICAgICAgIGRhdGFbOiwwXSA9IG51
+bXB5LmFycmF5KGVuZXJneSkKICAgICAgICBkYXRhWzosMV0gPSBudW1weS5hcnJheShmbHV4KQog
+ICAgICAgIGRhdGFbOiwyXSA9IG51bXB5LmFycmF5KHNwZWN0cmFsX3Bvd2VyKQogICAgICAgIGRh
+dGFbOiwzXSA9IG51bXB5LmFycmF5KGN1bXVsYXRlZF9wb3dlcikKIiIiCmVuZXJneTEgPSBpbl9v
+YmplY3RfMS5nZXRfY29udGVudHMoInhvcHB5X2RhdGEiKVs6LDBdCnBvdzEgPSBpbl9vYmplY3Rf
+MS5nZXRfY29udGVudHMoInhvcHB5X2RhdGEiKVs6LDFdCgoiIiIKZm9yIHRoZSBiZWFtIGp1c3Qg
+YmVmb3JlIHRoZSBzY2ludGlsbGF0b3IgdGFrZSB0aGUgY29sdW1uIGluZGV4IDEKIiIiCgplbmVy
+Z3kyID0gaW5fb2JqZWN0XzIuZ2V0X2NvbnRlbnRzKCJ4b3BweV9kYXRhIilbOiwwXQpwb3cyID0g
+aW5fb2JqZWN0XzIuZ2V0X2NvbnRlbnRzKCJ4b3BweV9kYXRhIilbOiwxXQoKIiIiCmZvciB0aGUg
+YmVhbSBhZnRlciAodHJhbnNtaXR0ZWQpIHRoZSBzY2ludGlsbGF0b3IgdGFrZSB0aGUgbGFzdCBj
+b2x1bW4KIiIiCgplbmVyZ3kzID0gaW5fb2JqZWN0XzIuZ2V0X2NvbnRlbnRzKCJ4b3BweV9kYXRh
+IilbOiwwXQpwb3czID0gaW5fb2JqZWN0XzIuZ2V0X2NvbnRlbnRzKCJ4b3BweV9kYXRhIilbOiwt
+MV0KCiMKIyBwbG90IGluZGl2aWR1YWwgaW5wdXRzCiMKcGxvdChlbmVyZ3kxLCAocG93MSksIHhs
+b2c9MSx5bG9nPTEseHRpdGxlPSJQaG90b24gZW5lcmd5IFtlVl0iLHl0aXRsZT0iUGhvdG9uIGZs
+dXgiLCB0aXRsZT0nU291cmNlIGZsdXgnKQoKcGxvdChlbmVyZ3kyLCAocG93MiksIHhsb2c9MCx5
+bG9nPTAseHRpdGxlPSJQaG90b24gZW5lcmd5IFtlVl0iLHl0aXRsZT0iUGhvdG9uIHBvd2VyIGRl
+bnNpdHkiLCB0aXRsZT0ncG93ZXIgZGVuc2l0eSBiZWZvcmUgZGV0ZWN0b3InKQoKVF9zY2ludGls
+bGF0b3IgPSBmbHV4X2NvbnYocG93MykgLyBmbHV4X2NvbnYocG93MikKQV9zY2ludGlsbGF0b3Ig
+PSAxLjAgLSBUX3NjaW50aWxsYXRvcgoKcGxvdChlbmVyZ3kzLCBUX3NjaW50aWxsYXRvciwgZW5l
+cmd5MywgQV9zY2ludGlsbGF0b3IsIHhsb2c9MCx5bG9nPTAseHRpdGxlPSJQaG90b24gZW5lcmd5
+IFtlVl0iLHl0aXRsZT0iIiwgdGl0bGU9J1NjaW50aWxsYXRvcicsIGxlZ2VuZD1bIlRyYW5zbWlz
+c2lvbiIsIkFic29ycHRpb24iXSkKCgojCiMgY29tcGFyZQojCgpBX3JhdGlvID0gZmx1eF9jb252
+KHBvdzIpICogQV9zY2ludGlsbGF0b3IgLyBwb3cxCgpwbG90KGVuZXJneTEsIHBvdzEsIGVuZXJn
+eTIsIGZsdXhfY29udihwb3cyKSwgZW5lcmd5MiwgZmx1eF9jb252KHBvdzIpICogQV9zY2ludGls
+bGF0b3IsIHhsb2c9MCx5bG9nPTEseHRpdGxlPSJQaG90b24gZW5lcmd5IFtlVl0iLHl0aXRsZT0i
+UGhvdG9uIGZsdXggW3BoL3NdIixsZWdlbmQ9WyJTb3VyY2UiLCAiRGV0ZWN0b3IgZW50cmFuY2Ui
+LCAiQWJzb3JiZWQgYnkgZGV0ZWN0b3IiXSwgdGl0bGU9J0ZsdXgnKQoKcGxvdChlbmVyZ3kzLCBB
+X3JhdGlvLCBlbmVyZ3kzLCBBX3NjaW50aWxsYXRvciwgeGxvZz0wLHlsb2c9MCx4dGl0bGU9IlBo
+b3RvbiBlbmVyZ3kgW2VWXSIseXRpdGxlPSIiLCB0aXRsZT0nRmluYWwgUmF0aW8gQWJzb3JwdGlv
+biBieSBTY2ludGlsbGF0b3InLCBsZWdlbmQ9WyJvdmVyIFNPdXJjZSIsIm92ZXIgTGFzdCBlbGVt
+ZW50Il0pCgpmaWxlX25hbWUgPSAiY29uZmlnLmRhdCIKZiA9IG9wZW4oZmlsZV9uYW1lLCAndycp
+CmZvciBpIGluIHJhbmdlKGVuZXJneTMuc2l6ZSk6CiAgICBmLndyaXRlKCIlZyAgJWdcbiIgJSAo
+ZW5lcmd5M1tpXSwgQV9yYXRpb1tpXSkpICAgCmYuY2xvc2UoKQpwcmludCgiRmlsZSAlcyB3cml0
+dGVuIHRvIGRpc2suIiAlIGZpbGVfbmFtZSkKlIwFZmxhZ3OUSwCMCGZpbGVuYW1llE51YmGME3Nh
+dmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAALEAAAAPAAAFTwAAAz4AAACxAAAALQAABU8A
+AAM+AAAAAAAAAAAGAAAAALEAAAAtAAAFTwAAAz6UjA1zcGxpdHRlclN0YXRllE6MC19fdmVyc2lv
+bl9flEsBdS4=
+</properties>
+		<properties node_id="16" format="literal">{'CONVOLUTION': 1, 'DISTANCE': 56.5, 'ELECTRONCURRENT': 0.2, 'ELECTRONENERGY': 6.0, 'FIELD': 0, 'FILE': '', 'H5_FILE_DUMP': 0, 'HSLITPOINTS': 101, 'KV': 22.416, 'NPERIODS': 37.0, 'NTRAJPOINTS': 1001, 'PASSEPARTOUT': 3.0, 'PERIODID': 0.12, 'PHOTONENERGYMAX': 400000.0, 'PHOTONENERGYMIN': 1500.0, 'PHOTONENERGYPOINTS': 101, 'POLARIZATION': 0, 'SHIFT_BETAX_FLAG': 5, 'SHIFT_BETAX_VALUE': 0.005, 'SHIFT_X_FLAG': 1, 'SHIFT_X_VALUE': 0.0, 'VSLITPOINTS': 101, 'bm_divergence': 0.001, 'bm_magnetic_field': 1.001, 'bm_magnetic_radius': 10.0, 'controlAreaVisible': True, 'h5_entry_name': 'XOPPY_RADIATION', 'h5_file': 'wiggler_radiation.h5', 'h5_initialize': True, 'h5_parameters': None, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00\xbb\x00\x00\x00\x94\x00\x00\x05p\x00\x00\x03\x91\x00\x00\x00\xbb\x00\x00\x00\xb2\x00\x00\x05p\x00\x00\x03\x91\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\xbb\x00\x00\x00\xb2\x00\x00\x05p\x00\x00\x03\x91', 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="17" format="pickle">gASVlQYAAAAAAAB9lCiMDGF1dG9fZXhlY3V0ZZSIjBJjb250cm9sQXJlYVZpc2libGWUiIwSY3Vy
+cmVudFNjcmlwdEluZGV4lEsAjAlmb250X3NpemWUSwOMEWxpYnJhcnlMaXN0U291cmNllF2UjCVv
+YXN5czIud2lkZ2V0cy50b29scy5vd19weXRob25fc2NyaXB0lIwGU2NyaXB0lJOUKYGUfZQojARu
+YW1llIwSYXBwbHkgdHJhbnNtaXNzaW9ulIwGc2NyaXB0lFg2BQAAaW1wb3J0IG51bXB5CmZyb20g
+c3J4cmF5bGliLnBsb3QuZ29sIGltcG9ydCBwbG90X2ltYWdlLCBwbG90CmltcG9ydCBjb3B5Cgpk
+b19wbG90ID0gMAppZiBkb19wbG90OiBwbG90X2ltYWdlKGluX29iamVjdF8xLmdldF9jb250ZW50
+KCJ4b3BweV9kYXRhIilbMF0uc3VtKGF4aXM9MCksIGgxLCB2MSwgYXNwZWN0PSdhdXRvJywgdGl0
+bGU9IkluY29taW5nIikKCm91dF9vYmplY3QgPSBjb3B5LmRlZXBjb3B5KGluX29iamVjdF8xKQoK
+IiIiCmNhbGN1bGF0ZWRfZGF0YS5hZGRfY29udGVudCgieG9wcHlfZGF0YSIsIFtwLCBlLCBoLCB2
+XSkKY2FsY3VsYXRlZF9kYXRhLmFkZF9jb250ZW50KCJ4b3BweV90cmFqZWN0b3J5IiwgdHJhaikK
+Y2FsY3VsYXRlZF9kYXRhLmFkZF9jb250ZW50KCJ4b3BweV9jb2RlIiwgInNyZnVuYyIpCmNhbGN1
+bGF0ZWRfZGF0YS5hZGRfY29udGVudCgieG9wcHlfc2NyaXB0Iiwgc2NyaXB0KQoiIiIKCiNwcmlu
+dCgiPj4+IiwgaW5fb2JqZWN0XzEuZ2V0X2NvbnRlbnQoInhvcHB5X2RhdGEiKSkKCmJlYW1fbGlz
+dCA9IG91dF9vYmplY3QuZ2V0X2NvbnRlbnQoInhvcHB5X2RhdGEiKQplbmVyZ3kxID0gYmVhbV9s
+aXN0WzFdCnBvdzEgPSBiZWFtX2xpc3RbMF0KaDEgPSBiZWFtX2xpc3RbMl0KdjEgPSBiZWFtX2xp
+c3RbM10KCgojCiMKCmEgPSBudW1weS5sb2FkdHh0KCJjb25maWcuZGF0IikKYV9lbmVyZ3kgPSBh
+WzosMF0KYV9yYXRpbyA9IGFbOiwxXQphX3JhdGlvID0gbnVtcHkubmFuX3RvX251bShhX3JhdGlv
+KQoKcHJpbnQoYS5zaGFwZSkKcHJpbnQoIj4+Pm9yaWc6ICIpCiNmb3IgaSBpbiByYW5nZShhLnNo
+YXBlWzBdKToKIyAgICBwcmludChhX2VuZXJneVtpXSwgYV9yYXRpb1tpXSkKICAgIAoKCnByaW50
+KCI+Pj4+ICIsIGEuc2hhcGUpCmFpID0gbnVtcHkuaW50ZXJwKGVuZXJneTEsIGFfZW5lcmd5LCBh
+X3JhdGlvLCBsZWZ0PTAsIHJpZ2h0PTApCgojZm9yIGkgaW4gcmFuZ2UoZW5lcmd5MS5zaXplKToK
+IyAgICBwcmludChlbmVyZ3kxW2ldLCBhaVtpXSkKCmlmIGRvX3Bsb3Q6IHBsb3QoYVs6LCAwXSwg
+YVs6LCAxXSwgZW5lcmd5MSwgYWksIGxlZ2VuZD1bIm9yaWciLCJpbnRlcnAiXSkKCnByaW50KCI+
+Pj4+IiwgcG93MS5zaGFwZSkKZm9yIGkgaW4gcmFuZ2UoZW5lcmd5MS5zaXplKToKICAgIHBvdzFb
+aSwgOiwgOl0gPSBwb3cxW2ksIDosIDpdICogYWlbaV0KCmJlYW1fbGlzdFswXSA9IHBvdzEKCgpp
+ZiBkb19wbG90OiBwbG90X2ltYWdlKG91dF9vYmplY3QuZ2V0X2NvbnRlbnQoInhvcHB5X2RhdGEi
+KVswXS5zdW0oYXhpcz0wKSwgaDEsIHYxLCBhc3BlY3Q9J2F1dG8nLCB0aXRsZT0iT3V0Y29taW5n
+IikKIAqUjAVmbGFnc5RLAIwIZmlsZW5hbWWUTnViYYwTc2F2ZWRXaWRnZXRHZW9tZXRyeZRDQgHZ
+0MsAAwAAAAAAsQAAAA8AAAVPAAADPgAAALEAAAAtAAAFTwAAAz4AAAAAAAAAAAYAAAAAsQAAAC0A
+AAVPAAADPpSMDXNwbGl0dGVyU3RhdGWUTowLX192ZXJzaW9uX1+USwF1Lg==
+</properties>
+		<properties node_id="18" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEF': 1, 'EL1_DEN': '?', 'EL1_FLAG': 2, 'EL1_FOR': 'Rh', 'EL1_GAPSHAPE': 0, 'EL1_HGAP': 10000000.0, 'EL1_HGAPCENTER': 275.0, 'EL1_HMAG': 2.0, 'EL1_HROT': 89.0, 'EL1_ROU': 0.0, 'EL1_SLIT_CROP': 0, 'EL1_THI': 0.5, 'EL1_VGAP': 10000000.0, 'EL1_VGAPCENTER': 0.0, 'EL1_VMAG': 5.0, 'EL1_VROT': 0.0, 'FILE_DUMP': 0, 'FILE_INPUT_FLAG': 0, 'FILE_INPUT_NAME': 'power3Dcomponent_in.h5', 'FILE_NAME': 'power3Dcomponent.h5', 'INPUT_BEAM_FILE': '/home/srio/Oasys2/undulator_radiation.h5', 'INPUT_BEAM_FROM': 0, 'INTERPOLATION_FACTOR_H': 1.0, 'INTERPOLATION_FACTOR_V': 1.0, 'INTERPOLATION_FLAG': 0, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 0, 'PLOT_SETS': 0, 'controlAreaVisible': True, 'external_reflectivity_file': 'xoppy_reflectivity_2195704779376.dat', 'multilayer_file': 'multilayer.h5', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00\x01\x00\x00\x001\x00\x00\x05(\x00\x00\x03.\x00\x00\x00\x01\x00\x00\x00O\x00\x00\x05(\x00\x00\x03.\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00O\x00\x00\x05(\x00\x00\x03.', 'thin_object_back_profile_file': '&lt;none&gt;', 'thin_object_back_profile_flag': 0, 'thin_object_file': 'filter.hdf5', 'thin_object_thickness_outside_file_area': 0.0, 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="19" format="literal">{'DABAX_CROSSSEC_FILE_INDEX': 0, 'DABAX_F0_FILE_INDEX': 0, 'DABAX_F1F2_FILE_INDEX': 0, 'EL1_ANG': 3.0, 'EL1_DEF': 1, 'EL1_DEN': '?', 'EL1_FLAG': 3, 'EL1_FOR': 'Rh', 'EL1_GAPSHAPE': 0, 'EL1_HGAP': 1000.0, 'EL1_HGAPCENTER': 0.0, 'EL1_HMAG': 1.0, 'EL1_HROT': 89.0, 'EL1_ROU': 0.0, 'EL1_SLIT_CROP': 0, 'EL1_THI': 0.5, 'EL1_VGAP': 1000.0, 'EL1_VGAPCENTER': 0.0, 'EL1_VMAG': 1.0, 'EL1_VROT': 0.0, 'FILE_DUMP': 0, 'FILE_INPUT_FLAG': 0, 'FILE_INPUT_NAME': 'power3Dcomponent_in.h5', 'FILE_NAME': 'power3Dcomponent.h5', 'INPUT_BEAM_FILE': '/home/srio/Oasys2/undulator_radiation.h5', 'INPUT_BEAM_FROM': 0, 'INTERPOLATION_FACTOR_H': 1.0, 'INTERPOLATION_FACTOR_V': 1.0, 'INTERPOLATION_FLAG': 0, 'MATERIAL_CONSTANT_LIBRARY_FLAG': 1, 'PLOT_SETS': 3, 'controlAreaVisible': True, 'external_reflectivity_file': 'xoppy_reflectivity_2195704779376.dat', 'multilayer_file': 'multilayer.h5', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x00\xd7\x00\x00\x001\x00\x00\x05\xfe\x00\x00\x03.\x00\x00\x00\xd7\x00\x00\x00O\x00\x00\x05\xfe\x00\x00\x03.\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\xd7\x00\x00\x00O\x00\x00\x05\xfe\x00\x00\x03.', 'thin_object_back_profile_file': '&lt;none&gt;', 'thin_object_back_profile_flag': 0, 'thin_object_file': 'filter.hdf5', 'thin_object_thickness_outside_file_area': 0.0, 'view_type': 1, '__version__': 1}</properties>
+		<properties node_id="20" format="pickle">gASVBQgAAAAAAAB9lCiMDGF1dG9fZXhlY3V0ZZSIjBJjb250cm9sQXJlYVZpc2libGWUiIwSY3Vy
+cmVudFNjcmlwdEluZGV4lEsAjAlmb250X3NpemWUSwOMEWxpYnJhcnlMaXN0U291cmNllF2UjCVv
+YXN5czIud2lkZ2V0cy50b29scy5vd19weXRob25fc2NyaXB0lIwGU2NyaXB0lJOUKYGUfZQojARu
+YW1llIwXaW1hZ2UgbnVtYmVyIG9mIHBob3RvbnOUjAZzY3JpcHSUWKEGAABpbXBvcnQgbnVtcHkK
+ZnJvbSBzcnhyYXlsaWIucGxvdC5nb2wgaW1wb3J0IHBsb3RfaW1hZ2UsIHBsb3QKaW1wb3J0IGNv
+cHkKaW1wb3J0IG1hdHBsb3RsaWIucHlsYWIgYXMgcGx0CgojcGx0LmNsb3NlKCdhbGwnKQoKCm91
+dF9vYmplY3QgPSBjb3B5LmRlZXBjb3B5KGluX29iamVjdF8xKQoKIiIiCmNhbGN1bGF0ZWRfZGF0
+YS5hZGRfY29udGVudCgieG9wcHlfZGF0YSIsIFtwLCBlLCBoLCB2XSkKY2FsY3VsYXRlZF9kYXRh
+LmFkZF9jb250ZW50KCJ4b3BweV90cmFqZWN0b3J5IiwgdHJhaikKY2FsY3VsYXRlZF9kYXRhLmFk
+ZF9jb250ZW50KCJ4b3BweV9jb2RlIiwgInNyZnVuYyIpCmNhbGN1bGF0ZWRfZGF0YS5hZGRfY29u
+dGVudCgieG9wcHlfc2NyaXB0Iiwgc2NyaXB0KQoiIiIKCiNwcmludCgiPj4+IiwgaW5fb2JqZWN0
+XzEuZ2V0X2NvbnRlbnQoInhvcHB5X2RhdGEiKSkKCmJlYW1fbGlzdCA9IG91dF9vYmplY3QuZ2V0
+X2NvbnRlbnQoInhvcHB5X2RhdGEiKQplbmVyZ3kxID0gYmVhbV9saXN0WzFdCnBvdzEgPSBiZWFt
+X2xpc3RbMF0KaDEgPSBiZWFtX2xpc3RbMl0KdjEgPSBiZWFtX2xpc3RbM10KCiMKIyB0ZXN0IHNw
+ZWN0cnVtCiMKaWYgMDoKICAgIGZsdXggPSBlbmVyZ3kxICogMAogICAgZm9yIGkgaW4gcmFuZ2Uo
+ZW5lcmd5MS5zaXplKToKICAgICAgICBmbHV4W2ldID0gcG93MVtpXS5zdW0oKSAqIChoMVsxXS1o
+MVswXSkgKiAodjFbMV0tdjFbMF0pCiAgICBwbG90KGVuZXJneTEsIGZsdXgsIHh0aXRsZT0iUGhv
+dG9uIEVuZXJneSBbZVZdIiwgeXRpdGxlPSJOdW1iZXIgb2YgcGhvdG9ucyBbUGhvdG9ucy9zLzAu
+MSVid10iKQoKICAgIGZsdXhfZXYgPSAxZS0zICogZW5lcmd5MSAqIGZsdXgKICAgIHRvdGFsX25f
+cGhvdG9ucyA9IGZsdXhfZXYuc3VtKCkgKiAoZW5lcmd5MVsxXSAtIGVuZXJneTFbMF0pCiAgICBw
+bG90KGVuZXJneTEsIGZsdXhfZXYsIHh0aXRsZT0iUGhvdG9uIEVuZXJneSBbZVZdIiwgeXRpdGxl
+PSJOdW1iZXIgb2YgcGhvdG9ucyBbUGhvdG9ucy9zL2VWXSIsdGl0bGU9IlRvdGFsIG51bWJlciBv
+ZiBwaG90b25zOiAlZyIgJSB0b3RhbF9uX3Bob3RvbnMpCiAgICBwcmludCgiVG90YWwgbnVtYmVy
+IG9mIHBob3RvbnMgKDEpOiAiLCB0b3RhbF9uX3Bob3RvbnMpCiAgICAKIwojCiMKICAgIApmbHV4
+XzAxcGNfcGVyX21tMiA9IGluX29iamVjdF8xLmdldF9jb250ZW50KCJ4b3BweV9kYXRhIilbMF0K
+CiMgY2hhbmdlIC4xJSB0byAxZVYgYmFuZHdpZHRoCmZsdXhfZXZfcGVyX21tMiA9IGZsdXhfMDFw
+Y19wZXJfbW0yICogMC4wCmZvciBpIGluIHJhbmdlKGVuZXJneTEuc2l6ZSk6CiAgICBmbHV4X2V2
+X3Blcl9tbTJbaSw6LDpdID0gZmx1eF8wMXBjX3Blcl9tbTJbaSw6LDpdICogMC4wMDEgKiBlbmVy
+Z3kxW2ldIAoKIyBpbnRlZ3JhdGUgaW4gZW5lcmd5Cm5fcGhvdG9uc19wZXJfbW0yID0gZmx1eF9l
+dl9wZXJfbW0yLnN1bShheGlzPTApICogKGVuZXJneTFbMV0gLSBlbmVyZ3kxWzBdKQogICAgCiNw
+bG90CnRvdGFsX25fcGhvdG9uczIgPSBuX3Bob3RvbnNfcGVyX21tMi5zdW0oKSAqIChoMVsxXS1o
+MVswXSkgKiAodjFbMV0tdjFbMF0pCnBsb3RfaW1hZ2Uobl9waG90b25zX3Blcl9tbTIsIGgxLCB2
+MSwgYXNwZWN0PSdhdXRvJywgdGl0bGU9Im51bWJlciBvZiBwaG90b25zIHBlciBtbTI7IHRvdGFs
+ID0gJS40ZyIgJSB0b3RhbF9uX3Bob3RvbnMyKQoKCpSMBWZsYWdzlEsAjAhmaWxlbmFtZZROdWJh
+jBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAFhAAAAHwAABf8AAANOAAABYQAAAD0A
+AAX/AAADTgAAAAAAAAAABgAAAAFhAAAAPQAABf8AAANOlIwNc3BsaXR0ZXJTdGF0ZZROjAtfX3Zl
+cnNpb25fX5RLAXUu
+</properties>
+		<properties node_id="21" format="pickle">gASVBQgAAAAAAAB9lCiMDGF1dG9fZXhlY3V0ZZSIjBJjb250cm9sQXJlYVZpc2libGWUiIwSY3Vy
+cmVudFNjcmlwdEluZGV4lEsAjAlmb250X3NpemWUSwOMEWxpYnJhcnlMaXN0U291cmNllF2UjCVv
+YXN5czIud2lkZ2V0cy50b29scy5vd19weXRob25fc2NyaXB0lIwGU2NyaXB0lJOUKYGUfZQojARu
+YW1llIwXaW1hZ2UgbnVtYmVyIG9mIHBob3RvbnOUjAZzY3JpcHSUWKEGAABpbXBvcnQgbnVtcHkK
+ZnJvbSBzcnhyYXlsaWIucGxvdC5nb2wgaW1wb3J0IHBsb3RfaW1hZ2UsIHBsb3QKaW1wb3J0IGNv
+cHkKaW1wb3J0IG1hdHBsb3RsaWIucHlsYWIgYXMgcGx0CgojcGx0LmNsb3NlKCdhbGwnKQoKCm91
+dF9vYmplY3QgPSBjb3B5LmRlZXBjb3B5KGluX29iamVjdF8xKQoKIiIiCmNhbGN1bGF0ZWRfZGF0
+YS5hZGRfY29udGVudCgieG9wcHlfZGF0YSIsIFtwLCBlLCBoLCB2XSkKY2FsY3VsYXRlZF9kYXRh
+LmFkZF9jb250ZW50KCJ4b3BweV90cmFqZWN0b3J5IiwgdHJhaikKY2FsY3VsYXRlZF9kYXRhLmFk
+ZF9jb250ZW50KCJ4b3BweV9jb2RlIiwgInNyZnVuYyIpCmNhbGN1bGF0ZWRfZGF0YS5hZGRfY29u
+dGVudCgieG9wcHlfc2NyaXB0Iiwgc2NyaXB0KQoiIiIKCiNwcmludCgiPj4+IiwgaW5fb2JqZWN0
+XzEuZ2V0X2NvbnRlbnQoInhvcHB5X2RhdGEiKSkKCmJlYW1fbGlzdCA9IG91dF9vYmplY3QuZ2V0
+X2NvbnRlbnQoInhvcHB5X2RhdGEiKQplbmVyZ3kxID0gYmVhbV9saXN0WzFdCnBvdzEgPSBiZWFt
+X2xpc3RbMF0KaDEgPSBiZWFtX2xpc3RbMl0KdjEgPSBiZWFtX2xpc3RbM10KCiMKIyB0ZXN0IHNw
+ZWN0cnVtCiMKaWYgMDoKICAgIGZsdXggPSBlbmVyZ3kxICogMAogICAgZm9yIGkgaW4gcmFuZ2Uo
+ZW5lcmd5MS5zaXplKToKICAgICAgICBmbHV4W2ldID0gcG93MVtpXS5zdW0oKSAqIChoMVsxXS1o
+MVswXSkgKiAodjFbMV0tdjFbMF0pCiAgICBwbG90KGVuZXJneTEsIGZsdXgsIHh0aXRsZT0iUGhv
+dG9uIEVuZXJneSBbZVZdIiwgeXRpdGxlPSJOdW1iZXIgb2YgcGhvdG9ucyBbUGhvdG9ucy9zLzAu
+MSVid10iKQoKICAgIGZsdXhfZXYgPSAxZS0zICogZW5lcmd5MSAqIGZsdXgKICAgIHRvdGFsX25f
+cGhvdG9ucyA9IGZsdXhfZXYuc3VtKCkgKiAoZW5lcmd5MVsxXSAtIGVuZXJneTFbMF0pCiAgICBw
+bG90KGVuZXJneTEsIGZsdXhfZXYsIHh0aXRsZT0iUGhvdG9uIEVuZXJneSBbZVZdIiwgeXRpdGxl
+PSJOdW1iZXIgb2YgcGhvdG9ucyBbUGhvdG9ucy9zL2VWXSIsdGl0bGU9IlRvdGFsIG51bWJlciBv
+ZiBwaG90b25zOiAlZyIgJSB0b3RhbF9uX3Bob3RvbnMpCiAgICBwcmludCgiVG90YWwgbnVtYmVy
+IG9mIHBob3RvbnMgKDEpOiAiLCB0b3RhbF9uX3Bob3RvbnMpCiAgICAKIwojCiMKICAgIApmbHV4
+XzAxcGNfcGVyX21tMiA9IGluX29iamVjdF8xLmdldF9jb250ZW50KCJ4b3BweV9kYXRhIilbMF0K
+CiMgY2hhbmdlIC4xJSB0byAxZVYgYmFuZHdpZHRoCmZsdXhfZXZfcGVyX21tMiA9IGZsdXhfMDFw
+Y19wZXJfbW0yICogMC4wCmZvciBpIGluIHJhbmdlKGVuZXJneTEuc2l6ZSk6CiAgICBmbHV4X2V2
+X3Blcl9tbTJbaSw6LDpdID0gZmx1eF8wMXBjX3Blcl9tbTJbaSw6LDpdICogMC4wMDEgKiBlbmVy
+Z3kxW2ldIAoKIyBpbnRlZ3JhdGUgaW4gZW5lcmd5Cm5fcGhvdG9uc19wZXJfbW0yID0gZmx1eF9l
+dl9wZXJfbW0yLnN1bShheGlzPTApICogKGVuZXJneTFbMV0gLSBlbmVyZ3kxWzBdKQogICAgCiNw
+bG90CnRvdGFsX25fcGhvdG9uczIgPSBuX3Bob3RvbnNfcGVyX21tMi5zdW0oKSAqIChoMVsxXS1o
+MVswXSkgKiAodjFbMV0tdjFbMF0pCnBsb3RfaW1hZ2Uobl9waG90b25zX3Blcl9tbTIsIGgxLCB2
+MSwgYXNwZWN0PSdhdXRvJywgdGl0bGU9Im51bWJlciBvZiBwaG90b25zIHBlciBtbTI7IHRvdGFs
+ID0gJS40ZyIgJSB0b3RhbF9uX3Bob3RvbnMyKQoKCpSMBWZsYWdzlEsAjAhmaWxlbmFtZZROdWJh
+jBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAFhAAAAHwAABf8AAANOAAABYQAAAD0A
+AAX/AAADTgAAAAAAAAAABgAAAAFhAAAAPQAABf8AAANOlIwNc3BsaXR0ZXJTdGF0ZZROjAtfX3Zl
+cnNpb25fX5RLAXUu
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
