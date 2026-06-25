@@ -495,13 +495,17 @@ if '__main__' == __name__:
         # calculate
         print("Calculating Power (3 und x 8 att x 7-10 Ks). Please wait...")
         results = {}
+        counter = 0
+        import time
+        t0 = time.time()
         for device in devices:
             results[device] = {att: {} for att in attenuators}
             for K in Kvs[device]:
                 for att in attenuators:
                     pBB, pLL = calculate_power(u=device, K=K, attenuators_label=att)
                     results[device][att][round(K, 1)] = (pLL, pBB)
-        print("Done calculating power.")
+                    counter += 1
+        print("Done %d calculations in %d sec (%f msec per calculation)." % (counter, time.time() - t0, (time.time() - t0 )/ float(counter) * 1000.0))
 
         # plot
         f, a = plt.subplots(len(devices), len(attenuators),
